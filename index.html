@@ -1,0 +1,582 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Coffee Coder</title>
+  <meta name="author" content="Shubham Jain">
+
+  
+  <meta name="description" content="There are lots of things to get excited about HTML5 and the one which caught my curiosity was HTML5 Audio / Video API. I was overwhelmed with ideas &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://coffeecoder.net">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Coffee Coder" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-40678340-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  
+  	<img src="/images/logo.png" />
+   
+  <h1><a href="/">Coffee Coder</a></h1>
+  
+    <h2>Shubham Jain's Weblog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:coffeecoder.net" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/about/">About</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/building-a-whistle-detector/">Building a Whistle Detector Using WebAudio API</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-01T22:33:56+05:30" pubdate data-updated="true">Jul 1<span>st</span>, 2014</time>
+        
+           | <a href="/blog/building-a-whistle-detector/#disqus_thread"
+             data-disqus-identifier="http://coffeecoder.net/blog/building-a-whistle-detector/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>There are lots of things to get excited about HTML5 and the one which caught my curiosity was HTML5 Audio / Video API. I was overwhelmed with ideas of practical applications like face detect login or inline dictation but I chose to start with something small &ndash; a whistle detector. Although, not wholly accurate it works quite well with very a good accuracy. I used M. Nilsson&rsquo;s research paper, &ldquo;<a href="http://medieteknik.bth.se/fou/forskinfo.nsf/all/67a079f0676c546fc12574a4002d6d38/$file/nilsson-whistle.pdf">Human Whistle Detection and Frequency Estimation</a>&rdquo; to implement this. It took me a while to get understand exactly what the paper narrates with its mathematical notations but luckily my wandered at the right place to get the right idea.</p>
+
+<p>For the first part, I would try to explain <a href="http://btu.se/fou/forskinfo.nsf/17e96a0dab8ab6a1c1257457004d59ab/2660bccb72bce3ccc125714d004828c1/$file/successive%20mean...pdf">Successive Mean Quantization Transform (SMQT)</a> which prepares the audio data for further processing.</p>
+
+<h2>Successive Mean Quantization Transform</h2>
+
+<p>Transformation in mathematics is an operation to map one set to another set. SMQT is a similar method to do the same to remove bias or gain resulting from disparity between various kinds of sensors (microphones) and other factors. In SMQT, we recursively take mean of data set and split it into two halves and do the same on each half. Data values above the mean are assigned, &ldquo;1&rdquo; and below are assigned &ldquo;0&rdquo;. The recursion is carried out to a pre-defined depth, at the end of which we have a binary tree with 1s and 0s. Sounds confusing? Lets take and example of set:</p>
+
+<p><code>X = [89, 78, 63, 202, 90, 45, 112, 79, 95, 87, 90, 78, 54, 34, 66, 32]</code>.</p>
+
+<p><code>Mean(X) = 80.875</code></p>
+
+<p>The values above mean are assigned &ldquo;1&rdquo; while below are assigned &ldquo;0&rdquo;. So it becomes &ndash; <code>[1 0 0 1 1 0 1 0 1 1 1 0 0 0 0 0]</code>. Let this procedure be called as <code>U(X)</code>. Data values corresponding to &ldquo;0&rdquo; propagate left of the binary tree while &ldquo;1&rdquo; propagate right. So we have a tree which looks like,</p>
+
+<p><img src="/images/whistle/tree.jpg"></p>
+
+<p>Continue this process recursively till you reach a depth of L. ( <strong>Note</strong>: L = 8 in our application. )</p>
+
+<p>After this, you weight each level by multiplying the bits by 2<sup>cur_level &ndash; 1</sup> and add it up to the top of tree. So, if you have a tree which looks like,</p>
+
+<p><img src="/images/whistle/tree2.jpg"></p>
+
+<p>Multiply D, E, F, G by 2<sup>2</sup> which gives <code>[4 0 4 0]</code>, <code>[0 0 4 0]</code>, <code>[0 0 4 4]</code>, <code>[4 0 0 0]</code> and so on. Lets call this procedure of weighing individual arrays as <code>W(X)</code>. After we are done weighing, we add to the node its subtrees. For eg, <code>B = W(B) + (W(D) . W(E))</code>. So we have now have audio data that is bias and gain free. (<a href="https://gist.github.com/shubhamjain/88f14b328e7b145c79e5#file-smqt-js">Gist</a>).</p>
+
+<h2>Normalization and FFT</h2>
+
+<p>For the purpose of this detector we will use chunks of 512 elements for which we will calculate SMQT to a max depth of 8. After we have taken SMQT of audio data, we would normalize this result so that its values fall within range of <code>[1, -1]</code>. we will divide the values by 2<sup>L &ndash; 1</sup> and subtract &ldquo;1&rdquo; from the result.</p>
+
+<p>Taking the Fast Fourier Transform of the normalized data will give us an array of <code>N = 256</code> elements. Let this FFT be denoted by <code>F(T)</code>.of frequency. Point to be noted here is, because we are using 256 elements to represent a range 0 &ndash; 22Khz, each element will represent about ~43 Hz of frequency. To detect a whistle, we will need to extract two feature vectors.</p>
+
+<h2>Calculation of feature vectors</h2>
+
+<p>Human whistle generally falls in the range of 500 &ndash; 5000Hz. Want to try? Take a look at <a href="http://arachnoid.com/FFTExplorer/">FFTExplorer</a>. Our estimation of whistle will involve calculation of two feature vector (or, values in simple terms). In the first step, we will find result of band-pass and band-stop filter applied on <code>F(T)</code> in the frequency range (500 &ndash; 5000Hz), called <strong>p</strong><sub>bp</sub>(t) and <strong>p</strong><sub>bs</sub>(t). Although, the way I have implemented filters is pretty basic (and wrong). I have attenuated amplitudes to a fixed value but filters are generally much more complex than that.</p>
+
+<p>The two feature vectors aim at finding out the spikes in our frequency range, strongly suggesting presence of a whistle. The two feature vectors result from following requirements:</p>
+
+<ul>
+<li><p>The largest value in <strong>p</strong><sub>bp</sub>(t) should typically be larger than the mean of <strong>p</strong><sub>bs</sub>(t) in the presence of whistle</p></li>
+<li><p>In presence of whistle <strong>p</strong><sub>bp</sub>(t) has typically a few very dominant values.</p></li>
+</ul>
+
+
+<h4>First feature vector</h4>
+
+<p>For the first feature vector we will use the following equation,</p>
+
+<p><img src="/images/whistle/equation.png"></p>
+
+<p>The value must be greater than <strong>25</strong>.</p>
+
+<h4>Second feature vector</h4>
+
+<p>The second one is bit tricky. First we will take find a new array by.</p>
+
+<p><img src="/images/whistle/equation2.png"></p>
+
+<p>Next, we calculate two vectors, given by</p>
+
+<p><img src="/images/whistle/equation5.png"></p>
+
+<p><img src="/images/whistle/equation6.png"></p>
+
+<p>The theory behind this is to detect peaks by comparing both the vectors. For measuring the similarity, we will exploit Jensen Difference, given by,</p>
+
+<p><img src="/images/whistle/equation3.png"></p>
+
+<p><img src="/images/whistle/equation4.png"></p>
+
+<p>The value of <code>J(v, v')</code> must be around <strong>.44</strong>.</p>
+
+<p><strong>Note</strong>: The threshold values are only meant for general terms. If you find suitable you can use other values to suit your needs.</p>
+
+<h2>Threshold positives and accuracy</h2>
+
+<p>The problem of false positives will still persist for various kind of noises and sounds. To be more precise, we can can calculate no of positive samples within X no. of samples and compare it with our threshold. If it exceeds threshold positives, then it probably is a whistle. For our project, the chosen threshold is <strong>5</strong> which can be increased for further accuracy.</p>
+
+<p>The whistle detector is quite accurate even under influence of acceptable noise but the accuracy will decrease with lowering of threshold. However,increasing to much higher value may fail to detect to even a long whistle. So it must be around to be accurate enough for a practical application.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/why-desktop-apps-still-make-sense/">Why Desktop Apps Still Make Sense</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-05-22T16:20:49+05:30" pubdate data-updated="true">May 22<span>nd</span>, 2014</time>
+        
+           | <a href="/blog/why-desktop-apps-still-make-sense/#disqus_thread"
+             data-disqus-identifier="http://coffeecoder.net/blog/why-desktop-apps-still-make-sense/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>So you think desktop apps will die a slow death? The sentiment of demise of desktop apps has been professed by many people, <a href="http://blog.codinghorror.com/all-programming-is-web-programming">Jeff Atwood</a>, <a href="http://www.kalzumeus.com/2009/09/05/desktop-aps-versus-web-apps/">Patrick McKenzie</a> to name a few. With colossal jump in our web technologies, both performance and capability wise, something that couldn&rsquo;t have been possible few years back, the idea is getting even more traction. When you see demos like <a href="http://media.tojicode.com/q3bsp/">this</a>, you are tempted to think if web browsers would be able to address the performance issue, what would withhold for web to be used for everything from games to essential business software?</p>
+
+<p>So why do I think desktop apps still make sense?</p>
+
+<ul>
+<li><p><strong>Passiveness of income</strong>: While it may be true, web apps fare great when it comes to potential revenue, cross-platform comparability, and reach, it is indispensable to avoid working actively on it. Have you ever heard of someone who was pulling off revenue his age old SaSS app without putting in any work? On the other side, I still get sales from one of my stupid script that I made a long time ago and never even marketed. May be a generalized scenario; it might be possible someone earns a passive income from his web app without adding anything but it is hard to think that the developer can avoid tasks like marketing, server monitoring, dealing with quirky consumer issues, or scaling.</p></li>
+<li><p><strong>Less overhead in selling</strong>: Selling a web app means, integrating it with an API to accept payments, offer a X days trial, send emails reminding trial period is ending and charge card on recurring basis. By any chance, if you happened to use paypal and their API be prepared to pull your hair off in doing this. In contrast, selling desktop apps is much easier with many services available for selling downloads &ndash; gumroad, softpedia, CNET.</p></li>
+<li><p><strong>Lesser obligations to deal with issues</strong>: With a web app, you are expected immediately to address any issue that pops up and with many peculiarities of CSS and HTML, it is reasonable to expect that in &ldquo;some browser&rdquo; on &ldquo;some device&rdquo;, the text is overflowing outside the container. If you are dealing with a desktop app, you have plenty of time till the next release is due (except for security issues, of course).</p></li>
+</ul>
+
+
+<p>So it boils down to how desktop apps are about writing code and shipping where as web apps require you to be there always. Although, you probably won&rsquo;t lose customer over some little CSS issue but the way your mind works, you won&rsquo;t be able to stop yourself from addressing it immediately and that is where desktop apps have an upper hand &ndash; you can prioritize which things to add / fix / remove in the next release. One example of this has been documented by Joel Spolsky.</p>
+
+<blockquote><p>As Excel 5 was nearing completion, I started working on the Excel 6 spec with a colleague, Eric Michelman. We sat down to go through the list of &ldquo;Excel 6&rdquo; features that had been cut from the Excel 5 schedule. We were absolutely shocked to see that the list of cut features was the shoddiest list of features you could imagine. Not one of those features was worth doing. I don&rsquo;t think a single one of them was ever done, even in the next three releases. The process of culling features to fit a schedule was the best thing we could have done. If we hadn&rsquo;t done this, Excel 5 would have taken twice as long and included 50% useless crap features
+&mdash; <a href="http://www.joelonsoftware.com/articles/fog0000000245.html">Painless Software Schedules</a></p></blockquote>
+
+<p>Whether or not desktop apps will cease, web apps certainly aren&rsquo;t a de-facto choice when it comes to making a product.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/stop-using-captchas-that-can-be-broken-with-two-lines-of-code/">Stop Using Captchas That Can Be Broken With Two Lines of Code</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-05-04T18:46:34+05:30" pubdate data-updated="true">May 4<span>th</span>, 2014</time>
+        
+           | <a href="/blog/stop-using-captchas-that-can-be-broken-with-two-lines-of-code/#disqus_thread"
+             data-disqus-identifier="http://coffeecoder.net/blog/stop-using-captchas-that-can-be-broken-with-two-lines-of-code/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>The de-facto bot prevention technique sprawls everywhere on the web but I am surprised how people overestimate the difficulty of breaking a captcha. Here are some of them which I encountered.</p>
+
+<p><img src="/images/captchas/1.jpg"> <img src="/images/captchas/2.jpg"> <img src="/images/captchas/3.jpg"></p>
+
+<p>It won’t take rocket science to convert them to text. In fact, the only two free tools needed for this purpose are: <a href="http://code.google.com/tesseract-ocr%E2%80%8E">tesseract</a> and <a href="http://www.imagemagick.org/">Imagemagick</a>.</p>
+
+<figure class='code'><figcaption><span>Convert command </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>convert captcha.jpg -threshold 5% a.jpg
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Adjust the threshold value to get a binary image with no noise.</p>
+
+<figure class='code'><figcaption><span>Tesseract </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>tesseract -l eng a.jpg text
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This will create a “text.txt” file with the captcha text in it.</p>
+
+<p>I ran a test on effectiveness of these commands and the success rate was nearly 9 / 10, clearly implying how weak or better say, made-from-scratch captcha implementations are as good as having none at all.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/making-earphone-presses-useful-with-pyaudio-and-vlc-http-api/">Making Earphone Presses Useful With PyAudio and VLC HTTP API</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-30T18:23:33+05:30" pubdate data-updated="true">Mar 30<span>th</span>, 2014</time>
+        
+           | <a href="/blog/making-earphone-presses-useful-with-pyaudio-and-vlc-http-api/#disqus_thread"
+             data-disqus-identifier="http://coffeecoder.net/blog/making-earphone-presses-useful-with-pyaudio-and-vlc-http-api/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><strong>Note</strong>: I am not an audio expert or even close to one. This post may pose amateur attempts to do something very trivial. Link to the Github repository.</p>
+
+<p>Ever had one of those moments, when you are super excited about accomplishing a challenge, having put something useful on the table, only to realize it is not even close to the greatness you imagined; to be bitter, futile? This weekend I build something to detect earphone button presses and control VLC media player with it but it was not so useful afterall.</p>
+
+<h2>Earphone Presses</h2>
+
+<p><img src="/images/earphone/earphone.jpg" width="128" height="128" title="&#34;Samsung Earphones&#34;" alt="&#34;Samsung Earphones&#34;"></p>
+
+<p>(<a href="http://images.esellerpro.com/2477/I/488/907/lrgscaleEHS60-WHITE-0.jpg">Link to original image</a>)</p>
+
+<p>I own a pair of Samsung earphones, intrigued how the buttons used to switch / pause tracks in smartphones work, I plugged in the pieces in my combo jack, used audacity, pressed a button and the result was:</p>
+
+<p><img src="/images/earphone/wave.png" title="Wave form for button press" alt="Wave form for button press" /></p>
+
+<p>&ldquo;Great! Awesome find!&rdquo; exclaimed my mind. So how can we make this into something useful?</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/making-earphone-presses-useful-with-pyaudio-and-vlc-http-api/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/reading-mp3-id3-tags-in-native-php/">Reading MP3 ID3 Tags in Native PHP</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-16T17:41:05+05:30" pubdate data-updated="true">Jul 16<span>th</span>, 2013</time>
+        
+           | <a href="/blog/reading-mp3-id3-tags-in-native-php/#disqus_thread"
+             data-disqus-identifier="http://coffeecoder.net/blog/reading-mp3-id3-tags-in-native-php/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This week I went crazy about file formats. I tried to understand specifications of many popular formats like MP3, FLV, PDF. Its amazing to see that no matter how complex these technologies are or the algorithms they use to store media efficiently, at the lower level it is just a clever arrangement of bits that makes sense and with a bit of experimentation and hacking around MP3 format (a Hex Editor is a invaluable tool in this), I was able to read them in PHP without using any extension. The source has been put on <a href="https://github.com/shubhamjain/PHP-ID3">GitHub</a>.</p>
+
+<h2>Binary File Reader</h2>
+
+<p>The native method for reading a binary file  is unpack(). The problem with it was that it can’t handle variable length chunks, and I found it tough to understand the format of packing codes. Unluckily, I realized it quite late (damn!), that I can create the reader more efficiently by using unpack() function. (<a href="https://gist.github.com/shubhamjain/5964350">Gist</a>)</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/reading-mp3-id3-tags-in-native-php/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/why-you-should-never-freelance/">Why You Should Never Freelance on Freelancing Sites.</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-05T11:52:47+05:30" pubdate data-updated="true">Jul 5<span>th</span>, 2013</time>
+        
+           | <a href="/blog/why-you-should-never-freelance/#disqus_thread"
+             data-disqus-identifier="http://coffeecoder.net/blog/why-you-should-never-freelance/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Back in the days, I used to be the crazy money minded programmer writing kLOCs of crap with no code quality concern, for projects I often found on freelancing sites. Freelancer.com, oDesk and likes which seem to be quite popular among employers looking for cheap third world country coders but honestly, if you think about being a better programmer, never log in to them. Why?</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/why-you-should-never-freelance/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/building-a-whistle-detector/">Building a Whistle Detector Using WebAudio API</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/why-desktop-apps-still-make-sense/">Why Desktop Apps Still Make Sense</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/stop-using-captchas-that-can-be-broken-with-two-lines-of-code/">Stop Using Captchas That Can Be Broken With Two Lines of Code</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/making-earphone-presses-useful-with-pyaudio-and-vlc-http-api/">Making Earphone Presses Useful With PyAudio and VLC HTTP API</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/reading-mp3-id3-tags-in-native-php/">Reading MP3 ID3 Tags in Native PHP</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/shubhamjain">@shubhamjain</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'shubhamjain',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos',
+            exclude: ['shubhamjain.github.io', 'stopwatch.js']
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Shubham Jain -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'thecoffeecoder';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
