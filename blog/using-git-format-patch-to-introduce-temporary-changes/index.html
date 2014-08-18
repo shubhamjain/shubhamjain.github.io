@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Stop Using Captchas That Can Be Broken With Two Lines of Code - Coffee Coder</title>
+  <title>Using Git Format-patch to Introduce Temporary Changes - Coffee Coder</title>
   <meta name="author" content="Shubham Jain">
 
   
-  <meta name="description" content="The de-facto bot prevention technique sprawls everywhere on the web but I am surprised how people overestimate the difficulty of breaking a captcha. &hellip;">
+  <meta name="description" content="Lately, on independence day we needed to introduce a small logo change on our website to acknowledge it. The change wasn&rsquo;t meant to last for &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://coffeecoder.net/blog/stop-using-captchas-that-can-be-broken-with-two-lines-of-code">
+  <link rel="canonical" href="http://coffeecoder.net/blog/using-git-format-patch-to-introduce-temporary-changes">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Coffee Coder" type="application/atom+xml">
@@ -84,7 +84,7 @@
   
   <header>
     
-      <h1 class="entry-title">Stop Using Captchas That Can Be Broken With Two Lines of Code</h1>
+      <h1 class="entry-title">Using Git Format-patch to Introduce Temporary Changes</h1>
     
     
       <p class="meta">
@@ -100,7 +100,7 @@
   
 
 
-<time datetime="2014-05-04T18:46:34+05:30" pubdate data-updated="true">May 4<span>th</span>, 2014</time>
+<time datetime="2014-08-18T21:26:32+05:30" pubdate data-updated="true">Aug 18<span>th</span>, 2014</time>
         
            | <a href="#disqus_thread"
              data-disqus-identifier="http://coffeecoder.net">Comments</a>
@@ -110,29 +110,23 @@
   </header>
 
 
-<div class="entry-content"><p>The de-facto bot prevention technique sprawls everywhere on the web but I am surprised how people overestimate the difficulty of breaking a captcha. Here are some of them which I encountered.</p>
+<div class="entry-content"><p>Lately, on independence day we needed to introduce a small logo change on our website to acknowledge it. The change wasn&rsquo;t meant to last for more than a few days and hence, the problem of introducing a temporary change which shouldn&rsquo;t be a part of the history arose. Out of ignorance, we went through the path of making a commit and later reverting it with <code>git-revert</code>. Recently I found about excellent patching system of git which makes a impressive solution for the problem.</p>
 
-<p><img src="/images/captchas/1.jpg"> <img src="/images/captchas/2.jpg"> <img src="/images/captchas/3.jpg"></p>
+<h2>Patching </h2>
 
-<p>It won’t take rocket science to convert them to text. In fact, the only two free tools needed for this purpose are: <a href="http://code.google.com/tesseract-ocr%E2%80%8E">tesseract</a> and <a href="http://www.imagemagick.org/">Imagemagick</a>.</p>
+<p>It must be noted that patching used in git isn&rsquo;t unique but derives itself from an old <code>patch</code> program written by Larry Wall in 1985. What <code>patch</code> program does is pretty basic. It takes a diff file as its input and applies those changes to files. Because of simplicity of patch files as diff text files, it makes them easier to be sent, and applied on projects. Perhaps, before the advent of github, they were the old man&rsquo;s pull request. Another great thing about patches is that they can painlessly be reversed.</p>
 
-<figure class='code'><figcaption><span>Convert command </span></figcaption>
-<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>convert captcha.jpg -threshold 5% a.jpg
-</span></code></pre></td></tr></table></div></figure>
+<p>Git&rsquo;s <code>format-patch</code> command allows you to generate an email formatted patch file. Depending upon your requirements, you can have multiple patch files for each commit, or a single one multiple commits. In the end you will have your patch file that can be applied and reversed.</p>
 
+<p><strong>Note</strong>: Although, git generated patch files are nearly compatible to be used with Unix&rsquo;s patch program, git supports binary diffs which is unusable with <code>patch</code>.</p>
 
-<p>Adjust the threshold value to get a binary image with no noise.</p>
+<h2>Temporary changes using format-patch</h2>
 
-<figure class='code'><figcaption><span>Tesseract </span></figcaption>
-<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>tesseract -l eng a.jpg text
-</span></code></pre></td></tr></table></div></figure>
+<p>To introduce a temporary change, first create a new branch, say <code>abc</code> and commit your local changes to it. After you have finished, you can use <code>git format-patch STARTING-COMMIT --stdout &gt; shiny-new.patch</code> to create a single patch for multiple commits since <code>STARTING-COMMIT</code>. After saving the patch, you can delete the branch.</p>
 
+<p>The saves patch can now be applied directly on production server with either <code>patch -p1 &lt; shiny-new.patch</code>, if patch doesn&rsquo;t have any binary diffs or with <code>git apply shiny-new.patch</code>.</p>
 
-<p>This will create a “text.txt” file with the captcha text in it.</p>
-
-<p>I ran a test on effectiveness of these commands and the success rate was nearly 9 / 10, clearly implying how weak or better say, made-from-scratch captcha implementations are as good as having none at all.</p>
+<p>To reverse this patch <code>patch -p1 -R &lt; shiny-new.patch</code> or <code>git reset HEAD</code> can be used respectively.</p>
 </div>
 
 
@@ -155,7 +149,7 @@
   
 
 
-<time datetime="2014-05-04T18:46:34+05:30" pubdate data-updated="true">May 4<span>th</span>, 2014</time>
+<time datetime="2014-08-18T21:26:32+05:30" pubdate data-updated="true">Aug 18<span>th</span>, 2014</time>
       
 
 
@@ -163,7 +157,7 @@
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://coffeecoder.net/blog/stop-using-captchas-that-can-be-broken-with-two-lines-of-code/" data-via="thecoffeecoder" data-counturl="http://coffeecoder.net/blog/stop-using-captchas-that-can-be-broken-with-two-lines-of-code/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://coffeecoder.net/blog/using-git-format-patch-to-introduce-temporary-changes/" data-via="thecoffeecoder" data-counturl="http://coffeecoder.net/blog/using-git-format-patch-to-introduce-temporary-changes/" >Tweet</a>
   
   
   
@@ -172,10 +166,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/making-earphone-presses-useful-with-pyaudio-and-vlc-http-api/" title="Previous Post: Making earphone presses useful with PyAudio and VLC HTTP API">&laquo; Making earphone presses useful with PyAudio and VLC HTTP API</a>
+        <a class="basic-alignment left" href="/blog/building-a-whistle-detector/" title="Previous Post: Building a whistle detector using WebAudio API">&laquo; Building a whistle detector using WebAudio API</a>
       
-      
-        <a class="basic-alignment right" href="/blog/why-desktop-apps-still-make-sense/" title="Next Post: Why desktop apps still make sense">Why desktop apps still make sense &raquo;</a>
       
     </p>
   </footer>
@@ -271,8 +263,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://coffeecoder.net/blog/stop-using-captchas-that-can-be-broken-with-two-lines-of-code/';
-        var disqus_url = 'http://coffeecoder.net/blog/stop-using-captchas-that-can-be-broken-with-two-lines-of-code/';
+        var disqus_identifier = 'http://coffeecoder.net/blog/using-git-format-patch-to-introduce-temporary-changes/';
+        var disqus_url = 'http://coffeecoder.net/blog/using-git-format-patch-to-introduce-temporary-changes/';
         var disqus_script = 'embed.js';
       
     (function () {
