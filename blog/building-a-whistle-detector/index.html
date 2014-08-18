@@ -134,6 +134,9 @@
 
 <p>Multiply D, E, F, G by 2<sup>2</sup> which gives <code>[4 0 4 0]</code>, <code>[0 0 4 0]</code>, <code>[0 0 4 4]</code>, <code>[4 0 0 0]</code> and so on. Lets call this procedure of weighing individual arrays as <code>W(X)</code>. After we are done weighing, we add to the node its subtrees. For eg, <code>B = W(B) + (W(D) . W(E))</code>. So we have now have audio data that is bias and gain free. (<a href="https://gist.github.com/shubhamjain/88f14b328e7b145c79e5#file-smqt-js">Gist</a>).</p>
 
+<!-- more -->
+
+
 <h2>Normalization and FFT</h2>
 
 <p>For the purpose of this detector we will use chunks of 512 elements for which we will calculate SMQT to a max depth of 8. After we have taken SMQT of audio data, we would normalize this result so that its values fall within range of <code>[1, -1]</code>. we will divide the values by 2<sup>L &ndash; 1</sup> and subtract &ldquo;1&rdquo; from the result.</p>

@@ -121,17 +121,12 @@
 
 <p>Git&rsquo;s <code>format-patch</code> command allows you to generate an email formatted patch file. Depending upon your requirements, you can have multiple patch files for each commit, or a single one multiple commits. In the end you will have your patch file that can be applied and reversed.</p>
 
-<p><strong>Note</strong>: Although, git generated patch files are nearly compatible to be used with Unix&rsquo;s patch program, git supports binary diffs which is unusable with <code>patch</code>.</p>
-
-<h2>Temporary changes using format-patch</h2>
-
-<p>To introduce a temporary change, first create a new branch, say <code>abc</code> and commit your local changes to it. After you have finished, you can use <code>git format-patch STARTING-COMMIT --stdout &gt; shiny-new.patch</code> to create a single patch for multiple commits since <code>STARTING-COMMIT</code>. After saving the patch, you can delete the branch.</p>
-
-<p>The saves patch can now be applied directly on production server with either <code>patch -p1 &lt; shiny-new.patch</code>, if patch doesn&rsquo;t have any binary diffs or with <code>git apply shiny-new.patch</code>.</p>
-
-<p>To reverse this patch <code>patch -p1 -R &lt; shiny-new.patch</code> or <code>git reset HEAD</code> can be used respectively.</p>
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/using-git-format-patch-to-introduce-temporary-changes/">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -192,61 +187,12 @@
 
 <p>Multiply D, E, F, G by 2<sup>2</sup> which gives <code>[4 0 4 0]</code>, <code>[0 0 4 0]</code>, <code>[0 0 4 4]</code>, <code>[4 0 0 0]</code> and so on. Lets call this procedure of weighing individual arrays as <code>W(X)</code>. After we are done weighing, we add to the node its subtrees. For eg, <code>B = W(B) + (W(D) . W(E))</code>. So we have now have audio data that is bias and gain free. (<a href="https://gist.github.com/shubhamjain/88f14b328e7b145c79e5#file-smqt-js">Gist</a>).</p>
 
-<h2>Normalization and FFT</h2>
-
-<p>For the purpose of this detector we will use chunks of 512 elements for which we will calculate SMQT to a max depth of 8. After we have taken SMQT of audio data, we would normalize this result so that its values fall within range of <code>[1, -1]</code>. we will divide the values by 2<sup>L &ndash; 1</sup> and subtract &ldquo;1&rdquo; from the result.</p>
-
-<p>Taking the Fast Fourier Transform of the normalized data will give us an array of <code>N = 256</code> elements. Let this FFT be denoted by <code>F(T)</code>.of frequency. Point to be noted here is, because we are using 256 elements to represent a range 0 &ndash; 22Khz, each element will represent about ~43 Hz of frequency. To detect a whistle, we will need to extract two feature vectors.</p>
-
-<h2>Calculation of feature vectors</h2>
-
-<p>Human whistle generally falls in the range of 500 &ndash; 5000Hz. Want to try? Take a look at <a href="http://arachnoid.com/FFTExplorer/">FFTExplorer</a>. Our estimation of whistle will involve calculation of two feature vector (or, values in simple terms). In the first step, we will find result of band-pass and band-stop filter applied on <code>F(T)</code> in the frequency range (500 &ndash; 5000Hz), called <strong>p</strong><sub>bp</sub>(t) and <strong>p</strong><sub>bs</sub>(t). Although, the way I have implemented filters is pretty basic (and wrong). I have attenuated amplitudes to a fixed value but filters are generally much more complex than that.</p>
-
-<p>The two feature vectors aim at finding out the spikes in our frequency range, strongly suggesting presence of a whistle. The two feature vectors result from following requirements:</p>
-
-<ul>
-<li><p>The largest value in <strong>p</strong><sub>bp</sub>(t) should typically be larger than the mean of <strong>p</strong><sub>bs</sub>(t) in the presence of whistle</p></li>
-<li><p>In presence of whistle <strong>p</strong><sub>bp</sub>(t) has typically a few very dominant values.</p></li>
-</ul>
-
-
-<h4>First feature vector</h4>
-
-<p>For the first feature vector we will use the following equation,</p>
-
-<p><img src="/images/whistle/equation.png"></p>
-
-<p>The value must be greater than <strong>25</strong>.</p>
-
-<h4>Second feature vector</h4>
-
-<p>The second one is bit tricky. First we will take find a new array by.</p>
-
-<p><img src="/images/whistle/equation2.png"></p>
-
-<p>Next, we calculate two vectors, given by</p>
-
-<p><img src="/images/whistle/equation5.png"></p>
-
-<p><img src="/images/whistle/equation6.png"></p>
-
-<p>The theory behind this is to detect peaks by comparing both the vectors. For measuring the similarity, we will exploit Jensen Difference, given by,</p>
-
-<p><img src="/images/whistle/equation3.png"></p>
-
-<p><img src="/images/whistle/equation4.png"></p>
-
-<p>The value of <code>J(v, v')</code> must be around <strong>.44</strong>.</p>
-
-<p><strong>Note</strong>: The threshold values are only meant for general terms. If you find suitable you can use other values to suit your needs.</p>
-
-<h2>Threshold positives and accuracy</h2>
-
-<p>The problem of false positives will still persist for various kind of noises and sounds. To be more precise, we can can calculate no of positive samples within X no. of samples and compare it with our threshold. If it exceeds threshold positives, then it probably is a whistle. For our project, the chosen threshold is <strong>5</strong> which can be increased for further accuracy.</p>
-
-<p>The whistle detector is quite accurate even under influence of acceptable noise but the accuracy will decrease with lowering of threshold. However,increasing to much higher value may fail to detect to even a long whistle. So it must be around to be accurate enough for a practical application.</p>
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/building-a-whistle-detector/">Read on &rarr;</a>
+    </footer>
   
 
 

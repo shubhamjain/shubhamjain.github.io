@@ -4,7 +4,7 @@
   <title><![CDATA[Coffee Coder]]></title>
   <link href="http://coffeecoder.net/atom.xml" rel="self"/>
   <link href="http://coffeecoder.net/"/>
-  <updated>2014-08-18T23:07:09+05:30</updated>
+  <updated>2014-08-19T00:15:51+05:30</updated>
   <id>http://coffeecoder.net/</id>
   <author>
     <name><![CDATA[Shubham Jain]]></name>
@@ -25,6 +25,9 @@
 <p>It must be noted that patching used in git isn&rsquo;t unique but derives itself from an old <code>patch</code> program written by Larry Wall in 1985. What <code>patch</code> program does is pretty basic. It takes a diff file as its input and applies those changes to files. Because of simplicity of patch files as diff text files, it makes them easier to be sent, and applied on projects. Perhaps, before the advent of github, they were the old man&rsquo;s pull request. Another great thing about patches is that they can painlessly be reversed.</p>
 
 <p>Git&rsquo;s <code>format-patch</code> command allows you to generate an email formatted patch file. Depending upon your requirements, you can have multiple patch files for each commit, or a single one multiple commits. In the end you will have your patch file that can be applied and reversed.</p>
+
+<!-- more -->
+
 
 <p><strong>Note</strong>: Although, git generated patch files are nearly compatible to be used with Unix&rsquo;s patch program, git supports binary diffs which is unusable with <code>patch</code>.</p>
 
@@ -66,6 +69,9 @@
 <p><img src="http://coffeecoder.net/images/whistle/tree2.jpg"></p>
 
 <p>Multiply D, E, F, G by 2<sup>2</sup> which gives <code>[4 0 4 0]</code>, <code>[0 0 4 0]</code>, <code>[0 0 4 4]</code>, <code>[4 0 0 0]</code> and so on. Lets call this procedure of weighing individual arrays as <code>W(X)</code>. After we are done weighing, we add to the node its subtrees. For eg, <code>B = W(B) + (W(D) . W(E))</code>. So we have now have audio data that is bias and gain free. (<a href="https://gist.github.com/shubhamjain/88f14b328e7b145c79e5#file-smqt-js">Gist</a>).</p>
+
+<!-- more -->
+
 
 <h2>Normalization and FFT</h2>
 
