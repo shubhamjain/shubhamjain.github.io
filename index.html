@@ -87,7 +87,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/using-git-format-patch-to-introduce-temporary-changes/">Using Git Format-patch to Introduce Temporary Changes</a></h1>
+      <h1 class="entry-title"><a href="/blog/using-git-format-patch-to-introduce-temporary-changes/">Using Git for Introducing Temporary Changes</a></h1>
     
     
       <p class="meta">
@@ -113,13 +113,13 @@
   </header>
 
 
-  <div class="entry-content"><p>Lately, on independence day we needed to introduce a small logo change on our website to acknowledge it. The change wasn&rsquo;t meant to last for more than a few days and hence, the problem of introducing a temporary change which shouldn&rsquo;t be a part of the history arose. Out of ignorance, we went through the path of making a commit and later reverting it with <code>git-revert</code>. Recently I found about excellent patching system of git which makes a impressive solution for the problem.</p>
+  <div class="entry-content"><p>Lately, on independence day we needed to introduce a small logo change on our website to acknowledge it. The change wasn&rsquo;t meant to last for more than a few days and hence, the problem of introducing a temporary change which shouldn&rsquo;t be a part of the history arose. Out of ignorance, we went through the path of making a commit and later reverting it with <code>git-revert</code>. Recently I found about excellent patching system of git which makes an impressive solution for the problem.</p>
 
 <h2>Patching </h2>
 
-<p>It must be noted that patching used in git isn&rsquo;t unique but derives itself from an old <code>patch</code> program written by Larry Wall in 1985. What <code>patch</code> program does is pretty basic. It takes a diff file as its input and applies those changes to files. Because of simplicity of patch files as diff text files, it makes them easier to be sent, and applied on projects. Perhaps, before the advent of github, they were the old man&rsquo;s pull request. Another great thing about patches is that they can painlessly be reversed.</p>
+<p>Patching used in git isn&rsquo;t unique. It derives itself from an old <code>patch</code> program written by Larry Wall in 1985. <code>patch</code> program is pretty simple. It takes a diff file as its input and applies those changes to corresponding files. Because of this simplicity, it makes patch files very easy to send. Perhaps, before the advent of github, they were the old man&rsquo;s pull request. Another great thing about patches is that they can painlessly be reversed.</p>
 
-<p>Git&rsquo;s <code>format-patch</code> command allows you to generate an email formatted patch file. Depending upon your requirements, you can have multiple patch files for each commit, or a single one multiple commits. In the end you will have your patch file that can be applied and reversed.</p>
+<p>Git&rsquo;s <code>format-patch</code> is an extension of <code>patch</code> and offers two advantages over it. First, it generates an email formatted patch file which is much easier to be sent via <code>mailutils</code>. Secondly, it supports binary diffs which means if you have a binary file which was created in the patch, git&rsquo;s patch file will have record of it and it will be created when patch is applied. The best thing about git&rsquo;s patching system is that it can be applied even if the folder is not a git repository, making it suitable for use over production servers.</p>
 
 </div>
   
@@ -477,7 +477,7 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/using-git-format-patch-to-introduce-temporary-changes/">Using Git Format-patch to Introduce Temporary Changes</a>
+        <a href="/blog/using-git-format-patch-to-introduce-temporary-changes/">Using Git for Introducing Temporary Changes</a>
       </li>
     
       <li class="post">

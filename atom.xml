@@ -4,7 +4,7 @@
   <title><![CDATA[Coffee Coder]]></title>
   <link href="http://coffeecoder.net/atom.xml" rel="self"/>
   <link href="http://coffeecoder.net/"/>
-  <updated>2014-08-19T00:15:51+05:30</updated>
+  <updated>2014-08-19T21:09:07+05:30</updated>
   <id>http://coffeecoder.net/</id>
   <author>
     <name><![CDATA[Shubham Jain]]></name>
@@ -14,30 +14,26 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Using Git Format-patch to Introduce Temporary Changes]]></title>
+    <title type="html"><![CDATA[Using Git for Introducing Temporary Changes]]></title>
     <link href="http://coffeecoder.net/blog/using-git-format-patch-to-introduce-temporary-changes/"/>
     <updated>2014-08-18T21:26:32+05:30</updated>
     <id>http://coffeecoder.net/blog/using-git-format-patch-to-introduce-temporary-changes</id>
-    <content type="html"><![CDATA[<p>Lately, on independence day we needed to introduce a small logo change on our website to acknowledge it. The change wasn&rsquo;t meant to last for more than a few days and hence, the problem of introducing a temporary change which shouldn&rsquo;t be a part of the history arose. Out of ignorance, we went through the path of making a commit and later reverting it with <code>git-revert</code>. Recently I found about excellent patching system of git which makes a impressive solution for the problem.</p>
+    <content type="html"><![CDATA[<p>Lately, on independence day we needed to introduce a small logo change on our website to acknowledge it. The change wasn&rsquo;t meant to last for more than a few days and hence, the problem of introducing a temporary change which shouldn&rsquo;t be a part of the history arose. Out of ignorance, we went through the path of making a commit and later reverting it with <code>git-revert</code>. Recently I found about excellent patching system of git which makes an impressive solution for the problem.</p>
 
 <h2>Patching </h2>
 
-<p>It must be noted that patching used in git isn&rsquo;t unique but derives itself from an old <code>patch</code> program written by Larry Wall in 1985. What <code>patch</code> program does is pretty basic. It takes a diff file as its input and applies those changes to files. Because of simplicity of patch files as diff text files, it makes them easier to be sent, and applied on projects. Perhaps, before the advent of github, they were the old man&rsquo;s pull request. Another great thing about patches is that they can painlessly be reversed.</p>
+<p>Patching used in git isn&rsquo;t unique. It derives itself from an old <code>patch</code> program written by Larry Wall in 1985. <code>patch</code> program is pretty simple. It takes a diff file as its input and applies those changes to corresponding files. Because of this simplicity, it makes patch files very easy to send. Perhaps, before the advent of github, they were the old man&rsquo;s pull request. Another great thing about patches is that they can painlessly be reversed.</p>
 
-<p>Git&rsquo;s <code>format-patch</code> command allows you to generate an email formatted patch file. Depending upon your requirements, you can have multiple patch files for each commit, or a single one multiple commits. In the end you will have your patch file that can be applied and reversed.</p>
+<p>Git&rsquo;s <code>format-patch</code> is an extension of <code>patch</code> and offers two advantages over it. First, it generates an email formatted patch file which is much easier to be sent via <code>mailutils</code>. Secondly, it supports binary diffs which means if you have a binary file which was created in the patch, git&rsquo;s patch file will have record of it and it will be created when patch is applied. The best thing about git&rsquo;s patching system is that it can be applied even if the folder is not a git repository, making it suitable for use over production servers.</p>
 
 <!-- more -->
 
 
-<p><strong>Note</strong>: Although, git generated patch files are nearly compatible to be used with Unix&rsquo;s patch program, git supports binary diffs which is unusable with <code>patch</code>.</p>
-
 <h2>Temporary changes using format-patch</h2>
 
-<p>To introduce a temporary change, first create a new branch, say <code>abc</code> and commit your local changes to it. After you have finished, you can use <code>git format-patch STARTING-COMMIT --stdout &gt; shiny-new.patch</code> to create a single patch for multiple commits since <code>STARTING-COMMIT</code>. After saving the patch, you can delete the branch.</p>
+<p>Depending upon your requirements, you can have multiple patch files for each commit, or a single one for multiple commits. For creating a temporary change, first create a new branch, say <code>abc</code> and commit your local changes to it. After you have finished, you can use <code>git format-patch S-COMMIT --stdout &gt; shiny.patch</code> to create a single patch for multiple commits <strong>after</strong> <code>S-COMMIT</code>. After saving the patch, you can delete the branch.</p>
 
-<p>The saves patch can now be applied directly on production server with either <code>patch -p1 &lt; shiny-new.patch</code>, if patch doesn&rsquo;t have any binary diffs or with <code>git apply shiny-new.patch</code>.</p>
-
-<p>To reverse this patch <code>patch -p1 -R &lt; shiny-new.patch</code> or <code>git reset HEAD</code> can be used respectively.</p>
+<p>The saved patch can now be applied directly on production server with <code>git apply shiny.patch</code>. To reverse this patch, you can use <code>git apply -R shin.patch</code>.</p>
 ]]></content>
   </entry>
   
