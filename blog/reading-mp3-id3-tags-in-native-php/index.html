@@ -1,0 +1,379 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Reading MP3 ID3 Tags in Native PHP - Coffee Coder</title>
+  <meta name="author" content="Shubham Jain">
+
+  
+  <meta name="description" content="This week I went crazy about file formats. I tried to understand specifications of many popular formats like MP3, FLV, PDF. Its amazing to see that &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://coffeecoder.net/blog/reading-mp3-id3-tags-in-native-php">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="http://feeds.feedburner.com/coffeecoder/qvOz" rel="alternate" title="Coffee Coder" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-40678340-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  
+  	<img src="/images/logo.png" />
+   
+  <h1><a href="/">Coffee Coder</a></h1>
+  
+    <h2>Shubham Jain's Weblog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss email">
+  <li><a href="http://feeds.feedburner.com/coffeecoder/qvOz" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+    <li><a href="http://feedburner.google.com/fb/a/mailverify?uri=coffeecoder/qvOz" rel="subscribe-email" title="subscribe via email">Email</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:coffeecoder.net" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/about/">About</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Reading MP3 ID3 Tags in Native PHP</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-16T17:41:05+05:30" pubdate data-updated="true">Jul 16<span>th</span>, 2013</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://coffeecoder.net">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>This week I went crazy about file formats. I tried to understand specifications of many popular formats like MP3, FLV, PDF. Its amazing to see that no matter how complex these technologies are or the algorithms they use to store media efficiently, at the lower level it is just a clever arrangement of bits that makes sense and with a bit of experimentation and hacking around MP3 format (a Hex Editor is a invaluable tool in this), I was able to read them in PHP without using any extension. The source has been put on <a href="https://github.com/shubhamjain/PHP-ID3">GitHub</a>.</p>
+
+<h2>Binary File Reader</h2>
+
+<p>The native method for reading a binary file  is unpack(). The problem with it was that it can’t handle variable length chunks, and I found it tough to understand the format of packing codes. Unluckily, I realized it quite late (damn!), that I can create the reader more efficiently by using unpack() function. (<a href="https://gist.github.com/shubhamjain/5964350">Gist</a>)</p>
+
+<!-- more -->
+
+
+<h2>A background On ID3 Tags</h2>
+
+<p>Like I said, tags are nothing but just an arrangement of bytes which makes sense. As the official spec describes, the first three bytes, are fixed, which are “ID3”. Next two bytes declare version, one byte for flags and next four bytes for total length of the tags that follow. I found, no much use to the first 10 bytes, especially the flag byte is completely obscure of what its purpose is.</p>
+
+<p>Next what follows is a series of frames with header and body which declare the actual content. The header has four characters for its Frame ID, followed by four bytes for size of body, two bytes for flag and next follows the body of tag. It is more clear from the picture below.</p>
+
+<p><img src="/images/id3_hex.jpg" title="Hex Edit for MP3 File" alt="Hex Edit for MP3 File" /></p>
+
+<p>For <code>TCON</code> tag, <code>00 00 00 0C</code> is the size of tag body ( 12 bytes ), <code>48 65</code> represent  flag bits which is described in spec and the next 12 bytes ( “Heavy Metal” ) form the body of tag. Many of such frames make up the information about the MP3 file. Some frames have further formatting in their “body” like APIC which represents the Album art.</p>
+
+<h2>Constructing an ID3 Reader</h2>
+
+<p>Once you understand the spec, creating a reader is very simple.The first step should be to read the header bytes.</p>
+
+<figure class='code'><figcaption><span>Initializing Filereader </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_FileReader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">BinaryFileReader</span><span class="p">(</span><span class="nv">$FileHandle</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+</span><span class='line'>      <span class="s2">&quot;ID3&quot;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="nx">BinaryFileReader</span><span class="o">::</span><span class="na">FIXED</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+</span><span class='line'>      <span class="s2">&quot;Version&quot;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="nx">BinaryFileReader</span><span class="o">::</span><span class="na">FIXED</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+</span><span class='line'>      <span class="s2">&quot;Flag&quot;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="nx">BinaryFileReader</span><span class="o">::</span><span class="na">FIXED</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+</span><span class='line'>      <span class="s2">&quot;SizeTag&quot;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="nx">BinaryFileReader</span><span class="o">::</span><span class="na">FIXED</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="nx">BinaryFileReader</span><span class="o">::</span><span class="na">INT</span><span class="p">),</span>
+</span><span class='line'><span class="p">));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The constructor in <code>ID3Tags_Reader.php</code>, initializes a <code>BinaryFileReader</code> object with a map of first 10 bytes. As explained, ID3 is fixed 3-byte string followed by version, flag and total size of tag body (which is casted to an integer). Once header is read we can start reading tags.</p>
+
+<p>The <code>ReadAllTags()</code> method defines a similar map for reading frames,</p>
+
+<figure class='code'><figcaption><span>Setting map using SetMap method </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_FileReader</span><span class="o">-&gt;</span><span class="na">SetMap</span><span class="p">(</span> <span class="k">array</span><span class="p">(</span>
+</span><span class='line'>      <span class="s2">&quot;FrameID&quot;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="nx">BinaryFileReader</span><span class="o">::</span><span class="na">FIXED</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+</span><span class='line'>      <span class="s2">&quot;Size&quot;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="nx">BinaryFileReader</span><span class="o">::</span><span class="na">FIXED</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="nx">BinaryFileReader</span><span class="o">::</span><span class="na">INT</span><span class="p">),</span>
+</span><span class='line'>      <span class="s2">&quot;Flag&quot;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="nx">BinaryFileReader</span><span class="o">::</span><span class="na">FIXED</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+</span><span class='line'>      <span class="s2">&quot;Body&quot;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="nx">BinaryFileReader</span><span class="o">::</span><span class="na">SIZE_OF</span><span class="p">,</span> <span class="s2">&quot;Size&quot;</span><span class="p">),</span>
+</span><span class='line'><span class="p">));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>&ldquo;Body&rdquo; uses an option to define a variable length string which depends upon  &ldquo;Size&rdquo; (Keep in mind to type cast &ldquo;Size&rdquo; to integer). A  while loop follows to read all tags defined in <code>$ID3Tags</code> array.</p>
+
+<h2>Reading Album Art</h2>
+
+<p>The Album art or Attachment Picture, in official sense, refers to a picture of albums, songs we see in our music players. The body of APIC has a special formatting described in the spec. The problem in reading was how to create a File handle from string for <code>BinaryFileReader</code>. While the thing could have easily been achieved  by <code>unpack()</code>, I would not let my work get un-noticed :).</p>
+
+<p>PHP provides a method by which we can create artificial streams without using files. They are so flexible that you can create them out of strings, http resource, standard input etc. To create a stream here, we can simply use “data://” like,</p>
+
+<figure class='code'><figcaption><span>Creating artificial stream </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="c1">//Create an artificial stream from Image data</span>
+</span><span class='line'><span class="nv">$fp</span> <span class="o">=</span> <span class="nb">fopen</span><span class="p">(</span><span class="s1">&#39;data://text/plain;base64,&#39;</span><span class="o">.</span><span class="nb">base64_encode</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_ID3Array</span><span class="p">[</span><span class="s2">&quot;APIC&quot;</span><span class="p">][</span><span class="s2">&quot;Body&quot;</span><span class="p">]),</span> <span class="s1">&#39;rb&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>To read the image data, the map we can use is,</p>
+
+<figure class='code'><figcaption><span>Reading image data </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$fileReader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">BinaryFileReader</span><span class="p">(</span> <span class="nv">$fp</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+</span><span class='line'>  <span class="s2">&quot;TextEncoding&quot;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="nx">BinaryFileReader</span><span class="o">::</span><span class="na">FIXED</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+</span><span class='line'>  <span class="s2">&quot;MimeType&quot;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="nx">BinaryFileReader</span><span class="o">::</span><span class="na">NULL_TERMINATED</span><span class="p">),</span>
+</span><span class='line'>  <span class="s2">&quot;FileName&quot;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="nx">BinaryFileReader</span><span class="o">::</span><span class="na">NULL_TERMINATED</span><span class="p">),</span>
+</span><span class='line'>  <span class="s2">&quot;ContentDesc&quot;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="nx">BinaryFileReader</span><span class="o">::</span><span class="na">NULL_TERMINATED</span><span class="p">),</span>
+</span><span class='line'>  <span class="s2">&quot;BinaryData&quot;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="nx">BinaryFileReader</span><span class="o">::</span><span class="na">EOF_TERMINATED</span><span class="p">))</span> <span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>MimeType, Content Description and FileName have no specific size but are just null-terminated strings and BinaryData which contains the main image content is rest of the remaining file.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Shubham Jain</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-16T17:41:05+05:30" pubdate data-updated="true">Jul 16<span>th</span>, 2013</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://coffeecoder.net/blog/reading-mp3-id3-tags-in-native-php/" data-via="thecoffeecoder" data-counturl="http://coffeecoder.net/blog/reading-mp3-id3-tags-in-native-php/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/why-you-should-never-freelance/" title="Previous Post: Why you should never freelance on freelancing sites.">&laquo; Why you should never freelance on freelancing sites.</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/making-earphone-presses-useful-with-pyaudio-and-vlc-http-api/" title="Next Post: Making earphone presses useful with PyAudio and VLC HTTP API">Making earphone presses useful with PyAudio and VLC HTTP API &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/why-should-you-use-tmux/">Why Should You Use Tmux?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/using-git-format-patch-to-introduce-temporary-changes/">Using Git for Introducing Temporary Changes</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/building-a-whistle-detector/">Building a Whistle Detector Using WebAudio API</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/why-desktop-apps-still-make-sense/">Why Desktop Apps Still Make Sense</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/stop-using-captchas-that-can-be-broken-with-two-lines-of-code/">Stop Using Captchas That Can Be Broken With Two Lines of Code</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/shubhamjain">@shubhamjain</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'shubhamjain',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos',
+            exclude: ['shubhamjain.github.io', 'stopwatch.js']
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Shubham Jain -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'thecoffeecoder';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://coffeecoder.net/blog/reading-mp3-id3-tags-in-native-php/';
+        var disqus_url = 'http://coffeecoder.net/blog/reading-mp3-id3-tags-in-native-php/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

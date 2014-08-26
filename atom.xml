@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Coffee Coder]]></title>
+  <link href="http://coffeecoder.net/atom.xml" rel="self"/>
+  <link href="http://coffeecoder.net/"/>
+  <updated>2014-08-27T01:12:26+05:30</updated>
+  <id>http://coffeecoder.net/</id>
+  <author>
+    <name><![CDATA[Shubham Jain]]></name>
+    <email><![CDATA[shubham@coffeecoder.net]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Why Should You Use Tmux?]]></title>
+    <link href="http://coffeecoder.net/blog/why-should-you-use-tmux/"/>
+    <updated>2014-08-26T22:52:58+05:30</updated>
+    <id>http://coffeecoder.net/blog/why-should-you-use-tmux</id>
+    <content type="html"><![CDATA[<p>Terminals are an essential place frequented by developers in their daily use. In contrast to GUIs, command line gives you more folds of power and transparency when you dealing with a complicated tool like git, or when you need to pull off some networking stats using <code>netstat</code>. In this blog post, I&rsquo;ll explain why tmux is a great productivity enhancer when working with command line.</p>
+
+<h2>What is tmux?</h2>
+
+<p><strong>tmux</strong> or terminal multiplexer is a simpler version of GNU screen, both of which are tools to split, combine and create terminal windows. Yes, that is indeed similar to what <strong>terminator</strong> does but guess what, you can&rsquo;t run terminator on SSH, can you? but that is not the selling point here. tmux is command line based tool which is very easy to use and in fact for any beginner, a <a href="http://danielmiessler.com/study/tmux/">little primer</a> should be enough to start using it to its full extent.</p>
+
+<h2>Why should one use tmux?</h2>
+
+<p>I use tmux even when I am working locally. The reason for using it over something like terminator is freeing your hands from needing to get to the mouse interrupt your work flow. When working over command line, anything other than keyboard is an interruption and costs in your work flow. Just like tabbed browsing, multiples panes and windows allow you to do many things at once and with tmux you are encouraged to exploit them more effectively. Other significant features include :</p>
+
+<ul>
+<li>You can use it over SSH.</li>
+<li>You can share a session on SSH with use of sockets.</li>
+<li>You can de-attach and run multiple sessions.</li>
+<li>Using tmux-sessions you can dump and restore sessions after boot.</li>
+</ul>
+
+
+<p>In a better combination of both tabbed terminals and tmux, one can use separate tabs for both local and remote machines and tmux can be used inside each tab, helping to avoid confusion between the two.</p>
+
+<h2>A typical use-case scenario</h2>
+
+<p>A typical usefulness of tmux can be illustrated when you are debugging and internal server error over SSH. My normal mode of operation in such cases was to keep switching directories using <code>cd -</code> alternating between adjusting configurations and viewing error logs. Using tmux this process was a lot simpler since all you needed was to switch tabs. Even better, you could use <code>watch</code> command in a separate pan to constantly output the <code>tail error_log</code> to console, thus, saving your time and watching constantly switching directories.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Using Git for Introducing Temporary Changes]]></title>
+    <link href="http://coffeecoder.net/blog/using-git-format-patch-to-introduce-temporary-changes/"/>
+    <updated>2014-08-18T21:26:32+05:30</updated>
+    <id>http://coffeecoder.net/blog/using-git-format-patch-to-introduce-temporary-changes</id>
+    <content type="html"><![CDATA[<p>Lately, on independence day we needed to introduce a small logo change on our website to acknowledge it. The change wasn&rsquo;t meant to last for more than a few days and hence, the problem of introducing a temporary change which shouldn&rsquo;t be a part of the history arose. Out of ignorance, we went through the path of making a commit and later reverting it with <code>git-revert</code>. Recently I found about excellent patching system of git which makes an impressive solution for the problem.</p>
+
+<h2>Patching </h2>
+
+<p>Patching used in git isn&rsquo;t unique. It derives itself from an old <code>patch</code> program written by Larry Wall in 1985. <code>patch</code> program is pretty simple. It takes a diff file as its input and applies those changes to corresponding files. Because of this simplicity, it makes patch files very easy to send. Perhaps, before the advent of github, they were the old man&rsquo;s pull request. Another great thing about patches is that they can painlessly be reversed.</p>
+
+<p>Git&rsquo;s <code>format-patch</code> is an extension of <code>patch</code> and offers two advantages over it. First, it generates an email formatted patch file which is much easier to be sent via <code>mailutils</code>. Secondly, it supports binary diffs which means if you have a binary file which was created in the patch, git&rsquo;s patch file will have record of it and it will be created when patch is applied. The best thing about git&rsquo;s patching system is that it can be applied even if the folder is not a git repository, making it suitable for use over production servers.</p>
+
+<!-- more -->
+
+
+<h2>Temporary changes using format-patch</h2>
+
+<p>Depending upon your requirements, you can have multiple patch files for each commit, or a single one for multiple commits. For creating a temporary change, first create a new branch, say <code>abc</code> and commit your local changes to it. After you have finished, you can use <code>git format-patch S-COMMIT --stdout &gt; shiny.patch</code> to create a single patch for multiple commits <strong>after</strong> <code>S-COMMIT</code>. After saving the patch, you can delete the branch.</p>
+
+<p>The saved patch can now be applied directly on production server with <code>git apply shiny.patch</code>. To reverse this patch, you can use <code>git apply -R shin.patch</code>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Building a Whistle Detector Using WebAudio API]]></title>
+    <link href="http://coffeecoder.net/blog/building-a-whistle-detector/"/>
+    <updated>2014-07-01T22:33:56+05:30</updated>
+    <id>http://coffeecoder.net/blog/building-a-whistle-detector</id>
+    <content type="html"><![CDATA[<p>There are lots of things to get excited about HTML5 and the one which caught my curiosity was HTML5 Audio / Video API. I was overwhelmed with ideas of practical applications like face detect login or inline dictation but I chose to start with something small &ndash; a whistle detector. Although, not wholly accurate it works quite well with very a good accuracy. I used M. Nilsson&rsquo;s research paper, &ldquo;<a href="http://medieteknik.bth.se/fou/forskinfo.nsf/all/67a079f0676c546fc12574a4002d6d38/$file/nilsson-whistle.pdf">Human Whistle Detection and Frequency Estimation</a>&rdquo; to implement this. It took me a while to get understand exactly what the paper narrates with its mathematical notations but luckily my wandered at the right place to get the right idea.</p>
+
+<p>For the first part, I would try to explain <a href="http://btu.se/fou/forskinfo.nsf/17e96a0dab8ab6a1c1257457004d59ab/2660bccb72bce3ccc125714d004828c1/$file/successive%20mean...pdf">Successive Mean Quantization Transform (SMQT)</a> which prepares the audio data for further processing.</p>
+
+<h2>Successive Mean Quantization Transform</h2>
+
+<p>Transformation in mathematics is an operation to map one set to another set. SMQT is a similar method to do the same to remove bias or gain resulting from disparity between various kinds of sensors (microphones) and other factors. In SMQT, we recursively take mean of data set and split it into two halves and do the same on each half. Data values above the mean are assigned, &ldquo;1&rdquo; and below are assigned &ldquo;0&rdquo;. The recursion is carried out to a pre-defined depth, at the end of which we have a binary tree with 1s and 0s. Sounds confusing? Lets take and example of set:</p>
+
+<p><code>X = [89, 78, 63, 202, 90, 45, 112, 79, 95, 87, 90, 78, 54, 34, 66, 32]</code>.</p>
+
+<p><code>Mean(X) = 80.875</code></p>
+
+<p>The values above mean are assigned &ldquo;1&rdquo; while below are assigned &ldquo;0&rdquo;. So it becomes &ndash; <code>[1 0 0 1 1 0 1 0 1 1 1 0 0 0 0 0]</code>. Let this procedure be called as <code>U(X)</code>. Data values corresponding to &ldquo;0&rdquo; propagate left of the binary tree while &ldquo;1&rdquo; propagate right. So we have a tree which looks like,</p>
+
+<p><img src="http://coffeecoder.net/images/whistle/tree.jpg"></p>
+
+<p>Continue this process recursively till you reach a depth of L. ( <strong>Note</strong>: L = 8 in our application. )</p>
+
+<p>After this, you weight each level by multiplying the bits by 2<sup>cur_level &ndash; 1</sup> and add it up to the top of tree. So, if you have a tree which looks like,</p>
+
+<p><img src="http://coffeecoder.net/images/whistle/tree2.jpg"></p>
+
+<p>Multiply D, E, F, G by 2<sup>2</sup> which gives <code>[4 0 4 0]</code>, <code>[0 0 4 0]</code>, <code>[0 0 4 4]</code>, <code>[4 0 0 0]</code> and so on. Lets call this procedure of weighing individual arrays as <code>W(X)</code>. After we are done weighing, we add to the node its subtrees. For eg, <code>B = W(B) + (W(D) . W(E))</code>. So we have now have audio data that is bias and gain free. (<a href="https://gist.github.com/shubhamjain/88f14b328e7b145c79e5#file-smqt-js">Gist</a>).</p>
+
+<!-- more -->
+
+
+<h2>Normalization and FFT</h2>
+
+<p>For the purpose of this detector we will use chunks of 512 elements for which we will calculate SMQT to a max depth of 8. After we have taken SMQT of audio data, we would normalize this result so that its values fall within range of <code>[1, -1]</code>. we will divide the values by 2<sup>L &ndash; 1</sup> and subtract &ldquo;1&rdquo; from the result.</p>
+
+<p>Taking the Fast Fourier Transform of the normalized data will give us an array of <code>N = 256</code> elements. Let this FFT be denoted by <code>F(T)</code>.of frequency. Point to be noted here is, because we are using 256 elements to represent a range 0 &ndash; 22Khz, each element will represent about ~43 Hz of frequency. To detect a whistle, we will need to extract two feature vectors.</p>
+
+<h2>Calculation of feature vectors</h2>
+
+<p>Human whistle generally falls in the range of 500 &ndash; 5000Hz. Want to try? Take a look at <a href="http://arachnoid.com/FFTExplorer/">FFTExplorer</a>. Our estimation of whistle will involve calculation of two feature vector (or, values in simple terms). In the first step, we will find result of band-pass and band-stop filter applied on <code>F(T)</code> in the frequency range (500 &ndash; 5000Hz), called <strong>p</strong><sub>bp</sub>(t) and <strong>p</strong><sub>bs</sub>(t). Although, the way I have implemented filters is pretty basic (and wrong). I have attenuated amplitudes to a fixed value but filters are generally much more complex than that.</p>
+
+<p>The two feature vectors aim at finding out the spikes in our frequency range, strongly suggesting presence of a whistle. The two feature vectors result from following requirements:</p>
+
+<ul>
+<li><p>The largest value in <strong>p</strong><sub>bp</sub>(t) should typically be larger than the mean of <strong>p</strong><sub>bs</sub>(t) in the presence of whistle</p></li>
+<li><p>In presence of whistle <strong>p</strong><sub>bp</sub>(t) has typically a few very dominant values.</p></li>
+</ul>
+
+
+<h4>First feature vector</h4>
+
+<p>For the first feature vector we will use the following equation,</p>
+
+<p><img src="http://coffeecoder.net/images/whistle/equation.png"></p>
+
+<p>The value must be greater than <strong>25</strong>.</p>
+
+<h4>Second feature vector</h4>
+
+<p>The second one is bit tricky. First we will take find a new array by.</p>
+
+<p><img src="http://coffeecoder.net/images/whistle/equation2.png"></p>
+
+<p>Next, we calculate two vectors, given by</p>
+
+<p><img src="http://coffeecoder.net/images/whistle/equation5.png"></p>
+
+<p><img src="http://coffeecoder.net/images/whistle/equation6.png"></p>
+
+<p>The theory behind this is to detect peaks by comparing both the vectors. For measuring the similarity, we will exploit Jensen Difference, given by,</p>
+
+<p><img src="http://coffeecoder.net/images/whistle/equation3.png"></p>
+
+<p><img src="http://coffeecoder.net/images/whistle/equation4.png"></p>
+
+<p>The value of <code>J(v, v')</code> must be around <strong>.44</strong>.</p>
+
+<p><strong>Note</strong>: The threshold values are only meant for general terms. If you find suitable you can use other values to suit your needs.</p>
+
+<h2>Threshold positives and accuracy</h2>
+
+<p>The problem of false positives will still persist for various kind of noises and sounds. To be more precise, we can can calculate no of positive samples within X no. of samples and compare it with our threshold. If it exceeds threshold positives, then it probably is a whistle. For our project, the chosen threshold is <strong>5</strong> which can be increased for further accuracy.</p>
+
+<p>The whistle detector is quite accurate even under influence of acceptable noise but the accuracy will decrease with lowering of threshold. However,increasing to much higher value may fail to detect to even a long whistle. So it must be around to be accurate enough for a practical application.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Why Desktop Apps Still Make Sense]]></title>
+    <link href="http://coffeecoder.net/blog/why-desktop-apps-still-make-sense/"/>
+    <updated>2014-05-22T16:20:49+05:30</updated>
+    <id>http://coffeecoder.net/blog/why-desktop-apps-still-make-sense</id>
+    <content type="html"><![CDATA[<p>So you think desktop apps will die a slow death? The sentiment of demise of desktop apps has been professed by many people, <a href="http://blog.codinghorror.com/all-programming-is-web-programming">Jeff Atwood</a>, <a href="http://www.kalzumeus.com/2009/09/05/desktop-aps-versus-web-apps/">Patrick McKenzie</a> to name a few. With colossal jump in our web technologies, both performance and capability wise, something that couldn&rsquo;t have been possible few years back, the idea is getting even more traction. When you see demos like <a href="http://media.tojicode.com/q3bsp/">this</a>, you are tempted to think if web browsers would be able to address the performance issue, what would withhold for web to be used for everything from games to essential business software?</p>
+
+<p>So why do I think desktop apps still make sense?</p>
+
+<ul>
+<li><p><strong>Passiveness of income</strong>: While it may be true, web apps fare great when it comes to potential revenue, cross-platform comparability, and reach, it is indispensable to avoid working actively on it. Have you ever heard of someone who was pulling off revenue his age old SaSS app without putting in any work? On the other side, I still get sales from one of my stupid script that I made a long time ago and never even marketed. May be a generalized scenario; it might be possible someone earns a passive income from his web app without adding anything but it is hard to think that the developer can avoid tasks like marketing, server monitoring, dealing with quirky consumer issues, or scaling.</p></li>
+<li><p><strong>Less overhead in selling</strong>: Selling a web app means, integrating it with an API to accept payments, offer a X days trial, send emails reminding trial period is ending and charge card on recurring basis. By any chance, if you happened to use paypal and their API be prepared to pull your hair off in doing this. In contrast, selling desktop apps is much easier with many services available for selling downloads &ndash; gumroad, softpedia, CNET.</p></li>
+<li><p><strong>Lesser obligations to deal with issues</strong>: With a web app, you are expected immediately to address any issue that pops up and with many peculiarities of CSS and HTML, it is reasonable to expect that in &ldquo;some browser&rdquo; on &ldquo;some device&rdquo;, the text is overflowing outside the container. If you are dealing with a desktop app, you have plenty of time till the next release is due (except for security issues, of course).</p></li>
+</ul>
+
+
+<p>So it boils down to how desktop apps are about writing code and shipping where as web apps require you to be there always. Although, you probably won&rsquo;t lose customer over some little CSS issue but the way your mind works, you won&rsquo;t be able to stop yourself from addressing it immediately and that is where desktop apps have an upper hand &ndash; you can prioritize which things to add / fix / remove in the next release. One example of this has been documented by Joel Spolsky.</p>
+
+<blockquote><p>As Excel 5 was nearing completion, I started working on the Excel 6 spec with a colleague, Eric Michelman. We sat down to go through the list of &ldquo;Excel 6&rdquo; features that had been cut from the Excel 5 schedule. We were absolutely shocked to see that the list of cut features was the shoddiest list of features you could imagine. Not one of those features was worth doing. I don&rsquo;t think a single one of them was ever done, even in the next three releases. The process of culling features to fit a schedule was the best thing we could have done. If we hadn&rsquo;t done this, Excel 5 would have taken twice as long and included 50% useless crap features
+&mdash; <a href="http://www.joelonsoftware.com/articles/fog0000000245.html">Painless Software Schedules</a></p></blockquote>
+
+<p>Whether or not desktop apps will cease, web apps certainly aren&rsquo;t a de-facto choice when it comes to making a product.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Stop Using Captchas That Can Be Broken With Two Lines of Code]]></title>
+    <link href="http://coffeecoder.net/blog/stop-using-captchas-that-can-be-broken-with-two-lines-of-code/"/>
+    <updated>2014-05-04T18:46:34+05:30</updated>
+    <id>http://coffeecoder.net/blog/stop-using-captchas-that-can-be-broken-with-two-lines-of-code</id>
+    <content type="html"><![CDATA[<p>The de-facto bot prevention technique sprawls everywhere on the web but I am surprised how people overestimate the difficulty of breaking a captcha. Here are some of them which I encountered.</p>
+
+<p><img src="http://coffeecoder.net/images/captchas/1.jpg"> <img src="http://coffeecoder.net/images/captchas/2.jpg"> <img src="http://coffeecoder.net/images/captchas/3.jpg"></p>
+
+<p>It won’t take rocket science to convert them to text. In fact, the only two free tools needed for this purpose are: <a href="http://code.google.com/tesseract-ocr%E2%80%8E">tesseract</a> and <a href="http://www.imagemagick.org/">Imagemagick</a>.</p>
+
+<figure class='code'><figcaption><span>Convert command </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>convert captcha.jpg -threshold 5% a.jpg
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Adjust the threshold value to get a binary image with no noise.</p>
+
+<figure class='code'><figcaption><span>Tesseract </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>tesseract -l eng a.jpg text
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This will create a “text.txt” file with the captcha text in it.</p>
+
+<p>I ran a test on effectiveness of these commands and the success rate was nearly 9 / 10, clearly implying how weak or better say, made-from-scratch captcha implementations are as good as having none at all.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Making Earphone Presses Useful With PyAudio and VLC HTTP API]]></title>
+    <link href="http://coffeecoder.net/blog/making-earphone-presses-useful-with-pyaudio-and-vlc-http-api/"/>
+    <updated>2014-03-30T18:23:33+05:30</updated>
+    <id>http://coffeecoder.net/blog/making-earphone-presses-useful-with-pyaudio-and-vlc-http-api</id>
+    <content type="html"><![CDATA[<p><strong>Note</strong>: I am not an audio expert or even close to one. This post may pose amateur attempts to do something very trivial. Link to the Github repository.</p>
+
+<p>Ever had one of those moments, when you are super excited about accomplishing a challenge, having put something useful on the table, only to realize it is not even close to the greatness you imagined; to be bitter, futile? This weekend I build something to detect earphone button presses and control VLC media player with it but it was not so useful afterall.</p>
+
+<h2>Earphone Presses</h2>
+
+<p><img src="http://coffeecoder.net/images/earphone/earphone.jpg" width="128" height="128" title="&#34;Samsung Earphones&#34;" alt="&#34;Samsung Earphones&#34;"></p>
+
+<p>(<a href="http://images.esellerpro.com/2477/I/488/907/lrgscaleEHS60-WHITE-0.jpg">Link to original image</a>)</p>
+
+<p>I own a pair of Samsung earphones, intrigued how the buttons used to switch / pause tracks in smartphones work, I plugged in the pieces in my combo jack, used audacity, pressed a button and the result was:</p>
+
+<p><img src="http://coffeecoder.net/images/earphone/wave.png" title="Wave form for button press" alt="Wave form for button press" /></p>
+
+<p>&ldquo;Great! Awesome find!&rdquo; exclaimed my mind. So how can we make this into something useful?</p>
+
+<!-- more -->
+
+
+<h2>Detecting earphone presses</h2>
+
+<p>Intuitively, the signal has a very high amplitude, so much so that, the <a href="http://en.wikipedia.org/wiki/Clipping_(audio">signal gets clipped</a>). Quite clearly, to detect the earphone press, implies detecting clipping for a certain length of time. Here is how I did it.</p>
+
+<figure class='code'><figcaption><span>Sampling </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="n">stream</span> <span class="o">=</span> <span class="n">pyaudio</span><span class="o">.</span><span class="n">PyAudio</span><span class="p">()</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">format</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">FORMAT</span><span class="p">,</span> <span class="n">channels</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">RATE</span><span class="p">,</span> <span class="nb">input</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">frames_per_buffer</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">data</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c">#read one sample</span>
+</span><span class='line'>    <span class="n">int_sample</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s">&quot;i&quot;</span><span class="p">,</span> <span class="n">data</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="c">#convert string to 32 bit integer </span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>First I used PyAudio library to process one sample at each instance. Since the sample is in ASCII format, I needed it to convert to integer for which “struct” module comes in handy.</p>
+
+<figure class='code'><figcaption><span>Detecting Clipping </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="n">count_min</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'><span class="n">button_down</span> <span class="o">=</span> <span class="bp">False</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># Count no of clipped samples. The first condition </span>
+</span><span class='line'><span class="c"># makes sure double events don&#39;t fire after a long press.</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span><span class="p">(</span> <span class="ow">not</span><span class="p">(</span><span class="n">button_down</span><span class="p">)</span> <span class="ow">and</span> <span class="n">int_sample</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">THRESHOLD_MIN</span> <span class="p">):</span>
+</span><span class='line'>    <span class="n">count_min</span> <span class="o">+=</span> <span class="mi">1</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">count_min</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">THRESHOLD_SAMPLES</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">count_min</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'>        <span class="n">button_down</span> <span class="o">=</span> <span class="bp">True</span>
+</span><span class='line'>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">print_e</span> <span class="p">:</span> <span class="k">print</span> <span class="s">&quot;button_down&quot;</span>
+</span><span class='line'>    <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">count_min</span> <span class="o">=</span> <span class="mi">0</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So how do we detect clipping? By finding a streak of clipped samples. In this code, I try to find a continuous sequence of samples below a “minimum threshold”. If the count of these samples exceed some value (about 800 samples at 22kHz sampling rate), we know the signal was clipped. Same can be applied for analyzing a streak of samples above “maximum threshold”.</p>
+
+<p>Hence, using the above we have detecting “button down” and “button up” events. The long hold event can also be detected with analyzing the time after “button down” event. If it exceeds, lets say, 1.5s and “button up” event is not fired, then it probably implies “button hold” event.</p>
+
+<h2>VLC HTTP Interface</h2>
+
+<p>Did you guys know, VLC can be controlled by <a href="https://wiki.videolan.org/Interfaces">variety of interfaces</a> including a HTTP one? Its one of those softwares, which are much more impressive than propriety counterparts. I build a <a href="https://gist.github.com/shubhamjain/9809108">small library</a> to communicate to VLC via the HTTP interface.</p>
+
+<p>In the end, I combined all of the above, to make earphone press pause / play the media and holding the button seeking 5sec further.</p>
+
+<h2>But pretty useless</h2>
+
+<p>While making this, I didn’t realize that my laptop has a combo jack which makes it possible to do recording and playing with the same device just like smartphones. So computers without this feature are out of luck to use this which means almost all.</p>
+
+<p>On the whole, it was a nice weekend hack which got me started with basics of audio and how it works. I will try to take it further next time; build a whistle detector, maybe.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Reading MP3 ID3 Tags in Native PHP]]></title>
+    <link href="http://coffeecoder.net/blog/reading-mp3-id3-tags-in-native-php/"/>
+    <updated>2013-07-16T17:41:05+05:30</updated>
+    <id>http://coffeecoder.net/blog/reading-mp3-id3-tags-in-native-php</id>
+    <content type="html"><![CDATA[<p>This week I went crazy about file formats. I tried to understand specifications of many popular formats like MP3, FLV, PDF. Its amazing to see that no matter how complex these technologies are or the algorithms they use to store media efficiently, at the lower level it is just a clever arrangement of bits that makes sense and with a bit of experimentation and hacking around MP3 format (a Hex Editor is a invaluable tool in this), I was able to read them in PHP without using any extension. The source has been put on <a href="https://github.com/shubhamjain/PHP-ID3">GitHub</a>.</p>
+
+<h2>Binary File Reader</h2>
+
+<p>The native method for reading a binary file  is unpack(). The problem with it was that it can’t handle variable length chunks, and I found it tough to understand the format of packing codes. Unluckily, I realized it quite late (damn!), that I can create the reader more efficiently by using unpack() function. (<a href="https://gist.github.com/shubhamjain/5964350">Gist</a>)</p>
+
+<!-- more -->
+
+
+<h2>A background On ID3 Tags</h2>
+
+<p>Like I said, tags are nothing but just an arrangement of bytes which makes sense. As the official spec describes, the first three bytes, are fixed, which are “ID3”. Next two bytes declare version, one byte for flags and next four bytes for total length of the tags that follow. I found, no much use to the first 10 bytes, especially the flag byte is completely obscure of what its purpose is.</p>
+
+<p>Next what follows is a series of frames with header and body which declare the actual content. The header has four characters for its Frame ID, followed by four bytes for size of body, two bytes for flag and next follows the body of tag. It is more clear from the picture below.</p>
+
+<p><img src="http://coffeecoder.net/images/id3_hex.jpg" title="Hex Edit for MP3 File" alt="Hex Edit for MP3 File" /></p>
+
+<p>For <code>TCON</code> tag, <code>00 00 00 0C</code> is the size of tag body ( 12 bytes ), <code>48 65</code> represent  flag bits which is described in spec and the next 12 bytes ( “Heavy Metal” ) form the body of tag. Many of such frames make up the information about the MP3 file. Some frames have further formatting in their “body” like APIC which represents the Album art.</p>
+
+<h2>Constructing an ID3 Reader</h2>
+
+<p>Once you understand the spec, creating a reader is very simple.The first step should be to read the header bytes.</p>
+
+<figure class='code'><figcaption><span>Initializing Filereader </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_FileReader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">BinaryFileReader</span><span class="p">(</span><span class="nv">$FileHandle</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+</span><span class='line'>      <span class="s2">&quot;ID3&quot;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="nx">BinaryFileReader</span><span class="o">::</span><span class="na">FIXED</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+</span><span class='line'>      <span class="s2">&quot;Version&quot;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="nx">BinaryFileReader</span><span class="o">::</span><span class="na">FIXED</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+</span><span class='line'>      <span class="s2">&quot;Flag&quot;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="nx">BinaryFileReader</span><span class="o">::</span><span class="na">FIXED</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+</span><span class='line'>      <span class="s2">&quot;SizeTag&quot;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="nx">BinaryFileReader</span><span class="o">::</span><span class="na">FIXED</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="nx">BinaryFileReader</span><span class="o">::</span><span class="na">INT</span><span class="p">),</span>
+</span><span class='line'><span class="p">));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The constructor in <code>ID3Tags_Reader.php</code>, initializes a <code>BinaryFileReader</code> object with a map of first 10 bytes. As explained, ID3 is fixed 3-byte string followed by version, flag and total size of tag body (which is casted to an integer). Once header is read we can start reading tags.</p>
+
+<p>The <code>ReadAllTags()</code> method defines a similar map for reading frames,</p>
+
+<figure class='code'><figcaption><span>Setting map using SetMap method </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_FileReader</span><span class="o">-&gt;</span><span class="na">SetMap</span><span class="p">(</span> <span class="k">array</span><span class="p">(</span>
+</span><span class='line'>      <span class="s2">&quot;FrameID&quot;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="nx">BinaryFileReader</span><span class="o">::</span><span class="na">FIXED</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+</span><span class='line'>      <span class="s2">&quot;Size&quot;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="nx">BinaryFileReader</span><span class="o">::</span><span class="na">FIXED</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="nx">BinaryFileReader</span><span class="o">::</span><span class="na">INT</span><span class="p">),</span>
+</span><span class='line'>      <span class="s2">&quot;Flag&quot;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="nx">BinaryFileReader</span><span class="o">::</span><span class="na">FIXED</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+</span><span class='line'>      <span class="s2">&quot;Body&quot;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="nx">BinaryFileReader</span><span class="o">::</span><span class="na">SIZE_OF</span><span class="p">,</span> <span class="s2">&quot;Size&quot;</span><span class="p">),</span>
+</span><span class='line'><span class="p">));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>&ldquo;Body&rdquo; uses an option to define a variable length string which depends upon  &ldquo;Size&rdquo; (Keep in mind to type cast &ldquo;Size&rdquo; to integer). A  while loop follows to read all tags defined in <code>$ID3Tags</code> array.</p>
+
+<h2>Reading Album Art</h2>
+
+<p>The Album art or Attachment Picture, in official sense, refers to a picture of albums, songs we see in our music players. The body of APIC has a special formatting described in the spec. The problem in reading was how to create a File handle from string for <code>BinaryFileReader</code>. While the thing could have easily been achieved  by <code>unpack()</code>, I would not let my work get un-noticed :).</p>
+
+<p>PHP provides a method by which we can create artificial streams without using files. They are so flexible that you can create them out of strings, http resource, standard input etc. To create a stream here, we can simply use “data://” like,</p>
+
+<figure class='code'><figcaption><span>Creating artificial stream </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="c1">//Create an artificial stream from Image data</span>
+</span><span class='line'><span class="nv">$fp</span> <span class="o">=</span> <span class="nb">fopen</span><span class="p">(</span><span class="s1">&#39;data://text/plain;base64,&#39;</span><span class="o">.</span><span class="nb">base64_encode</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_ID3Array</span><span class="p">[</span><span class="s2">&quot;APIC&quot;</span><span class="p">][</span><span class="s2">&quot;Body&quot;</span><span class="p">]),</span> <span class="s1">&#39;rb&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>To read the image data, the map we can use is,</p>
+
+<figure class='code'><figcaption><span>Reading image data </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$fileReader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">BinaryFileReader</span><span class="p">(</span> <span class="nv">$fp</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+</span><span class='line'>  <span class="s2">&quot;TextEncoding&quot;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="nx">BinaryFileReader</span><span class="o">::</span><span class="na">FIXED</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+</span><span class='line'>  <span class="s2">&quot;MimeType&quot;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="nx">BinaryFileReader</span><span class="o">::</span><span class="na">NULL_TERMINATED</span><span class="p">),</span>
+</span><span class='line'>  <span class="s2">&quot;FileName&quot;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="nx">BinaryFileReader</span><span class="o">::</span><span class="na">NULL_TERMINATED</span><span class="p">),</span>
+</span><span class='line'>  <span class="s2">&quot;ContentDesc&quot;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="nx">BinaryFileReader</span><span class="o">::</span><span class="na">NULL_TERMINATED</span><span class="p">),</span>
+</span><span class='line'>  <span class="s2">&quot;BinaryData&quot;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="nx">BinaryFileReader</span><span class="o">::</span><span class="na">EOF_TERMINATED</span><span class="p">))</span> <span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>MimeType, Content Description and FileName have no specific size but are just null-terminated strings and BinaryData which contains the main image content is rest of the remaining file.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Why You Should Never Freelance on Freelancing Sites.]]></title>
+    <link href="http://coffeecoder.net/blog/why-you-should-never-freelance/"/>
+    <updated>2013-07-05T11:52:47+05:30</updated>
+    <id>http://coffeecoder.net/blog/why-you-should-never-freelance</id>
+    <content type="html"><![CDATA[<p>Back in the days, I used to be the crazy money minded programmer writing kLOCs of crap with no code quality concern, for projects I often found on freelancing sites. Freelancer.com, oDesk and likes which seem to be quite popular among employers looking for cheap third world country coders but honestly, if you think about being a better programmer, never log in to them. Why?</p>
+
+<!-- more -->
+
+
+<ul>
+<li><p><strong>Cheesy employers</strong>: such people have pretty bad idea about what programming is. They want to get best work done and pay like pennies and the sad part is people are always ready to have the lowest bid on it, albeit, it is funny sometimes. I remember a web scraping project I had in which the employer was constantly pestering to add more and more features which was annoying to do at the price I was paid.</p></li>
+<li><p><strong>No concern about code quality</strong>: I believe that if you are into something where code quality is given lowest priority, you should not do it. For most of the projects, I am quite sure the posters would have no idea what code quality is about.</p></li>
+<li><p><strong>No scope for challenges</strong>: My experience suggests that nine out of ten projects out there offer no challenge at all. Maybe it is just a simple bug fix, a simple crud app, a task automation. Many times it is, “I want a website similar to x website but I would be adding y feature and it will become the next Facebook”. Granted there may be exception but with noise so high, you would have hard time finding the signal.</p></li>
+<li><p><strong>No incentive in doing things better</strong>: Most of the time, here employers won’t get excited about you having set up a automatic build script or integrated version control or started unit testing code. Most likely, they would start bricking about building features first. There is no reason for you to be better.</p></li>
+</ul>
+
+
+<blockquote><p>There is no point in making software unless you want to make it better.</p>
+
+<p>&mdash; <em>The Pragmatic Programmer</em></p></blockquote>
+
+<p>Freelancing on these sites will just make you a terrible programmer with no exposure to good software development practices. Programming is a craft, which needs improvement for lifetime to excel it.</p>
+
+<p>My advice will be to start your personal website/blog, start contributing to open source project and have some pet projects of your own. Join and contribute to sites like StackOverflow, Hacker news, Slashdot. Doing this will not only make you a better programmer but also you will get many exciting offers coming to your inbox Good luck!</p>
+]]></content>
+  </entry>
+  
+</feed>
