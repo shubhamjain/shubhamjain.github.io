@@ -4,7 +4,7 @@
   <title><![CDATA[Coffee Coder]]></title>
   <link href="http://coffeecoder.net/atom.xml" rel="self"/>
   <link href="http://coffeecoder.net/"/>
-  <updated>2014-08-27T01:12:26+05:30</updated>
+  <updated>2014-08-27T19:59:42+05:30</updated>
   <id>http://coffeecoder.net/</id>
   <author>
     <name><![CDATA[Shubham Jain]]></name>
@@ -26,7 +26,7 @@
 
 <h2>Why should one use tmux?</h2>
 
-<p>I use tmux even when I am working locally. The reason for using it over something like terminator is freeing your hands from needing to get to the mouse interrupt your work flow. When working over command line, anything other than keyboard is an interruption and costs in your work flow. Just like tabbed browsing, multiples panes and windows allow you to do many things at once and with tmux you are encouraged to exploit them more effectively. Other significant features include :</p>
+<p>I use tmux even when I am working locally. In comparison to terminator, tmux offers a significant advantage by freeing your hands from needing to get to the mouse. When working over command line, anything other than keyboard is an interruption and costs in your work flow. Just like tabbed browsing, multiples panes and windows allow you to do many things at once and with tmux you are encouraged to exploit them more effectively. Other significant features include :</p>
 
 <ul>
 <li>You can use it over SSH.</li>
