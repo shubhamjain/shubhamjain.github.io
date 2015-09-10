@@ -9,7 +9,7 @@
   <meta name="author" content="Shubham Jain">
 
   
-  <meta name="description" content="Recently I completed my first game, Penguin Walk, with help of free art in Javascript and it gave me empirical experience of a known-fact surrounding &hellip;">
+  <meta name="description" content="We&rsquo;re living in an exciting century. The majority of today&rsquo;s success stories trace its existence from few nerds hacking in their garage. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -83,6 +83,62 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/why-the-x-productivity-trick-doesnt-matter/">Why Productivity Tricks Don&#8217;t Matter</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-05-29T21:12:20+05:30" pubdate data-updated="true">May 29<span>th</span>, 2015</time>
+        
+           | <a href="/blog/why-the-x-productivity-trick-doesnt-matter/#disqus_thread"
+             data-disqus-identifier="http://coffeecoder.net/blog/why-the-x-productivity-trick-doesnt-matter/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>We&rsquo;re living in an exciting century. The majority of today&rsquo;s success stories trace its existence from few nerds hacking in their garage. Yet, majority of ambitious hackers, struggle to get going with any of the dozen of ideas that they have thought, most of which end up being un-fiddled in their favorite note-taking apps.</p>
+
+<p>It seems very exciting to draw the plan for your side-project, its features, its technology and of course, how it could be a million-dollar thing but rarer is for someone to get started, and more rarer, to manage more than a few sittings on desk over it, eventually after, the enthusiasm dries up and its time to head back to browsing your favorite sites.</p>
+
+<p>Almost everyone, knowingly or unknowingly, suffers from the same compulsion of doing activities that come under umbrella of &ldquo;wasting time&rdquo; but the scope is a lot different for hackers who don&rsquo;t procrastinate over not doing their assignments, or presentation but shipping something that people <em>might</em> need.</p>
+
+<h2>What is procrastination?</h2>
+
+<p>Wikipedia defines Procrastination as:</p>
+
+<blockquote><p>a practice of carrying out less urgent tasks in preference to more urgent ones, or doing more pleasurable things in place of less pleasurable ones, and thus putting off impending tasks to a later time, sometimes to the &ldquo;last minute&rdquo; before a deadline.</p></blockquote>
+
+<p>The task which can be getting a hair-cut, writing an academic paper, or coding the first version of the application. Paul Graham, in <a href="http://www.paulgraham.com/procrastination.html">one of his</a> essays argues that procrastinating over the first isn&rsquo;t necessarily bad if it serves a better purpose but the most common way people procrastinate is either by endlessly browsing social media sites, watching netflix, playing video games or any similar activity which echoes the sentiment of &ldquo;doing nothing&rdquo;. In short, procrastination is &ldquo;wasting time&rdquo; which could otherwise, be spent in a more productive manner.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/why-the-x-productivity-trick-doesnt-matter/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -280,56 +336,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/using-git-format-patch-to-introduce-temporary-changes/">Using Git for Introducing Temporary Changes</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-18T21:26:32+05:30" pubdate data-updated="true">Aug 18<span>th</span>, 2014</time>
-        
-           | <a href="/blog/using-git-format-patch-to-introduce-temporary-changes/#disqus_thread"
-             data-disqus-identifier="http://coffeecoder.net/blog/using-git-format-patch-to-introduce-temporary-changes/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Lately, on independence day we needed to introduce a small logo change on our website to acknowledge it. The change wasn&rsquo;t meant to last for more than a few days and hence, the problem of introducing a temporary change which shouldn&rsquo;t be a part of the history arose. Out of ignorance, we went through the path of making a commit and later reverting it with <code>git-revert</code>. Recently I found about excellent patching system of git which makes an impressive solution for the problem.</p>
-
-<h2>Patching </h2>
-
-<p>Patching used in git isn&rsquo;t unique. It derives itself from an old <code>patch</code> program written by Larry Wall in 1985. <code>patch</code> program is pretty simple. It takes a diff file as its input and applies those changes to corresponding files. Because of this simplicity, it makes patch files very easy to send. Perhaps, before the advent of github, they were the old man&rsquo;s pull request. Another great thing about patches is that they can painlessly be reversed.</p>
-
-<p>Git&rsquo;s <code>format-patch</code> is an extension of <code>patch</code> and offers two advantages over it. First, it generates an email formatted patch file which is much easier to be sent via <code>mailutils</code>. Secondly, it supports binary diffs which means if you have a binary file which was created in the patch, git&rsquo;s patch file will have record of it and it will be created when patch is applied. The best thing about git&rsquo;s patching system is that it can be applied even if the folder is not a git repository, making it suitable for use over production servers.</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/using-git-format-patch-to-introduce-temporary-changes/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -345,6 +351,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/why-the-x-productivity-trick-doesnt-matter/">Why Productivity Tricks Don&#8217;t Matter</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/creating-side-scroller-game-in-html5/">Creating Side-scroller Game in HTML5 and Javascript</a>
       </li>
     
@@ -358,10 +368,6 @@
     
       <li class="post">
         <a href="/blog/why-should-you-use-tmux/">Why Should You Use Tmux?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/using-git-format-patch-to-introduce-temporary-changes/">Using Git for Introducing Temporary Changes</a>
       </li>
     
   </ul>

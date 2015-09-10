@@ -9,7 +9,7 @@
   <meta name="author" content="Shubham Jain">
 
   
-  <meta name="description" content="There are lots of things to get excited about HTML5 and the one which caught my curiosity was HTML5 Audio / Video API. I was overwhelmed with ideas &hellip;">
+  <meta name="description" content="Lately, on independence day we needed to introduce a small logo change on our website to acknowledge it. The change wasn&rsquo;t meant to last for &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -83,6 +83,56 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/using-git-format-patch-to-introduce-temporary-changes/">Using Git for Introducing Temporary Changes</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-18T21:26:32+05:30" pubdate data-updated="true">Aug 18<span>th</span>, 2014</time>
+        
+           | <a href="/blog/using-git-format-patch-to-introduce-temporary-changes/#disqus_thread"
+             data-disqus-identifier="http://coffeecoder.net/blog/using-git-format-patch-to-introduce-temporary-changes/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Lately, on independence day we needed to introduce a small logo change on our website to acknowledge it. The change wasn&rsquo;t meant to last for more than a few days and hence, the problem of introducing a temporary change which shouldn&rsquo;t be a part of the history arose. Out of ignorance, we went through the path of making a commit and later reverting it with <code>git-revert</code>. Recently I found about excellent patching system of git which makes an impressive solution for the problem.</p>
+
+<h2>Patching </h2>
+
+<p>Patching used in git isn&rsquo;t unique. It derives itself from an old <code>patch</code> program written by Larry Wall in 1985. <code>patch</code> program is pretty simple. It takes a diff file as its input and applies those changes to corresponding files. Because of this simplicity, it makes patch files very easy to send. Perhaps, before the advent of github, they were the old man&rsquo;s pull request. Another great thing about patches is that they can painlessly be reversed.</p>
+
+<p>Git&rsquo;s <code>format-patch</code> is an extension of <code>patch</code> and offers two advantages over it. First, it generates an email formatted patch file which is much easier to be sent via <code>mailutils</code>. Secondly, it supports binary diffs which means if you have a binary file which was created in the patch, git&rsquo;s patch file will have record of it and it will be created when patch is applied. The best thing about git&rsquo;s patching system is that it can be applied even if the folder is not a git repository, making it suitable for use over production servers.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/using-git-format-patch-to-introduce-temporary-changes/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -320,54 +370,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/reading-mp3-id3-tags-in-native-php/">Reading MP3 ID3 Tags in Native PHP</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-16T17:41:05+05:30" pubdate data-updated="true">Jul 16<span>th</span>, 2013</time>
-        
-           | <a href="/blog/reading-mp3-id3-tags-in-native-php/#disqus_thread"
-             data-disqus-identifier="http://coffeecoder.net/blog/reading-mp3-id3-tags-in-native-php/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>This week I went crazy about file formats. I tried to understand specifications of many popular formats like MP3, FLV, PDF. Its amazing to see that no matter how complex these technologies are or the algorithms they use to store media efficiently, at the lower level it is just a clever arrangement of bits that makes sense and with a bit of experimentation and hacking around MP3 format (a Hex Editor is a invaluable tool in this), I was able to read them in PHP without using any extension. The source has been put on <a href="https://github.com/shubhamjain/PHP-ID3">GitHub</a>.</p>
-
-<h2>Binary File Reader</h2>
-
-<p>The native method for reading a binary file  is unpack(). The problem with it was that it can’t handle variable length chunks, and I found it tough to understand the format of packing codes. Unluckily, I realized it quite late (damn!), that I can create the reader more efficiently by using unpack() function. (<a href="https://gist.github.com/shubhamjain/5964350">Gist</a>)</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/reading-mp3-id3-tags-in-native-php/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -385,6 +387,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/why-the-x-productivity-trick-doesnt-matter/">Why Productivity Tricks Don&#8217;t Matter</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/creating-side-scroller-game-in-html5/">Creating Side-scroller Game in HTML5 and Javascript</a>
       </li>
     
@@ -398,10 +404,6 @@
     
       <li class="post">
         <a href="/blog/why-should-you-use-tmux/">Why Should You Use Tmux?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/using-git-format-patch-to-introduce-temporary-changes/">Using Git for Introducing Temporary Changes</a>
       </li>
     
   </ul>

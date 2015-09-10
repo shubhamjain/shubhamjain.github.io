@@ -9,7 +9,7 @@
   <meta name="author" content="Shubham Jain">
 
   
-  <meta name="description" content="Back in the days, I used to be the crazy money minded programmer writing kLOCs of crap with no code quality concern, for projects I often found on &hellip;">
+  <meta name="description" content="This week I went crazy about file formats. I tried to understand specifications of many popular formats like MP3, FLV, PDF. Its amazing to see that &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -89,6 +89,54 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/reading-mp3-id3-tags-in-native-php/">Reading MP3 ID3 Tags in Native PHP</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-16T17:41:05+05:30" pubdate data-updated="true">Jul 16<span>th</span>, 2013</time>
+        
+           | <a href="/blog/reading-mp3-id3-tags-in-native-php/#disqus_thread"
+             data-disqus-identifier="http://coffeecoder.net/blog/reading-mp3-id3-tags-in-native-php/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This week I went crazy about file formats. I tried to understand specifications of many popular formats like MP3, FLV, PDF. Its amazing to see that no matter how complex these technologies are or the algorithms they use to store media efficiently, at the lower level it is just a clever arrangement of bits that makes sense and with a bit of experimentation and hacking around MP3 format (a Hex Editor is a invaluable tool in this), I was able to read them in PHP without using any extension. The source has been put on <a href="https://github.com/shubhamjain/PHP-ID3">GitHub</a>.</p>
+
+<h2>Binary File Reader</h2>
+
+<p>The native method for reading a binary file  is unpack(). The problem with it was that it can’t handle variable length chunks, and I found it tough to understand the format of packing codes. Unluckily, I realized it quite late (damn!), that I can create the reader more efficiently by using unpack() function. (<a href="https://gist.github.com/shubhamjain/5964350">Gist</a>)</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/reading-mp3-id3-tags-in-native-php/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/why-you-should-never-freelance/">Why You Should Never Freelance on Freelancing Sites.</a></h1>
     
     
@@ -143,6 +191,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/why-the-x-productivity-trick-doesnt-matter/">Why Productivity Tricks Don&#8217;t Matter</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/creating-side-scroller-game-in-html5/">Creating Side-scroller Game in HTML5 and Javascript</a>
       </li>
     
@@ -156,10 +208,6 @@
     
       <li class="post">
         <a href="/blog/why-should-you-use-tmux/">Why Should You Use Tmux?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/using-git-format-patch-to-introduce-temporary-changes/">Using Git for Introducing Temporary Changes</a>
       </li>
     
   </ul>

@@ -4,7 +4,7 @@
   <title><![CDATA[Coffee Coder]]></title>
   <link href="http://coffeecoder.net/atom.xml" rel="self"/>
   <link href="http://coffeecoder.net/"/>
-  <updated>2015-04-22T23:41:45+05:30</updated>
+  <updated>2015-06-28T22:28:06+05:30</updated>
   <id>http://coffeecoder.net/</id>
   <author>
     <name><![CDATA[Shubham Jain]]></name>
@@ -12,6 +12,71 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Why Productivity Tricks Don't Matter]]></title>
+    <link href="http://coffeecoder.net/blog/why-the-x-productivity-trick-doesnt-matter/"/>
+    <updated>2015-05-29T21:12:20+05:30</updated>
+    <id>http://coffeecoder.net/blog/why-the-x-productivity-trick-doesnt-matter</id>
+    <content type="html"><![CDATA[<p>We&rsquo;re living in an exciting century. The majority of today&rsquo;s success stories trace its existence from few nerds hacking in their garage. Yet, majority of ambitious hackers, struggle to get going with any of the dozen of ideas that they have thought, most of which end up being un-fiddled in their favorite note-taking apps.</p>
+
+<p>It seems very exciting to draw the plan for your side-project, its features, its technology and of course, how it could be a million-dollar thing but rarer is for someone to get started, and more rarer, to manage more than a few sittings on desk over it, eventually after, the enthusiasm dries up and its time to head back to browsing your favorite sites.</p>
+
+<p>Almost everyone, knowingly or unknowingly, suffers from the same compulsion of doing activities that come under umbrella of &ldquo;wasting time&rdquo; but the scope is a lot different for hackers who don&rsquo;t procrastinate over not doing their assignments, or presentation but shipping something that people <em>might</em> need.</p>
+
+<h2>What is procrastination?</h2>
+
+<p>Wikipedia defines Procrastination as:</p>
+
+<blockquote><p>a practice of carrying out less urgent tasks in preference to more urgent ones, or doing more pleasurable things in place of less pleasurable ones, and thus putting off impending tasks to a later time, sometimes to the &ldquo;last minute&rdquo; before a deadline.</p></blockquote>
+
+<p>The task which can be getting a hair-cut, writing an academic paper, or coding the first version of the application. Paul Graham, in <a href="http://www.paulgraham.com/procrastination.html">one of his</a> essays argues that procrastinating over the first isn&rsquo;t necessarily bad if it serves a better purpose but the most common way people procrastinate is either by endlessly browsing social media sites, watching netflix, playing video games or any similar activity which echoes the sentiment of &ldquo;doing nothing&rdquo;. In short, procrastination is &ldquo;wasting time&rdquo; which could otherwise, be spent in a more productive manner.</p>
+
+<!-- more -->
+
+
+<h2>Productivity Tricks</h2>
+
+<p> Numerous tricks and processes have been conceived to help people battle procrastination, like, Jerry Seinfield&rsquo;s <a href="http://www.writersstore.com/dont-break-the-chain-jerry-seinfeld">Don&rsquo;t Break The Chain</a>, <a href="http://www.lifehack.org/articles/productivity/the-pomodoro-technique-is-it-right-for-you.html">Pomodoro Technique</a> and Cal Newport&rsquo;s <a href="http://calnewport.com/blog/2013/12/21/deep-habits-the-importance-of-planning-every-minute-of-your-work-day/">Planning every minute</a>. Being a chronic procrastinator, I tried each one. For a few days, I was pushing myself to get tasks done, eventually falling into the same pattern and gradually, snubbing the whole process. It is quite obvious that, procrastination is not just a simple problem with coherent solutions.</p>
+
+<p> The most common prognosis of procrastination, &ldquo;lack of discipline&rdquo;, is what most productivity tricks aim to tackle. They act as psychological signifiers, that you need to get something done today. When you start incorporating, Don&rsquo;t Break The Chain, in truest sense, the objective of the &ldquo;red X marks&rdquo; is to remind you everyday that you need to get something done before the day runs its course.</p>
+
+<p> Ever remember those assignments which you couldn&rsquo;t focus on no matter how hard you tried? &ldquo;Soul crushing tasks&rdquo; are a perfect recipe for &ldquo;breaking your chain&rdquo; and getting de-motivated which is why I feel, these processes skip over two more important aspects of staying productive &ndash; choosing the task and staying motivated.</p>
+
+<p>It doesn&rsquo;t matter weather you use an hourglass, a calendar or a minute-to-minute breakdown of your task to get things done. In my opinion, you can be productive, if you incorporate three habits in your daily lifestyle.</p>
+
+<h2>Discipline, Choice and Motivation</h2>
+
+<h3>Discipline</h3>
+
+<blockquote><p>A zero day is when you don&rsquo;t do a single fucking thing towards whatever dream or goal or want or whatever that you got going on. No more zeros. I&rsquo;m not saying you gotta bust an essay out everyday, that&rsquo;s not the point. The point I&rsquo;m trying to make is that you have to make yourself, promise yourself, that the new SYSTEM you live in is a NON-ZERO system. Didnt&#8217; (sic) do anything all fucking day and it&rsquo;s 11:58 PM? Write one sentence. One pushup. Read one page of that chapter. One. Because one is non zero.
+&mdash; <a href="https://www.reddit.com/r/getdisciplined/comments/1q96b5/i_just_dont_care_about_myself/cdah4af">No Zero days</a> by <a href="https://www.reddit.com/user/ryans01">/u/ryans01</a></p></blockquote>
+
+<p>Taking the first step matters because only the first step can encourage you to take another. &ldquo;I don&rsquo;t feel like doing anything&rdquo; &ndash; is the most common excuse for people to procrastinate because getting started is the hardest thing people battle with everyday. It hard to open your text editor to crank new lines of code or open the draft of unfinished post to write more because it is (seemingly) too much work but as it happens, contrary to former feeling, there is a joy in getting started and finally start doing something.</p>
+
+<p>I used to be daunted by people&rsquo;s commitment to write thousand words, committing code, everyday but looking closely, it seems after a certain point, the commitment is no more a discipline but a habit. The way people can help themselves is to stop looking for motivation to get started, instead, get started to gain motivation. Discipline matters! because it gets you started.</p>
+
+<h3>Choice</h3>
+
+<p>Can you force yourself to do something that you don&rsquo;t like? Probably, but in the longer run, it is a recipe for a burnout. All evidence suggests that people rarely succeed at things that they don&rsquo;t enjoy. One of the worst mistakes I made, was to force myself to do boring tasks which were hard to not to procrastinate over. All ideas seem exiting at first but many of them start to sound frivolous / impossible later, even to ourselves. At this stage, shipping the thing becomes impossible and you are back to square one.</p>
+
+<p>So what should one work on?</p>
+
+<ul>
+<li><p>Something that isn&rsquo;t immense &ndash; Doing something challenging is one thing, trying something impossible is another. Attempting to build something immense, probably would land in stage where the idea of building itself would start sounding stupid which, quite surely, discourage you to continue. There is a reason why people say &ndash;  Ship and then iterate. If you ship X, people will tell that they need Y but if you ship W-X-Z there is good chance people don&rsquo;t find much use for W-Z but still miss Y.</p></li>
+<li><p>Something that is exciting &ndash; It doesn&rsquo;t matter if it is a screensaver, a simple photographic effect or an elementary game, if you get excited about something, start building it. Rule of thumb &ndash; If you started building it without any rewards in mind, your work won&rsquo;t end up in vain; something which has been accurately described in  <a href="https://www.physics.ohio-state.edu/~kilcup/262/feynman.html">an excerpt</a> from <em>Surely you&rsquo;re joking, Mr. Feynman</em>.</p></li>
+</ul>
+
+
+<h3>Motivation</h3>
+
+<p>Staying motivated is the key to get more done and having finishing something, the best way is to show it to the world. Don&rsquo;t bother if it is stupid, frivolous, invaluable, embarrassing or tiny.  Show it to the world, get feedback, see how people take it. Response won&rsquo;t always be encouraging but showing makes you more confident about your work and who knows that what you did might be exceptionally well-received by people?</p>
+
+<p>Another way to stay motivated while you are in progress is to gamify it. Are you writing something? Plot the words you write daily and see how you are progressing. Github streak is also a great example of this where are you can see how active you are on your code contributions.</p>
+
+<p>In short, you maintain your motivated-self by taking pride in your work and showing it to the world. Frankly, it won&rsquo;t be encouraging always but maintaining a habit of always-be-shipping ought to give you some results &ndash; some of which that will be really amazing.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Creating Side-scroller Game in HTML5 and Javascript]]></title>
