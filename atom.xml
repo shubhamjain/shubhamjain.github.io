@@ -4,7 +4,7 @@
   <title><![CDATA[Coffee Coder]]></title>
   <link href="http://coffeecoder.net/atom.xml" rel="self"/>
   <link href="http://coffeecoder.net/"/>
-  <updated>2015-01-22T05:16:43+05:30</updated>
+  <updated>2015-01-22T05:30:05+05:30</updated>
   <id>http://coffeecoder.net/</id>
   <author>
     <name><![CDATA[Shubham Jain]]></name>
@@ -18,14 +18,14 @@
     <link href="http://coffeecoder.net/blog/Hackers-are-the-real-10x-engineers/"/>
     <updated>2015-01-19T23:15:05+05:30</updated>
     <id>http://coffeecoder.net/blog/Hackers-are-the-real-10x-engineers</id>
-    <content type="html"><![CDATA[<p>The notion of 10x programmer was first mentioned by John Brooks (of, <a href="http://en.wikipedia.org/wiki/Brooks%27s_law">Brook&rsquo;s law</a> fame) in his essay <a href="http://en.wikipedia.org/wiki/No_Silver_Bullet">No Silver Bullet</a>, according to which, &lsquo;there is as much as a tenfold difference between an ordinary designer (programmer) and a great one&rsquo;. The idea was been widely debated, sometimes refuted and many times defended which is quite unsurprising for it is impossible to accurately measure a programmer&rsquo;s productivity.</p>
+    <content type="html"><![CDATA[<p>The notion of 10x programmer was first mentioned by John Brooks (of, <a href="http://en.wikipedia.org/wiki/Brooks%27s_law">Brook&rsquo;s law</a> fame) in his essay <a href="http://en.wikipedia.org/wiki/No_Silver_Bullet">No Silver Bullet</a>, according to which, &lsquo;there is as much as a tenfold difference between an ordinary designer (programmer) and a great one&rsquo;. The idea has been widely debated, sometimes refuted and many times defended which is unsurprising for it is impossible to accurately measure a programmer&rsquo;s productivity.</p>
 
 <p>Sadly, the idea of 10x coder is usually visualized as a screen glued junkie, moving fingers over keyboard without a break. While the picture may be popular for sci-fi films, it is hardly close to reality.</p>
 
 <!-- more -->
 
 
-<p>At my previous company we needed a system to integrate a CRUD system for rich text posts in the existing website which means a lot of creating lots of forms and a long laborious coding process;  sucky job in short. We already had a WordPress blog, so I suggested that we could instead use WordPress itself with a plugin to output posts in JSON format and custom tag to identify where the posts are to be shown. It took merely two days to complete the whole task.</p>
+<p>At my previous company we needed a system to integrate a CRUD system for rich text posts in the existing website which means a lot of creating lots of forms and a long laborious coding process; a sucky job in short. We already had a WordPress blog, so I suggested that we could instead use WordPress itself with a plugin to output posts in JSON format and custom tag to identify where the posts are to be shown. It took merely two days to complete the whole task.</p>
 
 <p>I won&rsquo;t claim it was an exceptionally good idea but it saved the company more than a week of time. I am not claiming myself to be the 10x guy but I believe ideas are what defines him.</p>
 
