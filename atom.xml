@@ -4,7 +4,7 @@
   <title><![CDATA[Coffee Coder]]></title>
   <link href="http://coffeecoder.net/atom.xml" rel="self"/>
   <link href="http://coffeecoder.net/"/>
-  <updated>2015-04-19T15:28:20+05:30</updated>
+  <updated>2015-04-22T23:41:45+05:30</updated>
   <id>http://coffeecoder.net/</id>
   <author>
     <name><![CDATA[Shubham Jain]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Creating Side-scroller Game in HTML5 and Javascript]]></title>
     <link href="http://coffeecoder.net/blog/creating-side-scroller-game-in-html5/"/>
-    <updated>2015-01-30T23:44:45+05:30</updated>
+    <updated>2015-04-20T23:44:45+05:30</updated>
     <id>http://coffeecoder.net/blog/creating-side-scroller-game-in-html5</id>
     <content type="html"><![CDATA[<p>Recently I completed my first game, <a href="http://coffeecoder.net/penguin-walk">Penguin Walk</a>, with help of free art in Javascript and it gave me empirical experience of a known-fact surrounding game development &ndash; &ldquo;The hardest thing about developing a game is finishing it.&rdquo;</p>
 
