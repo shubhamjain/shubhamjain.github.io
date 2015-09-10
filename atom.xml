@@ -4,7 +4,7 @@
   <title><![CDATA[Coffee Coder]]></title>
   <link href="http://coffeecoder.net/atom.xml" rel="self"/>
   <link href="http://coffeecoder.net/"/>
-  <updated>2015-06-29T23:34:44+05:30</updated>
+  <updated>2015-07-20T20:44:27+05:30</updated>
   <id>http://coffeecoder.net/</id>
   <author>
     <name><![CDATA[Shubham Jain]]></name>
@@ -12,6 +12,34 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Blog Little Things]]></title>
+    <link href="http://coffeecoder.net/blog/blog-little-things/"/>
+    <updated>2015-07-20T14:57:25+05:30</updated>
+    <id>http://coffeecoder.net/blog/blog-little-things</id>
+    <content type="html"><![CDATA[<p>John Carmack once speculated that StackOverflow might have added billions in productivity.</p>
+
+<blockquote class="twitter-tweet" lang="en"><p lang="en" dir="ltr"><a href="https://twitter.com/chx">@chx</a> <a href="https://twitter.com/jzy">@jzy</a> <a href="https://twitter.com/StackExchange">@StackExchange</a> <a href="https://twitter.com/codinghorror">@codinghorror</a> SO has probably added billions of dollars of value to the world in increased programmer productivity.</p>&mdash; John Carmack (@ID_AA_Carmack) <a href="https://twitter.com/ID_AA_Carmack/status/380018564792455168">September 17, 2013</a></blockquote>
+
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+<p>Quite rightly so. Imagine, the no of people that didn&rsquo;t have to go through (maybe lousy) documentation, and long threads to seek solution for their problems. <abbr title="Read The Fucking Manual">RTFM</abbr>, many of programmers would be quick to point out but even the simplest questions, like, &ldquo;<em>How to read a whole file in python?</em>&rdquo;, &ldquo;<em>How to kill a process with its name?</em>&rdquo; must have saved thousands of programmers&#8217; time. Thanks to rookies who didn&rsquo;t feel embarrassed in asking them, that even experienced programmers can enjoy fruits of their answers.</p>
+
+<!-- more -->
+
+
+<p>Talking of embarrassment, I want to talk about the kinky feeling that many of us might have felt, when they had something to write about. There are many challenges we face in our day-job but things that go into write-ups are so feeble. The reason? If you are like me, that is because, we have a high regard of something that we should write about &ndash; has to be significant, and detailed. Additionally, reading posts of other programmers, amplifies the fear of posting something of little value. Small problems? Who cares? Everyone &ldquo;must be able&rdquo; to solve them eventually, completely disregarding how those &ldquo;insignificant&rdquo; write-ups were the ones that aided them in doing so.</p>
+
+<p>I am quite impressed by <a href="http://davidwalsh.name/">David Walsh</a>&rsquo;s blog in this regard. Although, David is an amazing programmer who writes awesome posts, he doesn&rsquo;t go through such a detailed thought process when he has to write something. He often writes nifty tricks and How-To posts that have helped me countless no of times and yet, there are still very few blogs that might be doing the same thing.</p>
+
+<p>There are lots of things that can be blogged about and yet, we are stuck in the dilemma of, &ndash; &ldquo;Is it worth something to write?&rdquo;. The fear of being insignificant aka &ldquo;Nobody will read it&rdquo; syndrome, inhibits us from writing that simple  thing that might have helped many people.</p>
+
+<p>Although, it is something, that even I am trying to motivate myself to do but don&rsquo;t fear to <strong>blog little things</strong>. It doesn&rsquo;t need to be big, significant, detailed, mind-blowing to come out but just of a little value. It is helpful to think just of one person who had the exact same problem as yours and was helped by your post. Maybe the post won&rsquo;t get thousands of shares as we see in our reading list but hey, it saved someone&rsquo;s time :).</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Why Productivity Tricks Don't Matter]]></title>
