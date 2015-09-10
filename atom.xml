@@ -4,7 +4,7 @@
   <title><![CDATA[Coffee Coder]]></title>
   <link href="http://coffeecoder.net/atom.xml" rel="self"/>
   <link href="http://coffeecoder.net/"/>
-  <updated>2015-01-22T05:30:05+05:30</updated>
+  <updated>2015-01-22T19:22:50+05:30</updated>
   <id>http://coffeecoder.net/</id>
   <author>
     <name><![CDATA[Shubham Jain]]></name>
@@ -75,6 +75,9 @@
 
 <p><code>20 + "10Hello World" = 30</code></p>
 
+<!-- more -->
+
+
 <p>Although, I can guess this behavior was added, because string concatenation was already being done with (dot) operator but an ill conceived functionality, as such, can serve a major blow to programmers in trying to figure out why something doesn&rsquo;t work. Take an example of <code>in_array</code> and type juggling. Suppose, you are checking presence of a string in mixed array. To your surprise, you would find that the following spills out true, because when comparing &ldquo;Hello&rdquo; with 0, the former is casted to integer zero.</p>
 
 <figure class='code'><figcaption><span>Type Juggling and in_array </span></figcaption>
@@ -123,6 +126,9 @@
 <h2>What is tmux?</h2>
 
 <p><strong>tmux</strong> or terminal multiplexer is a simpler version of GNU screen, both of which are tools to split, combine and create terminal windows. Yes, that is indeed similar to what <strong>terminator</strong> does but guess what, you can&rsquo;t run terminator on SSH, can you? but that is not the selling point here. tmux is command line based tool which is very easy to use and in fact for any beginner, a <a href="http://danielmiessler.com/study/tmux/">little primer</a> should be enough to start using it to its full extent.</p>
+
+<!-- more -->
+
 
 <h2>Why should one use tmux?</h2>
 
@@ -266,7 +272,14 @@
 <p>So why do I think desktop apps still make sense?</p>
 
 <ul>
-<li><p><strong>Passiveness of income</strong>: While it may be true, web apps fare great when it comes to potential revenue, cross-platform comparability, and reach, it is indispensable to avoid working actively on it. Have you ever heard of someone who was pulling off revenue his age old SaSS app without putting in any work? On the other side, I still get sales from one of my stupid script that I made a long time ago and never even marketed. May be a generalized scenario; it might be possible someone earns a passive income from his web app without adding anything but it is hard to think that the developer can avoid tasks like marketing, server monitoring, dealing with quirky consumer issues, or scaling.</p></li>
+<li><strong>Passiveness of income</strong>: While it may be true, web apps fare great when it comes to potential revenue, cross-platform comparability, and reach, it is indispensable to avoid working actively on it. Have you ever heard of someone who was pulling off revenue his age old SaSS app without putting in any work? On the other side, I still get sales from one of my stupid script that I made a long time ago and never even marketed. May be a generalized scenario; it might be possible someone earns a passive income from his web app without adding anything but it is hard to think that the developer can avoid tasks like marketing, server monitoring, dealing with quirky consumer issues, or scaling.</li>
+</ul>
+
+
+<!-- more -->
+
+
+<ul>
 <li><p><strong>Less overhead in selling</strong>: Selling a web app means, integrating it with an API to accept payments, offer a X days trial, send emails reminding trial period is ending and charge card on recurring basis. By any chance, if you happened to use paypal and their API be prepared to pull your hair off in doing this. In contrast, selling desktop apps is much easier with many services available for selling downloads &ndash; gumroad, softpedia, CNET.</p></li>
 <li><p><strong>Lesser obligations to deal with issues</strong>: With a web app, you are expected immediately to address any issue that pops up and with many peculiarities of CSS and HTML, it is reasonable to expect that in &ldquo;some browser&rdquo; on &ldquo;some device&rdquo;, the text is overflowing outside the container. If you are dealing with a desktop app, you have plenty of time till the next release is due (except for security issues, of course).</p></li>
 </ul>
