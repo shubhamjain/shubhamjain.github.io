@@ -4,7 +4,7 @@
   <title><![CDATA[Coffee Coder]]></title>
   <link href="http://coffeecoder.net/atom.xml" rel="self"/>
   <link href="http://coffeecoder.net/"/>
-  <updated>2014-11-13T23:41:12+05:30</updated>
+  <updated>2015-01-22T05:16:43+05:30</updated>
   <id>http://coffeecoder.net/</id>
   <author>
     <name><![CDATA[Shubham Jain]]></name>
@@ -12,6 +12,55 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Hackers Are the Real 10x Engineers.]]></title>
+    <link href="http://coffeecoder.net/blog/Hackers-are-the-real-10x-engineers/"/>
+    <updated>2015-01-19T23:15:05+05:30</updated>
+    <id>http://coffeecoder.net/blog/Hackers-are-the-real-10x-engineers</id>
+    <content type="html"><![CDATA[<p>The notion of 10x programmer was first mentioned by John Brooks (of, <a href="http://en.wikipedia.org/wiki/Brooks%27s_law">Brook&rsquo;s law</a> fame) in his essay <a href="http://en.wikipedia.org/wiki/No_Silver_Bullet">No Silver Bullet</a>, according to which, &lsquo;there is as much as a tenfold difference between an ordinary designer (programmer) and a great one&rsquo;. The idea was been widely debated, sometimes refuted and many times defended which is quite unsurprising for it is impossible to accurately measure a programmer&rsquo;s productivity.</p>
+
+<p>Sadly, the idea of 10x coder is usually visualized as a screen glued junkie, moving fingers over keyboard without a break. While the picture may be popular for sci-fi films, it is hardly close to reality.</p>
+
+<!-- more -->
+
+
+<p>At my previous company we needed a system to integrate a CRUD system for rich text posts in the existing website which means a lot of creating lots of forms and a long laborious coding process;  sucky job in short. We already had a WordPress blog, so I suggested that we could instead use WordPress itself with a plugin to output posts in JSON format and custom tag to identify where the posts are to be shown. It took merely two days to complete the whole task.</p>
+
+<p>I won&rsquo;t claim it was an exceptionally good idea but it saved the company more than a week of time. I am not claiming myself to be the 10x guy but I believe ideas are what defines him.</p>
+
+<h2>Conceiving the idea</h2>
+
+<p>On a cognitive level it is nearly impossible to describe how did a complex interaction of billions of neurons, could result in something like an &lsquo;idea&rsquo;. Let&rsquo;s try a more simpler abstraction.</p>
+
+<ul>
+<li>I thought that WordPress already has process to achieve all we want, we just need a way to integrate it into the website.</li>
+<li>I realized because WordPress has a plugin for everything, it must have a plugin for JSON API too.</li>
+<li>I linked 1 and 2.</li>
+</ul>
+
+
+<p>An abstraction accurately described by, popular sci-fi author, Issac Asimov, in his article, &ldquo;<a href="http://www.technologyreview.com/view/531911/isaac-asimov-asks-how-do-people-get-new-ideas/">How do people get new ideas?</a>&rdquo;, in 1959.</p>
+
+<h2>The Good Programmers</h2>
+
+<p><img class="center" src="http://coffeecoder.net/images/efficiency.png"></p>
+
+<p>&ldquo;Good programmers dig Haskell on the weekend, know dozens of languages and are fan of trying hands on every new technology&rdquo;. At least that seems to be the well-conceived notion of a good programmer &ndash;  heavy insistence digging horizontally. I don&rsquo;t discourage such enthusiasm and neither I claim it to be counter-productive but I believe it gives a false impressions about your progress (that you are very good). Obviously, you are only finding multiple ways to reach the same goal.</p>
+
+<h2>The 10x Programmers</h2>
+
+<p>So who are these 10x developers? I believe they are the ones who have better ideas when finding solutions and how do they get these ideas? for me, by doing different things, reading what other people wrote, digging deep into stuff, and most importantly having an urge to constantly challenging one&rsquo;s current skill-set.</p>
+
+<p>Good ideas come by bashing different things and molding them in unordinary ways. Finding such ways, requires much more than just knowing latest fad, it requires lots of &lsquo;hacking&rsquo;. As Edward Weismann observes in his free ebook, <a href="http://static.v25media.com/edw519_mod.html">The Best of edw519</a>, &ldquo;<u>the more I meet &lsquo;famous&rsquo; hackers and the more I meet people from this community (online and offline), the more I realize that there&rsquo;s not really all that much that separates us</u>.&rdquo;, brilliance spurs out of challenging endeavors.</p>
+
+<p>The 10x engineers aren&rsquo;t inherently born but are the ones who enjoy the &lsquo;hacking&rsquo; the most. Understand the bitcoin protocol or Javascript prototyping, or automating a laborious process excites them and more they hack, more they do different stuff, more seeds are sown for the new and better ideas.</p>
+
+<p>But why are they so rare? The simple reason is not many people are interested in doing things beyond their scope. Lots of people want to make games, but how many actually start making one? and more importantly, how many actually finish it? Quite less, I believe. I am not implying lack of brilliance but inapt determination may hinder one&rsquo;s path towards moving up the ladder, as it is with case for most of the people.</p>
+
+<p>So if you love tinkering around things, and have a discipline to always go beyond what you already know, I believe you are a 10x developer.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[My Perfect Reason to Avoid PHP: Type Juggling]]></title>
