@@ -4,7 +4,7 @@
   <title><![CDATA[Coffee Coder]]></title>
   <link href="http://coffeecoder.net/atom.xml" rel="self"/>
   <link href="http://coffeecoder.net/"/>
-  <updated>2015-09-10T23:07:08+05:30</updated>
+  <updated>2015-09-11T01:32:51+05:30</updated>
   <id>http://coffeecoder.net/</id>
   <author>
     <name><![CDATA[Shubham Jain]]></name>
@@ -29,6 +29,9 @@
 <p>Now, we started facing a problem in which the PHP-FPM process just get hung and won&rsquo;t process any other request for a long time. It would do load after a while, having the same problem when navigating to another page. &ldquo;Annoying&rdquo; would be an understatement to describe how expasperating this problem was.</p>
 
 <p>The only solution was to run <code>sudo service php5-fpm restart</code> inside the VM everytime it happened (resulting in <code>503 Bad Gateway</code>) and refresh the page again. Certainly, not a worthwhile solution but short of solutions, we aliased the command to have a quick fix.</p>
+
+<!-- more -->
+
 
 <p>Since the bug was not reproducible in production environment, our first suspect was vagrant or the local configuration of FPM. I tried, without success, to tweak some buffers and other settings of FPM and nginx but the problem was still persistent.</p>
 

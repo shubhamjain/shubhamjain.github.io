@@ -124,6 +124,9 @@
 
 <p>The only solution was to run <code>sudo service php5-fpm restart</code> inside the VM everytime it happened (resulting in <code>503 Bad Gateway</code>) and refresh the page again. Certainly, not a worthwhile solution but short of solutions, we aliased the command to have a quick fix.</p>
 
+<!-- more -->
+
+
 <p>Since the bug was not reproducible in production environment, our first suspect was vagrant or the local configuration of FPM. I tried, without success, to tweak some buffers and other settings of FPM and nginx but the problem was still persistent.</p>
 
 <h2>strace to the rescue</h2>
