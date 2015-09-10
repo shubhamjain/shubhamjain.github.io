@@ -4,7 +4,7 @@
   <title><![CDATA[Coffee Coder]]></title>
   <link href="http://coffeecoder.net/atom.xml" rel="self"/>
   <link href="http://coffeecoder.net/"/>
-  <updated>2015-04-14T23:25:42+05:30</updated>
+  <updated>2015-04-19T15:28:20+05:30</updated>
   <id>http://coffeecoder.net/</id>
   <author>
     <name><![CDATA[Shubham Jain]]></name>
@@ -18,17 +18,21 @@
     <link href="http://coffeecoder.net/blog/creating-side-scroller-game-in-html5/"/>
     <updated>2015-01-30T23:44:45+05:30</updated>
     <id>http://coffeecoder.net/blog/creating-side-scroller-game-in-html5</id>
-    <content type="html"><![CDATA[<p>Recently I completed my first game, <a href="http://coffeecoder.net/penguin-walk">Penguin Walk</a>, with help of free art in Javascript and it gave me empirical experience of a known-fact surrounding game development &ndash; &ldquo;The hardest thing about developing a game is finishing it.&rdquo; Although, the game is dead simple and code runs in only few hundreds of lines, it took a lot of effort to finish it. The reason? I believe the hard thing related to game development, is that you are attempting to build something complex out of very simple elements (pixels). The same reason why building a programming language is hard &ndash; you are trying to ensure that a stream of characters obeys formal grammatical rules and convert them into something that can execute. In this post, I will describe how I created my side-scroller game.</p>
+    <content type="html"><![CDATA[<p>Recently I completed my first game, <a href="http://coffeecoder.net/penguin-walk">Penguin Walk</a>, with help of free art in Javascript and it gave me empirical experience of a known-fact surrounding game development &ndash; &ldquo;The hardest thing about developing a game is finishing it.&rdquo;</p>
+
+<p>Although, the game is dead simple and code runs in only few hundreds of lines, it took a lot of effort to finish it. The reason? I believe the hard thing related to game development, is that you are attempting to build something complex out of very simple elements (pixels). The same reason why building a programming language is hard &ndash; you are trying to ensure that a stream of characters obeys formal grammatical rules and convert them into something that can execute. In this post, I will describe how I created my side-scroller game.</p>
 
 <h2>Is Game Programming hard?</h2>
 
-<p>Think about it. What does it take to project a bird from a slingshot, show it flying in projectile motion, hitting a set of object which are then animated to move accurately, in accordance to laws of physics? Well, a lot. You can only tell computer what to paint on the screen, rest of all the higher level abstractions, you build on your own. Although, using a library might help a lot; after all, who can be expected to complete an desktop application if he must program all controls on his own but if you compare the two, there are two complications that arise in game development &ndash;</p>
+<p>Think about it. What does it take to project a bird from a slingshot, show it flying in projectile motion, hitting a set of object which are then animated to move accurately, in accordance to laws of physics? Well, a lot. You can only tell computer what to paint on the screen, rest of all the higher level abstractions, you build on your own.</p>
+
+<p>Although, using a library might help a lot; after all, who can be expected to complete a desktop application if he has to program all controls on his own but if you compare the two, there are two complications that arise in game development &ndash;</p>
 
 <!-- more -->
 
 
 <ul>
-<li>It is impossible to define a generic component that can work everywhere. At best, you can be given some abstractions &ndash; sprites, and animations to help you make them on your own.</li>
+<li>It is impossible to define a generic component that can work everywhere. At best, you can have some abstractions &ndash; sprites, and animations to help you make them on your own.</li>
 <li>The interaction between objects in a game are far more complicated than in normal applications.</li>
 </ul>
 
@@ -37,7 +41,9 @@
 
 <h2>Getting the art</h2>
 
-<p>&ldquo;Only! only if I could do art, I would start shipping games.&rdquo; &mdash; A recurring thought that must have went through many programmers&#8217; head and to some extent it might be true. Getting art done, isn&rsquo;t a piece of cake but guess what, you need not to. Plenty of free and non-free resources are available to help you get started. Certainly, it might not give you the highly polished look you fancy but if you get a decent prototype, it is easy to gather professional help to take a step further. So don&rsquo;t whine about your non-artistic background, start working with available art and focus on the gameplay. I used free art from <a href="http://hasgraphics.com/">HasGraphics</a> and <a href="http://opengameart.org/">OpenGameArt</a> and free sounds effects from <a href="http://soundbible.com/">Soundbible</a>.</p>
+<p>&ldquo;Only! only if I could do art, I would start shipping games.&rdquo; &mdash; A recurring thought that must have went through many programmers&#8217; head and to some extent it might be true. Getting art done, isn&rsquo;t a piece of cake but guess what, you need not to. Plenty of free and non-free resources are available to help you get started.</p>
+
+<p>Although, it might not give you a highly polished look you fancy but if you get a decent prototype, it is easy to iterate with professional help to take a step further. So don&rsquo;t whine about your non-artistic background, start working with available art and focus on the gameplay. I used free art from <a href="http://hasgraphics.com/">HasGraphics</a> and <a href="http://opengameart.org/">OpenGameArt</a> and free sounds effects from <a href="http://soundbible.com/">Soundbible</a>.</p>
 
 <h1>Building the game</h1>
 
@@ -221,13 +227,17 @@
 
 <p><img src="http://coffeecoder.net/images/penguin_walk/game_over.png"></p>
 
-<p>Because two lands are uneven adn first land&rsquo;s visible length is almost below threshold, the Gameover is triggered immediately after. <code>triggerGameOver</code> resets the state of the game, and our game can be restarted.</p>
+<p>Because two lands are uneven and first land&rsquo;s visible length is almost below threshold, gameover is triggered immediately after. <code>triggerGameOver</code> resets the state of the game, and our game can be restarted.</p>
+
+<h4>The Game Loop</h4>
+
+<p>The <code>showScene()</code> also is our main execution loop. Using <code>requestAnimationFrame()</code> we repetitively request and paint scene on our canvas. We also call <code>checkGameOver()</code> to see if there has been any collision and reset the state of the game, in that case.</p>
 
 <h2>Conclusion</h2>
 
-<p>So that sums up our mini game. It was a fantastic experience seeing it to finish. With many game frameworks available out there, I believe I could have avoided re-inventing the wheel, but yeah there is lot that I learned from making this and the most important thing &ndash; learn to stick around and see it to finish.</p>
+<p>So that sums up our mini game. It was a fantastic experience seeing it to the finish. There are many game frameworks available that can save you from the trouble of creating abstractions, be sure to check them out. The most important lesson I learned was to stick around and see it to finish.</p>
 
-<p>So if you wish to build a game, build like a MVP. Take free art or just circles and polygons and focus on building a game play. Once you have something good, you can start iterating on art and visual effects but the important thing is to get started.</p>
+<p>So if you wish to build a game, build it like a MVP. Take free art, or maybe just circles and polygons, and focus on building game play. Once you have something good, you can start iterating with better art and visual effects but the important thing is to get started.</p>
 ]]></content>
   </entry>
   
