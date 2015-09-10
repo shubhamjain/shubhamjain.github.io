@@ -9,7 +9,7 @@
   <meta name="author" content="Shubham Jain">
 
   
-  <meta name="description" content="So you think desktop apps will die a slow death? The sentiment of demise of desktop apps has been professed by many people, Jeff Atwood, Patrick &hellip;">
+  <meta name="description" content="There are lots of things to get excited about HTML5 and the one which caught my curiosity was HTML5 Audio / Video API. I was overwhelmed with ideas &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -83,6 +83,72 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/building-a-whistle-detector/">Building a Whistle Detector Using WebAudio API</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-01T22:33:56+05:30" pubdate data-updated="true">Jul 1<span>st</span>, 2014</time>
+        
+           | <a href="/blog/building-a-whistle-detector/#disqus_thread"
+             data-disqus-identifier="http://coffeecoder.net/blog/building-a-whistle-detector/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>There are lots of things to get excited about HTML5 and the one which caught my curiosity was HTML5 Audio / Video API. I was overwhelmed with ideas of practical applications like face detect login or inline dictation but I chose to start with something small &ndash; a whistle detector. Although, not wholly accurate it works quite well with very a good accuracy. I used M. Nilsson&rsquo;s research paper, &ldquo;<a href="http://medieteknik.bth.se/fou/forskinfo.nsf/all/67a079f0676c546fc12574a4002d6d38/$file/nilsson-whistle.pdf">Human Whistle Detection and Frequency Estimation</a>&rdquo; to implement this. It took me a while to get understand exactly what the paper narrates with its mathematical notations but luckily my wandered at the right place to get the right idea.</p>
+
+<p>For the first part, I would try to explain <a href="http://btu.se/fou/forskinfo.nsf/17e96a0dab8ab6a1c1257457004d59ab/2660bccb72bce3ccc125714d004828c1/$file/successive%20mean...pdf">Successive Mean Quantization Transform (SMQT)</a> which prepares the audio data for further processing.</p>
+
+<h2>Successive Mean Quantization Transform</h2>
+
+<p>Transformation in mathematics is an operation to map one set to another set. SMQT is a similar method to do the same to remove bias or gain resulting from disparity between various kinds of sensors (microphones) and other factors. In SMQT, we recursively take mean of data set and split it into two halves and do the same on each half. Data values above the mean are assigned, &ldquo;1&rdquo; and below are assigned &ldquo;0&rdquo;. The recursion is carried out to a pre-defined depth, at the end of which we have a binary tree with 1s and 0s. Sounds confusing? Lets take and example of set:</p>
+
+<p><code>X = [89, 78, 63, 202, 90, 45, 112, 79, 95, 87, 90, 78, 54, 34, 66, 32]</code>.</p>
+
+<p><code>Mean(X) = 80.875</code></p>
+
+<p>The values above mean are assigned &ldquo;1&rdquo; while below are assigned &ldquo;0&rdquo;. So it becomes &ndash; <code>[1 0 0 1 1 0 1 0 1 1 1 0 0 0 0 0]</code>. Let this procedure be called as <code>U(X)</code>. Data values corresponding to &ldquo;0&rdquo; propagate left of the binary tree while &ldquo;1&rdquo; propagate right. So we have a tree which looks like,</p>
+
+<p><img src="/images/whistle/tree.jpg"></p>
+
+<p>Continue this process recursively till you reach a depth of L. ( <strong>Note</strong>: L = 8 in our application. )</p>
+
+<p>After this, you weight each level by multiplying the bits by 2<sup>cur_level &ndash; 1</sup> and add it up to the top of tree. So, if you have a tree which looks like,</p>
+
+<p><img src="/images/whistle/tree2.jpg"></p>
+
+<p>Multiply D, E, F, G by 2<sup>2</sup> which gives <code>[4 0 4 0]</code>, <code>[0 0 4 0]</code>, <code>[0 0 4 4]</code>, <code>[4 0 0 0]</code> and so on. Lets call this procedure of weighing individual arrays as <code>W(X)</code>. After we are done weighing, we add to the node its subtrees. For eg, <code>B = W(B) + (W(D) . W(E))</code>. So we have now have audio data that is bias and gain free. (<a href="https://gist.github.com/shubhamjain/88f14b328e7b145c79e5#file-smqt-js">Gist</a>).</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/building-a-whistle-detector/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -302,51 +368,9 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/why-you-should-never-freelance/">Why You Should Never Freelance on Freelancing Sites.</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-05T11:52:47+05:30" pubdate data-updated="true">Jul 5<span>th</span>, 2013</time>
-        
-           | <a href="/blog/why-you-should-never-freelance/#disqus_thread"
-             data-disqus-identifier="http://coffeecoder.net/blog/why-you-should-never-freelance/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Back in the days, I used to be the crazy money minded programmer writing kLOCs of crap with no code quality concern, for projects I often found on freelancing sites. Freelancer.com, oDesk and likes which seem to be quite popular among employers looking for cheap third world country coders but honestly, if you think about being a better programmer, never log in to them. Why?</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/why-you-should-never-freelance/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
+    
+      <a class="prev" href="/blog/page/3/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -359,6 +383,10 @@
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/creating-side-scroller-game-in-html5/">Creating Side-scroller Game in HTML5 and Javascript</a>
+      </li>
     
       <li class="post">
         <a href="/blog/Hackers-are-the-real-10x-engineers/">Hackers Are the Real 10x Engineers.</a>
@@ -374,10 +402,6 @@
     
       <li class="post">
         <a href="/blog/using-git-format-patch-to-introduce-temporary-changes/">Using Git for Introducing Temporary Changes</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/building-a-whistle-detector/">Building a Whistle Detector Using WebAudio API</a>
       </li>
     
   </ul>

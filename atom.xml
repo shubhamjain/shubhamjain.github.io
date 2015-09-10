@@ -4,7 +4,7 @@
   <title><![CDATA[Coffee Coder]]></title>
   <link href="http://coffeecoder.net/atom.xml" rel="self"/>
   <link href="http://coffeecoder.net/"/>
-  <updated>2015-01-22T19:22:50+05:30</updated>
+  <updated>2015-04-14T23:25:42+05:30</updated>
   <id>http://coffeecoder.net/</id>
   <author>
     <name><![CDATA[Shubham Jain]]></name>
@@ -12,6 +12,224 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Creating Side-scroller Game in HTML5 and Javascript]]></title>
+    <link href="http://coffeecoder.net/blog/creating-side-scroller-game-in-html5/"/>
+    <updated>2015-01-30T23:44:45+05:30</updated>
+    <id>http://coffeecoder.net/blog/creating-side-scroller-game-in-html5</id>
+    <content type="html"><![CDATA[<p>Recently I completed my first game, <a href="http://coffeecoder.net/penguin-walk">Penguin Walk</a>, with help of free art in Javascript and it gave me empirical experience of a known-fact surrounding game development &ndash; &ldquo;The hardest thing about developing a game is finishing it.&rdquo; Although, the game is dead simple and code runs in only few hundreds of lines, it took a lot of effort to finish it. The reason? I believe the hard thing related to game development, is that you are attempting to build something complex out of very simple elements (pixels). The same reason why building a programming language is hard &ndash; you are trying to ensure that a stream of characters obeys formal grammatical rules and convert them into something that can execute. In this post, I will describe how I created my side-scroller game.</p>
+
+<h2>Is Game Programming hard?</h2>
+
+<p>Think about it. What does it take to project a bird from a slingshot, show it flying in projectile motion, hitting a set of object which are then animated to move accurately, in accordance to laws of physics? Well, a lot. You can only tell computer what to paint on the screen, rest of all the higher level abstractions, you build on your own. Although, using a library might help a lot; after all, who can be expected to complete an desktop application if he must program all controls on his own but if you compare the two, there are two complications that arise in game development &ndash;</p>
+
+<!-- more -->
+
+
+<ul>
+<li>It is impossible to define a generic component that can work everywhere. At best, you can be given some abstractions &ndash; sprites, and animations to help you make them on your own.</li>
+<li>The interaction between objects in a game are far more complicated than in normal applications.</li>
+</ul>
+
+
+<p>I believe, programming a game, involves thinking at multiple levels of abstractions, which makes it challenging (and fun!).</p>
+
+<h2>Getting the art</h2>
+
+<p>&ldquo;Only! only if I could do art, I would start shipping games.&rdquo; &mdash; A recurring thought that must have went through many programmers&#8217; head and to some extent it might be true. Getting art done, isn&rsquo;t a piece of cake but guess what, you need not to. Plenty of free and non-free resources are available to help you get started. Certainly, it might not give you the highly polished look you fancy but if you get a decent prototype, it is easy to gather professional help to take a step further. So don&rsquo;t whine about your non-artistic background, start working with available art and focus on the gameplay. I used free art from <a href="http://hasgraphics.com/">HasGraphics</a> and <a href="http://opengameart.org/">OpenGameArt</a> and free sounds effects from <a href="http://soundbible.com/">Soundbible</a>.</p>
+
+<h1>Building the game</h1>
+
+<h2>Animating using viewport and a larger window</h2>
+
+<p>The first step in making our side-scroller would be to working out the animation part. You are given number of objects, how would you animate them? One obvious choice would be to work out the position, the visible part of each object in every frame and paint them on the canvas. Another approach, which I used, is to have a longer canvas and a moving viewport that shows only the part of the former and keep updating it with newer object. We refer the longer canvas as &ldquo;scene generator&rdquo;.</p>
+
+<p>The <code>init()</code> function constructs two canvas objects, one a bigger window, another a viewport which is a sliced-off view of the bigger window. The latter is just meant for processing and hence isn&rsquo;t appended in the document.</p>
+
+<h2>Loading Resources</h2>
+
+<p>To ensure that all our resources are available when rendering, we must make sure they are loaded successfully before we initialize our game. Since, resource loading is asynchronous, we must take help of callbacks to trigger something when all resources have been loaded. <code>loadResources()</code> function monitors the number of objects that have been loaded successfully, compares them to those which are required to load and fires the callback (<code>init</code>) when the process is finished.</p>
+
+<h2>Using sprites</h2>
+
+<p>Canvas&#8217; drawImage function allows you to paint an image (or part of it) on canvas. Using drawImage we can use a larger sprite image and define what objects are where in sprite. <code>Sprite</code> object defines methods to paint the objects on canvas. The <code>init()</code> function initializes the <code>Sprite</code> with the definition of objects (X, Y, Width, Height) :</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">sprites</span><span class="p">.</span><span class="nx">addObjects</span><span class="p">({</span>
+</span><span class='line'>  <span class="s2">&quot;gground&quot;</span><span class="o">:</span> <span class="p">[</span><span class="mi">36</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">107</span><span class="p">,</span> <span class="mi">90</span><span class="p">],</span>
+</span><span class='line'>  <span class="s2">&quot;sground&quot;</span><span class="o">:</span> <span class="p">[</span><span class="mi">36</span><span class="p">,</span> <span class="mi">171</span><span class="p">,</span> <span class="mi">107</span><span class="p">,</span> <span class="mi">90</span><span class="p">],</span>
+</span><span class='line'>  <span class="s2">&quot;gstone&quot;</span><span class="o">:</span> <span class="p">[</span><span class="mi">36</span><span class="p">,</span> <span class="mi">281</span><span class="p">,</span> <span class="mi">107</span><span class="p">,</span> <span class="mi">90</span><span class="p">],</span>
+</span><span class='line'>  <span class="s2">&quot;sstone&quot;</span><span class="o">:</span> <span class="p">[</span><span class="mi">36</span><span class="p">,</span> <span class="mi">409</span><span class="p">,</span> <span class="mi">107</span><span class="p">,</span> <span class="mi">90</span><span class="p">],</span>
+</span><span class='line'>  <span class="s2">&quot;background&quot;</span><span class="o">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The initialized class is used to create a Scene object where Sprite methods are called to paint on the scene generator:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">scene</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Scene</span><span class="p">(</span><span class="nx">sceneGenContext</span><span class="p">,</span> <span class="nx">sprites</span><span class="p">,</span> <span class="p">[</span><span class="nx">imgObj</span><span class="p">.</span><span class="nx">Cloud</span><span class="p">,</span> <span class="nx">sfxSounds</span><span class="p">]);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Creating a scene</h2>
+
+<p>Now we know how to create sprites, the next step is to paint a scene using them. Recall that, we are using &ldquo;moving viewport&rdquo; approach, so, all our painting would happen on the scene generator whose length is twice that of viewport. There are four basic objects in our game &ndash; the background, clouds, lands and the animated penguin. The first three form part of our scene while the animated penguin is painted after the rendering the scene. The <code>paintClouds()</code>, <code>paintBackground()</code> methods are self-explanatory. The <code>drawLand()</code> function paints the land of given unit height, by first series painting &ldquo;soil&rdquo; objects then painting &ldquo;ground&rdquo; object for their top. Each land&rsquo;s data is stored in <code>landPoints</code> array so that we can check out penguin is going the right way.</p>
+
+<p>The <code>drawLands()</code> function creates three land objects, each of length two. However, with these a little bit of canvas is left out, which we draw as a partial object, i.e, of length less than two. So we now have our basic scene, which looks like this,</p>
+
+<p><img src="http://coffeecoder.net/images/penguin_walk/full_window.png"></p>
+
+<h2>Animating the scene</h2>
+
+<p>As we already discussed, we would be using &ldquo;moving viewport&rdquo; approach to have an animating scene. To do this, we have &ldquo;curX&rdquo; variable in Scene object which dictates the portion of the scene generator to be painted on the viewport which is basically <code>[curX, curX + viewport.width]</code>. The actual painting of the Scene on the viewport is done by <code>showScene()</code> in the Game object with:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">realContext</span><span class="p">.</span><span class="nx">drawImage</span><span class="p">(</span><span class="nx">scene</span><span class="p">.</span><span class="nx">sceneGenContext</span><span class="p">.</span><span class="nx">canvas</span><span class="p">,</span> <span class="nx">scene</span><span class="p">.</span><span class="nx">curX</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">CONFIG</span><span class="p">.</span><span class="nx">CANVAS_WIDTH</span><span class="p">,</span> <span class="nx">CONFIG</span><span class="p">.</span><span class="nx">CANVAS_HEIGHT</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">CONFIG</span><span class="p">.</span><span class="nx">CANVAS_WIDTH</span><span class="p">,</span> <span class="nx">CONFIG</span><span class="p">.</span><span class="nx">CANVAS_HEIGHT</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>At every frame, <code>curX</code> changes and different portion gets painted on viewport. Additionally, <code>updateLandPoints()</code> checks if the current land hasn&rsquo;t gone out of focus with <code>(this.landPoints[0].posX + this.landPoints[0].width - this.curX) &lt; 30</code>, in which case, the first landPoint is removed from the array and the new focus land is repainted as ground one. After <code>curx</code> becomes larger then viewport&rsquo;s width, the first half of larger window gets spliced to the first half and second half is regenerated. Something which happens in <code>generateScene()</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="k">this</span><span class="p">.</span><span class="nx">generateScene</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="c1">// Splice second half to first</span>
+</span><span class='line'>  <span class="nx">sceneGenContext</span><span class="p">.</span><span class="nx">drawImage</span><span class="p">(</span><span class="nx">sceneGenContext</span><span class="p">.</span><span class="nx">canvas</span><span class="p">,</span> <span class="nx">CONFIG</span><span class="p">.</span><span class="nx">CANVAS_WIDTH</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">CONFIG</span><span class="p">.</span><span class="nx">CANVAS_WIDTH</span><span class="p">,</span> <span class="nx">CONFIG</span><span class="p">.</span><span class="nx">CANVAS_HEIGHT</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">CONFIG</span><span class="p">.</span><span class="nx">CANVAS_WIDTH</span><span class="p">,</span> <span class="nx">CONFIG</span><span class="p">.</span><span class="nx">CANVAS_HEIGHT</span><span class="p">);</span>
+</span><span class='line'>  <span class="nx">spriteObj</span><span class="p">.</span><span class="nx">paintBackground</span><span class="p">(</span> <span class="nx">CONFIG</span><span class="p">.</span><span class="nx">CANVAS_WIDTH</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">// Assign new positions to spliced lands</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">while</span><span class="p">(</span> <span class="k">typeof</span> <span class="k">this</span><span class="p">.</span><span class="nx">landPoints</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">!==</span> <span class="s2">&quot;undefined&quot;</span> <span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">landPoints</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">posX</span> <span class="o">-=</span> <span class="nx">CONFIG</span><span class="p">.</span><span class="nx">CANVAS_WIDTH</span><span class="p">;</span>
+</span><span class='line'>      <span class="nx">i</span><span class="o">++</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">// Regenerate scene.</span>
+</span><span class='line'>  <span class="k">this</span><span class="p">.</span><span class="nx">paintClouds</span><span class="p">(</span><span class="nx">CONFIG</span><span class="p">.</span><span class="nx">CANVAS_WIDTH</span><span class="p">);</span>
+</span><span class='line'>  <span class="k">this</span><span class="p">.</span><span class="nx">drawLands</span><span class="p">(</span><span class="nx">CONFIG</span><span class="p">.</span><span class="nx">CANVAS_WIDTH</span><span class="p">);</span>
+</span><span class='line'>  <span class="k">this</span><span class="p">.</span><span class="nx">curX</span> <span class="o">-=</span> <span class="nx">CONFIG</span><span class="p">.</span><span class="nx">CANVAS_WIDTH</span><span class="p">;</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So out animation logic in a nutshell is, keep updating viewport with new coordinates over the larger window and when it is about to finish, recreate the larger window. The penguin is animated over the viewport by painting a new frame of penguin&rsquo;s animation every time <code>penguin.paintFrame</code> is called.</p>
+
+<h2>The Game</h2>
+
+<p>Now finally, we arrive at building our game logic. So what does our game have? Change land height on &ldquo;Up&rdquo; / &ldquo;Down&rdquo; key press, check if penguin is walking on levelled land, and trigger game over it isn&rsquo;t.</p>
+
+<h4>Changing Land Height</h4>
+
+<p>When a key is pressed, it triggers <code>keyHit()</code> method:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="k">this</span><span class="p">.</span><span class="nx">keyHit</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">keyCode</span> <span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">switch</span><span class="p">(</span><span class="nx">keyCode</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="k">case</span> <span class="nx">CONFIG</span><span class="p">.</span><span class="nx">ACTION_MAP</span><span class="p">.</span><span class="nx">LAND_UP</span><span class="o">:</span>
+</span><span class='line'>          <span class="k">if</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">gameBegun</span> <span class="p">)</span> <span class="nx">scene</span><span class="p">.</span><span class="nx">updateHeightLand</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="k">break</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="k">case</span> <span class="nx">CONFIG</span><span class="p">.</span><span class="nx">ACTION_MAP</span><span class="p">.</span><span class="nx">LAND_DOWN</span><span class="o">:</span>
+</span><span class='line'>          <span class="k">if</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">gameBegun</span> <span class="p">)</span> <span class="nx">scene</span><span class="p">.</span><span class="nx">updateHeightLand</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span><span class="k">break</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="k">case</span> <span class="nx">CONFIG</span><span class="p">.</span><span class="nx">ACTION_MAP</span><span class="p">.</span><span class="nx">GAME_START</span><span class="o">:</span>
+</span><span class='line'>          <span class="k">this</span><span class="p">.</span><span class="nx">beginGame</span><span class="p">();</span><span class="k">break</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>When <code>LAND_UP</code> and <code>LAND_DOWN</code> keys, call <code>updateLandHeight()</code> which repaints lands to a newer height. I faced a problem while building this. Earlier I directly used to modify <code>landHeight</code> without storing original generated height. Since the logic is to modify height of all lands on the same level, it used to modify lands which were not originally, on the same level. For eg, lets say height of generated lands are &ndash; <code>1, 1, 2, 3</code>. After pressing &ldquo;Up&rdquo;, the new heights are &ldquo;2, 2, 2, 3&rdquo;. Without storing original height, the logic would also modify the height of the third one. The solution was to store original height separately, i.e, use <code>origHeight</code>.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span>  <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="k">while</span><span class="p">(</span> <span class="k">typeof</span> <span class="k">this</span><span class="p">.</span><span class="nx">landPoints</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">!==</span> <span class="s2">&quot;undefined&quot;</span> <span class="o">&amp;&amp;</span> <span class="nx">oldOrigHeight</span> <span class="o">==</span> <span class="k">this</span><span class="p">.</span><span class="nx">landPoints</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">origHeight</span> <span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">if</span><span class="p">(</span> <span class="nx">inc</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">landPoints</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">landHeight</span> <span class="o">&lt;</span> <span class="mi">4</span> <span class="p">)</span>
+</span><span class='line'>      <span class="o">++</span><span class="k">this</span><span class="p">.</span><span class="nx">landPoints</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">landHeight</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">if</span><span class="p">(</span> <span class="o">!</span><span class="nx">inc</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">landPoints</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">landHeight</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="p">)</span>
+</span><span class='line'>      <span class="o">--</span><span class="k">this</span><span class="p">.</span><span class="nx">landPoints</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">landHeight</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">this</span><span class="p">.</span><span class="nx">clearLand</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">landPoints</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">posX</span><span class="p">,</span> <span class="nx">oldHeight</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">landPoints</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">landLength</span><span class="p">);</span>
+</span><span class='line'>  <span class="k">this</span><span class="p">.</span><span class="nx">drawLand</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">landPoints</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">landHeight</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">landPoints</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">landLength</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">landPoints</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">posX</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="s2">&quot;ground&quot;</span><span class="p">);</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="nx">i</span><span class="o">++</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The use of <code>clearLand()</code> is simply to clear out part of land when its height is decremented.</p>
+
+<h4>Checking Game Over</h4>
+
+<p>The <code>checkGameOver()</code> function checks if height of two consecutive is uneven and triggers gameOver when visible length of first land has fallen before threshold. we have used two different thresholds. One to check when penguin collides with a land and the other when penguin falls from land of higher height. For eg,</p>
+
+<p><img src="http://coffeecoder.net/images/penguin_walk/game_over.png"></p>
+
+<p>Because two lands are uneven adn first land&rsquo;s visible length is almost below threshold, the Gameover is triggered immediately after. <code>triggerGameOver</code> resets the state of the game, and our game can be restarted.</p>
+
+<h2>Conclusion</h2>
+
+<p>So that sums up our mini game. It was a fantastic experience seeing it to finish. With many game frameworks available out there, I believe I could have avoided re-inventing the wheel, but yeah there is lot that I learned from making this and the most important thing &ndash; learn to stick around and see it to finish.</p>
+
+<p>So if you wish to build a game, build like a MVP. Take free art or just circles and polygons and focus on building a game play. Once you have something good, you can start iterating on art and visual effects but the important thing is to get started.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Hackers Are the Real 10x Engineers.]]></title>

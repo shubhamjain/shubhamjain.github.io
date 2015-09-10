@@ -9,7 +9,7 @@
   <meta name="author" content="Shubham Jain">
 
   
-  <meta name="description" content="The notion of 10x programmer was first mentioned by John Brooks (of, Brook&rsquo;s law fame) in his essay No Silver Bullet, according to which, & &hellip;">
+  <meta name="description" content="Recently I completed my first game, Penguin Walk, with help of free art in Javascript and it gave me empirical experience of a known-fact surrounding &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -83,6 +83,54 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/creating-side-scroller-game-in-html5/">Creating Side-scroller Game in HTML5 and Javascript</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-01-30T23:44:45+05:30" pubdate data-updated="true">Jan 30<span>th</span>, 2015</time>
+        
+           | <a href="/blog/creating-side-scroller-game-in-html5/#disqus_thread"
+             data-disqus-identifier="http://coffeecoder.net/blog/creating-side-scroller-game-in-html5/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Recently I completed my first game, <a href="http://coffeecoder.net/penguin-walk">Penguin Walk</a>, with help of free art in Javascript and it gave me empirical experience of a known-fact surrounding game development &ndash; &ldquo;The hardest thing about developing a game is finishing it.&rdquo; Although, the game is dead simple and code runs in only few hundreds of lines, it took a lot of effort to finish it. The reason? I believe the hard thing related to game development, is that you are attempting to build something complex out of very simple elements (pixels). The same reason why building a programming language is hard &ndash; you are trying to ensure that a stream of characters obeys formal grammatical rules and convert them into something that can execute. In this post, I will describe how I created my side-scroller game.</p>
+
+<h2>Is Game Programming hard?</h2>
+
+<p>Think about it. What does it take to project a bird from a slingshot, show it flying in projectile motion, hitting a set of object which are then animated to move accurately, in accordance to laws of physics? Well, a lot. You can only tell computer what to paint on the screen, rest of all the higher level abstractions, you build on your own. Although, using a library might help a lot; after all, who can be expected to complete an desktop application if he must program all controls on his own but if you compare the two, there are two complications that arise in game development &ndash;</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/creating-side-scroller-game-in-html5/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -278,72 +326,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/building-a-whistle-detector/">Building a Whistle Detector Using WebAudio API</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-01T22:33:56+05:30" pubdate data-updated="true">Jul 1<span>st</span>, 2014</time>
-        
-           | <a href="/blog/building-a-whistle-detector/#disqus_thread"
-             data-disqus-identifier="http://coffeecoder.net/blog/building-a-whistle-detector/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>There are lots of things to get excited about HTML5 and the one which caught my curiosity was HTML5 Audio / Video API. I was overwhelmed with ideas of practical applications like face detect login or inline dictation but I chose to start with something small &ndash; a whistle detector. Although, not wholly accurate it works quite well with very a good accuracy. I used M. Nilsson&rsquo;s research paper, &ldquo;<a href="http://medieteknik.bth.se/fou/forskinfo.nsf/all/67a079f0676c546fc12574a4002d6d38/$file/nilsson-whistle.pdf">Human Whistle Detection and Frequency Estimation</a>&rdquo; to implement this. It took me a while to get understand exactly what the paper narrates with its mathematical notations but luckily my wandered at the right place to get the right idea.</p>
-
-<p>For the first part, I would try to explain <a href="http://btu.se/fou/forskinfo.nsf/17e96a0dab8ab6a1c1257457004d59ab/2660bccb72bce3ccc125714d004828c1/$file/successive%20mean...pdf">Successive Mean Quantization Transform (SMQT)</a> which prepares the audio data for further processing.</p>
-
-<h2>Successive Mean Quantization Transform</h2>
-
-<p>Transformation in mathematics is an operation to map one set to another set. SMQT is a similar method to do the same to remove bias or gain resulting from disparity between various kinds of sensors (microphones) and other factors. In SMQT, we recursively take mean of data set and split it into two halves and do the same on each half. Data values above the mean are assigned, &ldquo;1&rdquo; and below are assigned &ldquo;0&rdquo;. The recursion is carried out to a pre-defined depth, at the end of which we have a binary tree with 1s and 0s. Sounds confusing? Lets take and example of set:</p>
-
-<p><code>X = [89, 78, 63, 202, 90, 45, 112, 79, 95, 87, 90, 78, 54, 34, 66, 32]</code>.</p>
-
-<p><code>Mean(X) = 80.875</code></p>
-
-<p>The values above mean are assigned &ldquo;1&rdquo; while below are assigned &ldquo;0&rdquo;. So it becomes &ndash; <code>[1 0 0 1 1 0 1 0 1 1 1 0 0 0 0 0]</code>. Let this procedure be called as <code>U(X)</code>. Data values corresponding to &ldquo;0&rdquo; propagate left of the binary tree while &ldquo;1&rdquo; propagate right. So we have a tree which looks like,</p>
-
-<p><img src="/images/whistle/tree.jpg"></p>
-
-<p>Continue this process recursively till you reach a depth of L. ( <strong>Note</strong>: L = 8 in our application. )</p>
-
-<p>After this, you weight each level by multiplying the bits by 2<sup>cur_level &ndash; 1</sup> and add it up to the top of tree. So, if you have a tree which looks like,</p>
-
-<p><img src="/images/whistle/tree2.jpg"></p>
-
-<p>Multiply D, E, F, G by 2<sup>2</sup> which gives <code>[4 0 4 0]</code>, <code>[0 0 4 0]</code>, <code>[0 0 4 4]</code>, <code>[4 0 0 0]</code> and so on. Lets call this procedure of weighing individual arrays as <code>W(X)</code>. After we are done weighing, we add to the node its subtrees. For eg, <code>B = W(B) + (W(D) . W(E))</code>. So we have now have audio data that is bias and gain free. (<a href="https://gist.github.com/shubhamjain/88f14b328e7b145c79e5#file-smqt-js">Gist</a>).</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/building-a-whistle-detector/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -359,6 +341,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/creating-side-scroller-game-in-html5/">Creating Side-scroller Game in HTML5 and Javascript</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/Hackers-are-the-real-10x-engineers/">Hackers Are the Real 10x Engineers.</a>
       </li>
     
@@ -372,10 +358,6 @@
     
       <li class="post">
         <a href="/blog/using-git-format-patch-to-introduce-temporary-changes/">Using Git for Introducing Temporary Changes</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/building-a-whistle-detector/">Building a Whistle Detector Using WebAudio API</a>
       </li>
     
   </ul>
