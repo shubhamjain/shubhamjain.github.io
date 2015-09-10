@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Coffee Coder</title>
+  <title>Debugging Stuck PHP-FPM Process With Strace - Coffee Coder</title>
   <meta name="author" content="Shubham Jain">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://coffeecoder.net">
+  <link rel="canonical" href="http://coffeecoder.net/blog/debugging-stuck-php-fpm-process-with-strace">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="http://feeds.feedburner.com/coffeecoder/qvOz" rel="alternate" title="Coffee Coder" type="application/atom+xml">
@@ -81,15 +81,12 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/debugging-stuck-php-fpm-process-with-strace/">Debugging Stuck PHP-FPM Process With Strace</a></h1>
+      <h1 class="entry-title">Debugging Stuck PHP-FPM Process With Strace</h1>
     
     
       <p class="meta">
@@ -107,15 +104,15 @@
 
 <time datetime="2015-09-10T22:57:21+05:30" pubdate data-updated="true">Sep 10<span>th</span>, 2015</time>
         
-           | <a href="/blog/debugging-stuck-php-fpm-process-with-strace/#disqus_thread"
-             data-disqus-identifier="http://coffeecoder.net/blog/debugging-stuck-php-fpm-process-with-strace/">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://coffeecoder.net">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>For most of the times, debugging is easy &ndash; a silly logical error or an oversight, quick to correct and move on but some problems are hard &ndash; because you don&rsquo;t know where it is wrong. The bigger the involved stack is, the higher are your chances of getting stuck at them. In such cases, tools like strace can be of great aid as they can help you give a hint about where things are getting screwed up.</p>
+<div class="entry-content"><p>For most of the times, debugging is easy &ndash; a silly logical error or an oversight, quick to correct and move on but some problems are hard &ndash; because you don&rsquo;t know where it is wrong. The bigger the involved stack is, the higher are your chances of getting stuck at them. In such cases, tools like strace can be of great aid as they can help you give a hint about where things are getting screwed up.</p>
 
 <p>Recently, I faced an issue at my company where navigating beyond the dashboard page resulted in navigation getting stuck.</p>
 
@@ -209,74 +206,16 @@
 
 <p>Our valuable lesson in this ordeal was that the local environment needs to be an absolute replica of one being used in production and setup of your work environment must be completely automated using up-to-date scripts. A common mistake is to just rely on vaguely documented commands which pose of chance of missing something in the process.</p>
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/blog-little-things/">Blog Little Things</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
   
 
+<span class="byline author vcard">Posted by <span class="fn">Shubham Jain</span></span>
 
-<time datetime="2015-07-20T14:57:25+05:30" pubdate data-updated="true">Jul 20<span>th</span>, 2015</time>
-        
-           | <a href="/blog/blog-little-things/#disqus_thread"
-             data-disqus-identifier="http://coffeecoder.net/blog/blog-little-things/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>John Carmack once speculated that StackOverflow might have added billions in productivity.</p>
-
-<blockquote class="twitter-tweet" lang="en"><p lang="en" dir="ltr"><a href="https://twitter.com/chx">@chx</a> <a href="https://twitter.com/jzy">@jzy</a> <a href="https://twitter.com/StackExchange">@StackExchange</a> <a href="https://twitter.com/codinghorror">@codinghorror</a> SO has probably added billions of dollars of value to the world in increased programmer productivity.</p>&mdash; John Carmack (@ID_AA_Carmack) <a href="https://twitter.com/ID_AA_Carmack/status/380018564792455168">September 17, 2013</a></blockquote>
-
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-
-<p>Quite rightly so. Imagine, the no of people that didn&rsquo;t have to go through (maybe lousy) documentation, and long threads to seek solution for their problems. <abbr title="Read The Fucking Manual">RTFM</abbr>, many of programmers would be quick to point out but even the simplest questions, like, &ldquo;<em>How to read a whole file in python?</em>&rdquo;, &ldquo;<em>How to kill a process with its name?</em>&rdquo; must have saved thousands of programmers&#8217; time. Thanks to rookies who didn&rsquo;t feel embarrassed in asking them, that even experienced programmers can enjoy fruits of their answers.</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/blog-little-things/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/why-the-x-productivity-trick-doesnt-matter/">Why Productivity Tricks Don&#8217;t Matter</a></h1>
-    
-    
-      <p class="meta">
-        
 
 
 
@@ -288,147 +227,38 @@
   
 
 
-<time datetime="2015-06-28T21:12:20+05:30" pubdate data-updated="true">Jun 28<span>th</span>, 2015</time>
-        
-           | <a href="/blog/why-the-x-productivity-trick-doesnt-matter/#disqus_thread"
-             data-disqus-identifier="http://coffeecoder.net/blog/why-the-x-productivity-trick-doesnt-matter/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>We&rsquo;re living in an exciting century. The majority of today&rsquo;s success stories trace its existence from few nerds hacking in their garage. Yet, majority of ambitious hackers, struggle to get going with any of the dozen of ideas that they have thought, most of which end up being un-fiddled in their favorite note-taking apps.</p>
-
-<p>It seems very exciting to draw the plan for your side-project, its features, its technology and of course, how it could be a million-dollar thing but rarer is for someone to get started, and more rarer, to manage more than a few sittings on desk over it, eventually after, the enthusiasm dries up and its time to head back to browsing your favorite sites.</p>
-
-<p>Almost everyone, knowingly or unknowingly, suffers from the same compulsion of doing activities that come under umbrella of &ldquo;wasting time&rdquo; but the scope is a lot different for hackers who don&rsquo;t procrastinate over not doing their assignments, or presentation but shipping something that people <em>might</em> need.</p>
-
-<h2>What is procrastination?</h2>
-
-<p>Wikipedia defines Procrastination as:</p>
-
-<blockquote><p>a practice of carrying out less urgent tasks in preference to more urgent ones, or doing more pleasurable things in place of less pleasurable ones, and thus putting off impending tasks to a later time, sometimes to the &ldquo;last minute&rdquo; before a deadline.</p></blockquote>
-
-<p>The task which can be getting a hair-cut, writing an academic paper, or coding the first version of the application. Paul Graham, in <a href="http://www.paulgraham.com/procrastination.html">one of his</a> essays argues that procrastinating over the first isn&rsquo;t necessarily bad if it serves a better purpose but the most common way people procrastinate is either by endlessly browsing social media sites, watching netflix, playing video games or any similar activity which echoes the sentiment of &ldquo;doing nothing&rdquo;. In short, procrastination is &ldquo;wasting time&rdquo; which could otherwise, be spent in a more productive manner.</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/why-the-x-productivity-trick-doesnt-matter/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
+<time datetime="2015-09-10T22:57:21+05:30" pubdate data-updated="true">Sep 10<span>th</span>, 2015</time>
       
-  <header>
+
+
+    </p>
     
-      <h1 class="entry-title"><a href="/blog/creating-side-scroller-game-in-html5/">Creating Side-scroller Game in HTML5 and Javascript</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
+      <div class="sharing">
   
-
-
-<time datetime="2015-04-20T23:44:45+05:30" pubdate data-updated="true">Apr 20<span>th</span>, 2015</time>
-        
-           | <a href="/blog/creating-side-scroller-game-in-html5/#disqus_thread"
-             data-disqus-identifier="http://coffeecoder.net/blog/creating-side-scroller-game-in-html5/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Recently I completed my first game, <a href="http://coffeecoder.net/penguin-walk">Penguin Walk</a>, with help of free art in Javascript and it gave me empirical experience of a known-fact surrounding game development &ndash; &ldquo;The hardest thing about developing a game is finishing it.&rdquo;</p>
-
-<p>Although, the game is dead simple and code runs in only few hundreds of lines, it took a lot of effort to finish it. The reason? I believe the hard thing related to game development, is that you are attempting to build something complex out of very simple elements (pixels). The same reason why building a programming language is hard &ndash; you are trying to ensure that a stream of characters obeys formal grammatical rules and convert them into something that can execute. In this post, I will describe how I created my side-scroller game.</p>
-
-<h2>Is Game Programming hard?</h2>
-
-<p>Think about it. What does it take to project a bird from a slingshot, show it flying in projectile motion, hitting a set of object which are then animated to move accurately, in accordance to laws of physics? Well, a lot. You can only tell computer what to paint on the screen, rest of all the higher level abstractions, you build on your own.</p>
-
-<p>Although, using a library might help a lot; after all, who can be expected to complete a desktop application if he has to program all controls on his own but if you compare the two, there are two complications that arise in game development &ndash;</p>
-
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://coffeecoder.net/blog/debugging-stuck-php-fpm-process-with-strace/" data-via="thecoffeecoder" data-counturl="http://coffeecoder.net/blog/debugging-stuck-php-fpm-process-with-strace/" >Tweet</a>
+  
+  
+  
 </div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/creating-side-scroller-game-in-html5/">Read on &rarr;</a>
-    </footer>
-  
 
-
-    </article>
-  
-  
-    <article>
+    
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/Hackers-are-the-real-10x-engineers/">Hackers Are the Real 10x Engineers.</a></h1>
-    
-    
-      <p class="meta">
-        
+        <a class="basic-alignment left" href="/blog/blog-little-things/" title="Previous Post: Blog little things">&laquo; Blog little things</a>
+      
+      
+    </p>
+  </footer>
+</article>
 
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2015-01-19T23:15:05+05:30" pubdate data-updated="true">Jan 19<span>th</span>, 2015</time>
-        
-           | <a href="/blog/Hackers-are-the-real-10x-engineers/#disqus_thread"
-             data-disqus-identifier="http://coffeecoder.net/blog/Hackers-are-the-real-10x-engineers/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>The notion of 10x programmer was first mentioned by John Brooks (of, <a href="http://en.wikipedia.org/wiki/Brooks%27s_law">Brook&rsquo;s law</a> fame) in his essay <a href="http://en.wikipedia.org/wiki/No_Silver_Bullet">No Silver Bullet</a>, according to which, &lsquo;there is as much as a tenfold difference between an ordinary designer (programmer) and a great one&rsquo;. The idea has been widely debated, sometimes refuted and many times defended which is unsurprising for it is impossible to accurately measure a programmer&rsquo;s productivity.</p>
-
-<p>Sadly, the idea of 10x coder is usually visualized as a screen glued junkie, moving fingers over keyboard without a break. While the picture may be popular for sci-fi films, it is hardly close to reality.</p>
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/Hackers-are-the-real-10x-engineers/">Read on &rarr;</a>
-    </footer>
-  
 
-
-    </article>
-  
-  <div class="pagination">
-    
-      <a class="prev" href="/blog/page/2/">&larr; Older</a>
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
-</div>
 <aside class="sidebar">
   
     <section>
@@ -444,7 +274,7 @@
       </li>
     
       <li class="post">
-        <a href="/blog/why-the-x-productivity-trick-doesnt-matter/">Why Productivity Tricks Don&#8217;t Matter</a>
+        <a href="/blog/why-the-x-productivity-trick-doesnt-matter/">Why Productivity Tricks Don't Matter</a>
       </li>
     
       <li class="post">
@@ -461,7 +291,7 @@
 <section>
   <h1>GitHub Repos</h1>
   <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   
   <a href="https://github.com/shubhamjain">@shubhamjain</a> on GitHub
@@ -495,6 +325,7 @@
   
 </aside>
 
+
     </div>
   </div>
   <footer role="contentinfo"><p>
@@ -509,7 +340,10 @@
       var disqus_shortname = 'thecoffeecoder';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://coffeecoder.net/blog/debugging-stuck-php-fpm-process-with-strace/';
+        var disqus_url = 'http://coffeecoder.net/blog/debugging-stuck-php-fpm-process-with-strace/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

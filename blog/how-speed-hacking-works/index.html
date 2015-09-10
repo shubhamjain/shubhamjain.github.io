@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Why Should You Use Tmux? - Coffee Coder</title>
+  <title>How Speed Hacking Works? - Coffee Coder</title>
   <meta name="author" content="Shubham Jain">
 
   
-  <meta name="description" content="Terminals are an essential place frequented by developers in their daily use. In contrast to GUIs, command line gives you more folds of power and &hellip;">
+  <meta name="description" content="It was a four years back that I used this amazing software called CheatEngine. It was fun to bump up your scores, and power levels in virtually every &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://coffeecoder.net/blog/why-should-you-use-tmux">
+  <link rel="canonical" href="http://coffeecoder.net/blog/how-speed-hacking-works">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="http://feeds.feedburner.com/coffeecoder/qvOz" rel="alternate" title="Coffee Coder" type="application/atom+xml">
@@ -86,7 +86,7 @@
   
   <header>
     
-      <h1 class="entry-title">Why Should You Use Tmux?</h1>
+      <h1 class="entry-title">How Speed Hacking Works?</h1>
     
     
       <p class="meta">
@@ -102,7 +102,7 @@
   
 
 
-<time datetime="2014-08-26T22:52:58+05:30" pubdate data-updated="true">Aug 26<span>th</span>, 2014</time>
+<time datetime="2015-07-28T21:19:38+05:30" pubdate data-updated="true">Jul 28<span>th</span>, 2015</time>
         
            | <a href="#disqus_thread"
              data-disqus-identifier="http://coffeecoder.net">Comments</a>
@@ -112,32 +112,16 @@
   </header>
 
 
-<div class="entry-content"><p>Terminals are an essential place frequented by developers in their daily use. In contrast to GUIs, command line gives you more folds of power and transparency when you dealing with a complicated tool like git, or when you need to pull off some networking stats using <code>netstat</code>. In this blog post, I&rsquo;ll explain why tmux is a great productivity enhancer when working with command line.</p>
+<div class="entry-content"><p>It was a four years back that I used this amazing software called CheatEngine. It was fun to bump up your scores, and power levels in virtually every game but its true marvel I saw in the feature called speed-hacking; slow-down / speed-up games and enjoy as they progress. I failed to understand it then because of my lack of knowledge in low-level stuff but now, with a better understanding of that, I would try to give an ELI5 explanation to speed-hacking.</p>
 
-<h2>What is tmux?</h2>
+<p>The first step to understand speed-hacking is to understand why are we able to do it in the first place.</p>
 
-<p><strong>tmux</strong> or terminal multiplexer is a simpler version of GNU screen, both of which are tools to split, combine and create terminal windows. Yes, that is indeed similar to what <strong>terminator</strong> does but guess what, you can&rsquo;t run terminator on SSH, can you? but that is not the selling point here. tmux is command line based tool which is very easy to use and in fact for any beginner, a <a href="http://danielmiessler.com/study/tmux/">little primer</a> should be enough to start using it to its full extent.</p>
+<h2>System Calls and Timing Functions</h2>
 
-<!-- more -->
+<blockquote><p>.. the thing about an operating system is that you&rsquo;re never ever supposed to see it. Because nobody really uses an operating system; people use programs on their computer. And the only mission in life of an operating system is to help those programs run. So an operating system never does anything on its own; it&rsquo;s only waiting for the programs to ask for certain resources, or ask for a certain file on the disk, or ask to connect to the outside world. And then the operating system steps in and tries to make it easy for people to write programs.
+&mdash; Linus Torvalds, in Revolution OS.</p></blockquote>
 
-
-<h2>Why should one use tmux?</h2>
-
-<p>I use tmux even when I am working locally. In comparison to terminator, tmux offers a significant advantage by freeing your hands from needing to get to the mouse. When working over command line, anything other than keyboard is an interruption and costs in your work flow. Just like tabbed browsing, multiples panes and windows allow you to do many things at once and with tmux you are encouraged to exploit them more effectively. Other significant features include :</p>
-
-<ul>
-<li>You can use it over SSH.</li>
-<li>You can share a session on SSH with use of sockets.</li>
-<li>You can de-attach and run multiple sessions.</li>
-<li>Using tmux-sessions you can dump and restore sessions after boot.</li>
-</ul>
-
-
-<p>In a better combination of both tabbed terminals and tmux, one can use separate tabs for both local and remote machines and tmux can be used inside each tab, helping to avoid confusion between the two.</p>
-
-<h2>A typical use-case scenario</h2>
-
-<p>A typical usefulness of tmux can be illustrated when you are debugging and internal server error over SSH. My normal mode of operation in such cases was to keep switching directories using <code>cd -</code> alternating between adjusting configurations and viewing error logs. Using tmux this process was a lot simpler since all you needed was to switch tabs. Even better, you could use <code>watch</code> command in a separate pan to constantly output the <code>tail error_log</code> to console, thus, saving your time and watching constantly switching directories.</p>
+<p>The mechanism with which an operating system serves the programs is system call. A system call is request to the operating system that serves as bridge between a program and the operating system. Let&rsquo;s say, you are on linux and you need to read a file&rsquo;s contents. Yeah, I know this translates to a few lines in modern programming languages but the lower level</p>
 </div>
 
 
@@ -160,7 +144,7 @@
   
 
 
-<time datetime="2014-08-26T22:52:58+05:30" pubdate data-updated="true">Aug 26<span>th</span>, 2014</time>
+<time datetime="2015-07-28T21:19:38+05:30" pubdate data-updated="true">Jul 28<span>th</span>, 2015</time>
       
 
 
@@ -168,7 +152,7 @@
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://coffeecoder.net/blog/why-should-you-use-tmux/" data-via="thecoffeecoder" data-counturl="http://coffeecoder.net/blog/why-should-you-use-tmux/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://coffeecoder.net/blog/how-speed-hacking-works/" data-via="thecoffeecoder" data-counturl="http://coffeecoder.net/blog/how-speed-hacking-works/" >Tweet</a>
   
   
   
@@ -177,10 +161,10 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/using-git-format-patch-to-introduce-temporary-changes/" title="Previous Post: Using git for introducing temporary changes">&laquo; Using git for introducing temporary changes</a>
+        <a class="basic-alignment left" href="/blog/blog-little-things/" title="Previous Post: Blog little things">&laquo; Blog little things</a>
       
       
-        <a class="basic-alignment right" href="/blog/my-perfect-reason-avoid-php-type-juggling/" title="Next Post: My perfect reason to avoid PHP: type juggling">My perfect reason to avoid PHP: type juggling &raquo;</a>
+        <a class="basic-alignment right" href="/blog/debugging-stuck-php-fpm-process-with-strace/" title="Next Post: Debugging stuck PHP-FPM process with strace">Debugging stuck PHP-FPM process with strace &raquo;</a>
       
     </p>
   </footer>
@@ -205,6 +189,10 @@
       </li>
     
       <li class="post">
+        <a href="/blog/how-speed-hacking-works/">How Speed Hacking Works?</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/blog-little-things/">Blog Little Things</a>
       </li>
     
@@ -214,10 +202,6 @@
     
       <li class="post">
         <a href="/blog/creating-side-scroller-game-in-html5/">Creating Side-scroller Game in HTML5 and Javascript</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/Hackers-are-the-real-10x-engineers/">Hackers Are the Real 10x Engineers.</a>
       </li>
     
   </ul>
@@ -276,8 +260,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://coffeecoder.net/blog/why-should-you-use-tmux/';
-        var disqus_url = 'http://coffeecoder.net/blog/why-should-you-use-tmux/';
+        var disqus_identifier = 'http://coffeecoder.net/blog/how-speed-hacking-works/';
+        var disqus_url = 'http://coffeecoder.net/blog/how-speed-hacking-works/';
         var disqus_script = 'embed.js';
       
     (function () {

@@ -2,76 +2,80 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://coffeecoder.net/blog/why-you-should-never-freelance/</loc>
-        <lastmod>2014-08-26T22:49:51+05:30</lastmod>
+        <lastmod>2014-08-26T22:49:52+05:30</lastmod>
     </url>
     <url>
         <loc>http://coffeecoder.net/blog/reading-mp3-id3-tags-in-native-php/</loc>
-        <lastmod>2014-08-26T22:49:51+05:30</lastmod>
+        <lastmod>2014-08-26T22:49:52+05:30</lastmod>
     </url>
     <url>
         <loc>
             http://coffeecoder.net/blog/making-earphone-presses-useful-with-pyaudio-and-vlc-http-api/
         </loc>
-        <lastmod>2014-08-26T22:49:51+05:30</lastmod>
+        <lastmod>2014-08-26T22:49:52+05:30</lastmod>
     </url>
     <url>
         <loc>
             http://coffeecoder.net/blog/stop-using-captchas-that-can-be-broken-with-two-lines-of-code/
         </loc>
-        <lastmod>2014-08-26T22:49:51+05:30</lastmod>
+        <lastmod>2014-08-26T22:49:52+05:30</lastmod>
     </url>
     <url>
         <loc>http://coffeecoder.net/blog/why-desktop-apps-still-make-sense/</loc>
-        <lastmod>2015-01-22T19:15:12+05:30</lastmod>
+        <lastmod>2015-01-22T19:15:14+05:30</lastmod>
     </url>
     <url>
         <loc>http://coffeecoder.net/blog/building-a-whistle-detector/</loc>
-        <lastmod>2014-08-26T22:49:51+05:30</lastmod>
+        <lastmod>2014-08-26T22:49:52+05:30</lastmod>
     </url>
     <url>
         <loc>
             http://coffeecoder.net/blog/using-git-format-patch-to-introduce-temporary-changes/
         </loc>
-        <lastmod>2014-08-26T22:49:51+05:30</lastmod>
+        <lastmod>2014-08-26T22:49:52+05:30</lastmod>
     </url>
     <url>
         <loc>http://coffeecoder.net/blog/why-should-you-use-tmux/</loc>
-        <lastmod>2015-01-22T19:14:47+05:30</lastmod>
+        <lastmod>2015-01-22T19:14:48+05:30</lastmod>
     </url>
     <url>
         <loc>http://coffeecoder.net/blog/my-perfect-reason-avoid-php-type-juggling/</loc>
-        <lastmod>2015-01-22T19:14:31+05:30</lastmod>
+        <lastmod>2015-01-22T19:14:32+05:30</lastmod>
     </url>
     <url>
         <loc>http://coffeecoder.net/blog/Hackers-are-the-real-10x-engineers/</loc>
-        <lastmod>2015-01-22T05:29:37+05:30</lastmod>
+        <lastmod>2015-01-22T05:29:38+05:30</lastmod>
     </url>
     <url>
         <loc>http://coffeecoder.net/blog/creating-side-scroller-game-in-html5/</loc>
-        <lastmod>2015-04-22T23:40:30+05:30</lastmod>
+        <lastmod>2015-04-22T23:40:32+05:30</lastmod>
     </url>
     <url>
         <loc>http://coffeecoder.net/blog/why-the-x-productivity-trick-doesnt-matter/</loc>
-        <lastmod>2015-06-29T23:33:26+05:30</lastmod>
+        <lastmod>2015-06-29T23:33:28+05:30</lastmod>
     </url>
     <url>
         <loc>http://coffeecoder.net/blog/blog-little-things/</loc>
-        <lastmod>2015-07-20T20:43:53+05:30</lastmod>
+        <lastmod>2015-07-20T20:43:54+05:30</lastmod>
+    </url>
+    <url>
+        <loc>http://coffeecoder.net/blog/debugging-stuck-php-fpm-process-with-strace/</loc>
+        <lastmod>2015-09-10T23:06:13+05:30</lastmod>
     </url>
     <url>
         <loc>http://coffeecoder.net/about/</loc>
-        <lastmod>2015-04-22T23:40:39+05:30</lastmod>
+        <lastmod>2015-04-22T23:40:40+05:30</lastmod>
     </url>
     <url>
         <loc>http://coffeecoder.net/blog/archives/</loc>
-        <lastmod>2015-07-20T20:43:53+05:30</lastmod>
+        <lastmod>2015-09-10T23:06:13+05:30</lastmod>
     </url>
     <url>
         <loc>http://coffeecoder.net/</loc>
-        <lastmod>2015-07-20T20:43:53+05:30</lastmod>
+        <lastmod>2015-09-10T23:06:13+05:30</lastmod>
     </url>
     <url>
         <loc>http://coffeecoder.net/robots.txt</loc>
-        <lastmod>2014-08-26T22:49:51+05:30</lastmod>
+        <lastmod>2014-08-26T22:49:52+05:30</lastmod>
     </url>
 </urlset>

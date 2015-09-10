@@ -9,7 +9,7 @@
   <meta name="author" content="Shubham Jain">
 
   
-  <meta name="description" content="Terminals are an essential place frequented by developers in their daily use. In contrast to GUIs, command line gives you more folds of power and &hellip;">
+  <meta name="description" content="If there was an award for the most hated language, the unanimous winner would be PHP. Lots of write-ups criticize it for its nonsensical function &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -83,6 +83,56 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/my-perfect-reason-avoid-php-type-juggling/">My Perfect Reason to Avoid PHP: Type Juggling</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-11-12T18:46:34+05:30" pubdate data-updated="true">Nov 12<span>th</span>, 2014</time>
+        
+           | <a href="/blog/my-perfect-reason-avoid-php-type-juggling/#disqus_thread"
+             data-disqus-identifier="http://coffeecoder.net/blog/my-perfect-reason-avoid-php-type-juggling/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>If there was an award for the most hated language, the unanimous winner would be PHP. Lots of write-ups criticize it for its nonsensical function naming conventions, inconsistent parameters, sheer absence of what we call, &ldquo;a well thought design&rdquo;. However, people on the other side, suggest that writing good code is upto the programmer showcasing &ldquo;Zend Framework&rdquo;, they assert, PHP is a very reasonable language to write clean code. They say its easy to ignore the inconsistencies with a good editor or IDE and adopting good practices. True they are, I believed, until, I encountered something which is completely inexcusable, an ugly case of type juggling.</p>
+
+<h2>Type Juggling</h2>
+
+<p>Type Juggling (or, automatic type casting) is a PHP mechanism which transforms one type to another depending upon the context. As <a href="http://php.net/manual/en/language.types.type-juggling.php">the manual</a> explains, if you add a string to a number, the string will be type casted to a number and not the other way round which results in something like this.</p>
+
+<p><code>20 + "10Hello World" = 30</code></p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/my-perfect-reason-avoid-php-type-juggling/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -299,67 +349,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/stop-using-captchas-that-can-be-broken-with-two-lines-of-code/">Stop Using Captchas That Can Be Broken With Two Lines of Code</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-05-04T18:46:34+05:30" pubdate data-updated="true">May 4<span>th</span>, 2014</time>
-        
-           | <a href="/blog/stop-using-captchas-that-can-be-broken-with-two-lines-of-code/#disqus_thread"
-             data-disqus-identifier="http://coffeecoder.net/blog/stop-using-captchas-that-can-be-broken-with-two-lines-of-code/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>The de-facto bot prevention technique sprawls everywhere on the web but I am surprised how people overestimate the difficulty of breaking a captcha. Here are some of them which I encountered.</p>
-
-<p><img src="/images/captchas/1.jpg"> <img src="/images/captchas/2.jpg"> <img src="/images/captchas/3.jpg"></p>
-
-<p>It won’t take rocket science to convert them to text. In fact, the only two free tools needed for this purpose are: <a href="http://code.google.com/tesseract-ocr%E2%80%8E">tesseract</a> and <a href="http://www.imagemagick.org/">Imagemagick</a>.</p>
-
-<figure class='code'><figcaption><span>Convert command </span></figcaption>
-<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>convert captcha.jpg -threshold 5% a.jpg
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Adjust the threshold value to get a binary image with no noise.</p>
-
-<figure class='code'><figcaption><span>Tesseract </span></figcaption>
-<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>tesseract -l eng a.jpg text
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>This will create a “text.txt” file with the captcha text in it.</p>
-
-<p>I ran a test on effectiveness of these commands and the success rate was nearly 9 / 10, clearly implying how weak or better say, made-from-scratch captcha implementations are as good as having none at all.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -377,6 +366,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/debugging-stuck-php-fpm-process-with-strace/">Debugging Stuck PHP-FPM Process With Strace</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/blog-little-things/">Blog Little Things</a>
       </li>
     
@@ -390,10 +383,6 @@
     
       <li class="post">
         <a href="/blog/Hackers-are-the-real-10x-engineers/">Hackers Are the Real 10x Engineers.</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/my-perfect-reason-avoid-php-type-juggling/">My Perfect Reason to Avoid PHP: Type Juggling</a>
       </li>
     
   </ul>
