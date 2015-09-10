@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Stop Using Captchas That Can Be Broken With Two Lines of Code - Coffee Coder</title>
+  <title>My Perfect Reason to Avoid PHP: Type Juggling - Coffee Coder</title>
   <meta name="author" content="Shubham Jain">
 
   
-  <meta name="description" content="The de-facto bot prevention technique sprawls everywhere on the web but I am surprised how people overestimate the difficulty of breaking a captcha. &hellip;">
+  <meta name="description" content="If there was an award for the most hated language, the unanimous winner would be PHP. Lots of write-ups criticize it for its nonsensical function &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://coffeecoder.net/blog/stop-using-captchas-that-can-be-broken-with-two-lines-of-code">
+  <link rel="canonical" href="http://coffeecoder.net/blog/my-perfect-reason-avoid-php-type-juggling">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="http://feeds.feedburner.com/coffeecoder/qvOz" rel="alternate" title="Coffee Coder" type="application/atom+xml">
@@ -86,7 +86,7 @@
   
   <header>
     
-      <h1 class="entry-title">Stop Using Captchas That Can Be Broken With Two Lines of Code</h1>
+      <h1 class="entry-title">My Perfect Reason to Avoid PHP: Type Juggling</h1>
     
     
       <p class="meta">
@@ -102,7 +102,7 @@
   
 
 
-<time datetime="2014-05-04T18:46:34+05:30" pubdate data-updated="true">May 4<span>th</span>, 2014</time>
+<time datetime="2014-11-12T18:46:34+05:30" pubdate data-updated="true">Nov 12<span>th</span>, 2014</time>
         
            | <a href="#disqus_thread"
              data-disqus-identifier="http://coffeecoder.net">Comments</a>
@@ -112,29 +112,49 @@
   </header>
 
 
-<div class="entry-content"><p>The de-facto bot prevention technique sprawls everywhere on the web but I am surprised how people overestimate the difficulty of breaking a captcha. Here are some of them which I encountered.</p>
+<div class="entry-content"><p>If there was an award for the most hated language, the unanimous winner would be PHP. Lots of write-ups criticize it for its nonsensical function naming conventions, inconsistent parameters, sheer absence of what we call, &ldquo;a well thought design&rdquo;. However, people on the other side, suggest that writing good code is upto the programmer showcasing &ldquo;Zend Framework&rdquo;, they assert, PHP is a very reasonable language to write clean code. They say its easy to ignore the inconsistencies with a good editor or IDE and adopting good practices. True they are, I believed, until, I encountered something which is completely inexcusable, an ugly case of type juggling.</p>
 
-<p><img src="/images/captchas/1.jpg"> <img src="/images/captchas/2.jpg"> <img src="/images/captchas/3.jpg"></p>
+<h2>Type Juggling</h2>
 
-<p>It won’t take rocket science to convert them to text. In fact, the only two free tools needed for this purpose are: <a href="http://code.google.com/tesseract-ocr%E2%80%8E">tesseract</a> and <a href="http://www.imagemagick.org/">Imagemagick</a>.</p>
+<p>Type Juggling (or, automatic type casting) is a PHP mechanism which transforms one type to another depending upon the context. As <a href="http://php.net/manual/en/language.types.type-juggling.php">the manual</a> explains, if you add a string to a number, the string will be type casted to a number and not the other way round which results in something like this.</p>
 
-<figure class='code'><figcaption><span>Convert command </span></figcaption>
+<p><code>20 + "10Hello World" = 30</code></p>
+
+<p>Although, I can guess this behavior was added, because string concatenation was already being done with (dot) operator but an ill conceived functionality, as such, can serve a major blow to programmers in trying to figure out why something doesn&rsquo;t work. Take an example of <code>in_array</code> and type juggling. Suppose, you are checking presence of a string in mixed array. To your surprise, you would find that the following spills out true, because when comparing &ldquo;Hello&rdquo; with 0, the former is casted to integer zero.</p>
+
+<figure class='code'><figcaption><span>Type Juggling and in_array </span></figcaption>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>convert captcha.jpg -threshold 5% a.jpg
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$arr</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;was&quot;</span><span class="p">,</span> <span class="s2">&quot;invented&quot;</span><span class="p">,</span> <span class="s2">&quot;in&quot;</span><span class="p">,</span> <span class="s2">&quot;india&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="nb">var_dump</span><span class="p">(</span> <span class="nb">in_array</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">,</span> <span class="nv">$arr</span> <span class="p">)</span> <span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Adjust the threshold value to get a binary image with no noise.</p>
+<p>Although, yes, PHP allows you to do the strict checking, if you invoke the third parameter of <code>in_array</code> but point remains: why should this happen when it is not supposed to?</p>
 
-<figure class='code'><figcaption><span>Tesseract </span></figcaption>
+<p>Let me tell you an incident, how this behavior hit me badly.</p>
+
+<h2>bindParam() and Type Juggling</h2>
+
+<p>Suppose, you have a big MySQL prepared query for a &ldquo;school&rdquo; table which also stores 10th grade scores in column, &ldquo;10th_grade&rdquo;. So the query goes like this,</p>
+
+<figure class='code'><figcaption><span>Type Juggling and bind_param() </span></figcaption>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>tesseract -l eng a.jpg text
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$sql</span> <span class="o">=</span> <span class="nv">$pdo</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">(</span><span class="s2">&quot;INSERT INTO school_scores(......10th_grade.....) VALUES(....&quot;</span><span class="o">:</span><span class="mi">10</span><span class="nx">th_grade</span><span class="s2">&quot;....);</span>
+</span><span class='line'><span class="si">$sql-&gt;bindParam</span><span class="s2">(&quot;</span><span class="mi">10</span><span class="nx">th_grade</span><span class="s2">&quot;, isset(</span><span class="si">$data[&quot;10th_grade&quot;]</span><span class="s2">) ? </span><span class="si">$data[&quot;10th_grade&quot;]</span><span class="s2"> : NULL);</span>
+</span><span class='line'><span class="si">$sql-&gt;execute</span><span class="s2">();</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>This will create a “text.txt” file with the captcha text in it.</p>
+<p>Looks fine? but you get an error: &ldquo;number of bound variables does not match number of tokens&rdquo;. You recheck everything, the parameter count on both sides are correct, data is correct but still it is the same. So where is the culprit?</p>
 
-<p>I ran a test on effectiveness of these commands and the success rate was nearly 9 / 10, clearly implying how weak or better say, made-from-scratch captcha implementations are as good as having none at all.</p>
+<p>The culprit here is PHP which juggles the type of &ldquo;10th_grade&rdquo; to 10 and inserts the assigns value to parameter #10, as bindParam&rsquo;s first parameter accepts two types of arguments. Finding the flaw here was quite hard because a) you don&rsquo;t know what you are looking for b) PDO <a href="http://php.net/manual/en/pdostatement.debugdumpparams.php">debugDumpParams</a> doesn&rsquo;t even print what values were passed making debugging almost impossible.</p>
+
+<h2>Conclusion</h2>
+
+<p>Although, it can still be said, how such things might still be avoided if you know them but what can&rsquo;t be answered is &ndash; why? Why should one not avoid PHP choose other superior languages over it. The argument of being easy to use and deploy remained true when other stacks lacked simplicity and ease but not today, when web offers far more choices of frameworks and tools. I won&rsquo;t say I would completely refrain from using PHP but I would definitely avoid it in fear of encountering another of its nastiness.</p>
 </div>
 
 
@@ -157,7 +177,7 @@
   
 
 
-<time datetime="2014-05-04T18:46:34+05:30" pubdate data-updated="true">May 4<span>th</span>, 2014</time>
+<time datetime="2014-11-12T18:46:34+05:30" pubdate data-updated="true">Nov 12<span>th</span>, 2014</time>
       
 
 
@@ -165,7 +185,7 @@
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://coffeecoder.net/blog/stop-using-captchas-that-can-be-broken-with-two-lines-of-code/" data-via="thecoffeecoder" data-counturl="http://coffeecoder.net/blog/stop-using-captchas-that-can-be-broken-with-two-lines-of-code/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://coffeecoder.net/blog/my-perfect-reason-avoid-php-type-juggling/" data-via="thecoffeecoder" data-counturl="http://coffeecoder.net/blog/my-perfect-reason-avoid-php-type-juggling/" >Tweet</a>
   
   
   
@@ -174,10 +194,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/making-earphone-presses-useful-with-pyaudio-and-vlc-http-api/" title="Previous Post: Making earphone presses useful with PyAudio and VLC HTTP API">&laquo; Making earphone presses useful with PyAudio and VLC HTTP API</a>
+        <a class="basic-alignment left" href="/blog/why-should-you-use-tmux/" title="Previous Post: Why should you use tmux?">&laquo; Why should you use tmux?</a>
       
-      
-        <a class="basic-alignment right" href="/blog/why-desktop-apps-still-make-sense/" title="Next Post: Why desktop apps still make sense">Why desktop apps still make sense &raquo;</a>
       
     </p>
   </footer>
@@ -273,8 +291,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://coffeecoder.net/blog/stop-using-captchas-that-can-be-broken-with-two-lines-of-code/';
-        var disqus_url = 'http://coffeecoder.net/blog/stop-using-captchas-that-can-be-broken-with-two-lines-of-code/';
+        var disqus_identifier = 'http://coffeecoder.net/blog/my-perfect-reason-avoid-php-type-juggling/';
+        var disqus_url = 'http://coffeecoder.net/blog/my-perfect-reason-avoid-php-type-juggling/';
         var disqus_script = 'embed.js';
       
     (function () {

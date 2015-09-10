@@ -4,7 +4,7 @@
   <title><![CDATA[Coffee Coder]]></title>
   <link href="http://coffeecoder.net/atom.xml" rel="self"/>
   <link href="http://coffeecoder.net/"/>
-  <updated>2014-08-27T19:59:42+05:30</updated>
+  <updated>2014-11-13T23:41:12+05:30</updated>
   <id>http://coffeecoder.net/</id>
   <author>
     <name><![CDATA[Shubham Jain]]></name>
@@ -12,6 +12,57 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[My Perfect Reason to Avoid PHP: Type Juggling]]></title>
+    <link href="http://coffeecoder.net/blog/my-perfect-reason-avoid-php-type-juggling/"/>
+    <updated>2014-11-12T18:46:34+05:30</updated>
+    <id>http://coffeecoder.net/blog/my-perfect-reason-avoid-php-type-juggling</id>
+    <content type="html"><![CDATA[<p>If there was an award for the most hated language, the unanimous winner would be PHP. Lots of write-ups criticize it for its nonsensical function naming conventions, inconsistent parameters, sheer absence of what we call, &ldquo;a well thought design&rdquo;. However, people on the other side, suggest that writing good code is upto the programmer showcasing &ldquo;Zend Framework&rdquo;, they assert, PHP is a very reasonable language to write clean code. They say its easy to ignore the inconsistencies with a good editor or IDE and adopting good practices. True they are, I believed, until, I encountered something which is completely inexcusable, an ugly case of type juggling.</p>
+
+<h2>Type Juggling</h2>
+
+<p>Type Juggling (or, automatic type casting) is a PHP mechanism which transforms one type to another depending upon the context. As <a href="http://php.net/manual/en/language.types.type-juggling.php">the manual</a> explains, if you add a string to a number, the string will be type casted to a number and not the other way round which results in something like this.</p>
+
+<p><code>20 + "10Hello World" = 30</code></p>
+
+<p>Although, I can guess this behavior was added, because string concatenation was already being done with (dot) operator but an ill conceived functionality, as such, can serve a major blow to programmers in trying to figure out why something doesn&rsquo;t work. Take an example of <code>in_array</code> and type juggling. Suppose, you are checking presence of a string in mixed array. To your surprise, you would find that the following spills out true, because when comparing &ldquo;Hello&rdquo; with 0, the former is casted to integer zero.</p>
+
+<figure class='code'><figcaption><span>Type Juggling and in_array </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$arr</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;was&quot;</span><span class="p">,</span> <span class="s2">&quot;invented&quot;</span><span class="p">,</span> <span class="s2">&quot;in&quot;</span><span class="p">,</span> <span class="s2">&quot;india&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="nb">var_dump</span><span class="p">(</span> <span class="nb">in_array</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">,</span> <span class="nv">$arr</span> <span class="p">)</span> <span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Although, yes, PHP allows you to do the strict checking, if you invoke the third parameter of <code>in_array</code> but point remains: why should this happen when it is not supposed to?</p>
+
+<p>Let me tell you an incident, how this behavior hit me badly.</p>
+
+<h2>bindParam() and Type Juggling</h2>
+
+<p>Suppose, you have a big MySQL prepared query for a &ldquo;school&rdquo; table which also stores 10th grade scores in column, &ldquo;10th_grade&rdquo;. So the query goes like this,</p>
+
+<figure class='code'><figcaption><span>Type Juggling and bind_param() </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$sql</span> <span class="o">=</span> <span class="nv">$pdo</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">(</span><span class="s2">&quot;INSERT INTO school_scores(......10th_grade.....) VALUES(....&quot;</span><span class="o">:</span><span class="mi">10</span><span class="nx">th_grade</span><span class="s2">&quot;....);</span>
+</span><span class='line'><span class="si">$sql-&gt;bindParam</span><span class="s2">(&quot;</span><span class="mi">10</span><span class="nx">th_grade</span><span class="s2">&quot;, isset(</span><span class="si">$data[&quot;10th_grade&quot;]</span><span class="s2">) ? </span><span class="si">$data[&quot;10th_grade&quot;]</span><span class="s2"> : NULL);</span>
+</span><span class='line'><span class="si">$sql-&gt;execute</span><span class="s2">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Looks fine? but you get an error: &ldquo;number of bound variables does not match number of tokens&rdquo;. You recheck everything, the parameter count on both sides are correct, data is correct but still it is the same. So where is the culprit?</p>
+
+<p>The culprit here is PHP which juggles the type of &ldquo;10th_grade&rdquo; to 10 and inserts the assigns value to parameter #10, as bindParam&rsquo;s first parameter accepts two types of arguments. Finding the flaw here was quite hard because a) you don&rsquo;t know what you are looking for b) PDO <a href="http://php.net/manual/en/pdostatement.debugdumpparams.php">debugDumpParams</a> doesn&rsquo;t even print what values were passed making debugging almost impossible.</p>
+
+<h2>Conclusion</h2>
+
+<p>Although, it can still be said, how such things might still be avoided if you know them but what can&rsquo;t be answered is &ndash; why? Why should one not avoid PHP choose other superior languages over it. The argument of being easy to use and deploy remained true when other stacks lacked simplicity and ease but not today, when web offers far more choices of frameworks and tools. I won&rsquo;t say I would completely refrain from using PHP but I would definitely avoid it in fear of encountering another of its nastiness.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Why Should You Use Tmux?]]></title>
