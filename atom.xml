@@ -4,7 +4,7 @@
   <title><![CDATA[Coffee Coder]]></title>
   <link href="http://coffeecoder.net/atom.xml" rel="self"/>
   <link href="http://coffeecoder.net/"/>
-  <updated>2015-09-11T01:32:51+05:30</updated>
+  <updated>2015-09-26T23:55:50+05:30</updated>
   <id>http://coffeecoder.net/</id>
   <author>
     <name><![CDATA[Shubham Jain]]></name>
@@ -12,6 +12,51 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Imperfect 'Best' Practices]]></title>
+    <link href="http://coffeecoder.net/blog/imperfect-best-practices/"/>
+    <updated>2015-09-26T23:46:52+05:30</updated>
+    <id>http://coffeecoder.net/blog/imperfect-best-practices</id>
+    <content type="html"><![CDATA[<p>Six years ago, I was taught my first lesson of C++. Soon after learning about loops, came a subsidiary lesson about the <strong>goto</strong> statement. The teacher made it clear that using goto was a horrible practice because of unconditional-jumps mess it creates and should always be avoided. A bit of googling followed and I ended up with a well known essay of E. Djikstra&rsquo;s &lsquo;<a href="http://www.u.arizona.edu/~rubinson/copyright_violations/Go_To_Considered_Harmful.html">Goto is considered harmful</a>&rsquo; and I committed myself to never use the statement even if it meant creating a frivolous flag variable.</p>
+
+<hr />
+
+<br>
+
+
+<p>When I didn&rsquo;t had much exprience with web development, the only worthwhile thing I was able to sell as a freelancer was <strong>web scraping</strong>. After all, it was just a lousy combination of cURL and <code>preg_*</code> functions. Twiddling around Stackoverflow I got to know about the most <a href="http://stackoverflow.com/a/1732454">upvoted answer</a> on the site &ndash; a hyperbolic poetry on how you should never parse HTML with regular expressions and half a dozen more answers parroting the same message with their own flavour of the joke.</p>
+
+<p>This moved me to abandon my way of using regexes and try a using a DOM Parser instead. Note that, at that time, the DOM libraries in PHP were really bad and <code>DOMDocument</code> API  was far too weak to do anything moderately complex but anyway, I bore with them for any web scraping that I did.</p>
+
+<!-- more -->
+
+
+<h2>Not-always best practices</h2>
+
+<p>Notice anything common between the two? I took both &lsquo;opinions&rsquo; as something written in stone, needing always to be adhered to and gladly, sacrificed my pace of development in favor of something I saw as &lsquo;best practice&rsquo;. Goto statement is not evil if you use it a good way and sometimes it is the perfect solution to break out of loops.</p>
+
+<blockquote><p>I think goto&rsquo;s are fine, and they are often more readable than large
+amounts of indentation. That&rsquo;s <em>especially</em> true if the code flow isn&rsquo;t
+actually naturally indented (in this case it is, so I don&rsquo;t think using
+goto is in any way <em>clearer</em> than not, but in general goto&rsquo;s can be quite
+good for readability).</p>
+
+<p>&mdash; Linus Torvalds</p></blockquote>
+
+<p>In the second case, I obliged to dictated don&rsquo;t-parse-html rule and switched to something &lsquo;saner&rsquo; and spent 4-fold time to do it that way, when there was no perfect tool to do it than regular expressions. In fact, the professed fact in that thread that one cannot parse HTML with regular expressions, because HTML isn’t regular is <a href="https://nikic.github.io/2012/06/15/The-true-power-of-regular-expressions.html">hardly true</a>.</p>
+
+<p>I believe, most of us assume that we always have the rationality to make a judgement but often, we are affected by the prevailing opinion / practice. The authority is still acting, its effects are not obvious but given a new found situation, we might discard the rational choice and chose something without a good judgement. After learning many lessons like the two I mentioned, I was sure that I won&rsquo;t be making the same mistake of blindly following the popular judgement but I was wrong.</p>
+
+<p>Any person who has used Git for an appreciable amount of time might have seen a branching model &ndash; <a href="http://nvie.com/posts/a-successful-git-branching-model/">git flow</a> which suggest to create a branch for everything &ndash; from small bug fixes to small features. While the benefits of the process seems attractive, it is not obvious that it hinders the pace of development, like <a href="http://www.paulgraham.com/artistsship.html">any other check</a>.</p>
+
+<p>I was certain that the model needs to always be followed by any team but I was surprised, that chromium&rsquo;s development team works <a href="https://medium.com/@aboodman/in-march-2011-i-drafted-an-article-explaining-how-the-team-responsible-for-google-chrome-ships-c479ba623a1b">without using branches</a> so that their pace isn&rsquo;t hampered by branching, and merging. This made me realize that repetitive branching may often be unnecesarry if your team is good enough to follow coding guidelines and the stability is complemented by a great automated testing and building environment. While it is possible that, this might sometimes result in introducing broken features, the gains in the pace are also significant.</p>
+
+<h2>Conclusion</h2>
+
+<p>There are some opinions in programming world that acquire a status of unquestionable wisdom and we tend to follow it blindly, without questioning how well it fits the use-case. While, we shouldn&rsquo;t snub the popular practices but it is wise to always question their efficacy in your own scenario.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Debugging Stuck PHP-FPM Process With Strace]]></title>
