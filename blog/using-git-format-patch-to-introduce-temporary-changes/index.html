@@ -26,9 +26,21 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+  <meta property="og:url" content="http://coffeecoder.net/blog/using-git-format-patch-to-introduce-temporary-changes/">
+<meta property="og:type" content="website" />
+
+	<meta property="og:title" content="Using git for introducing temporary changes">
+	<meta property="og:description" content="Lately, on independence day we needed to introduce a small logo change on our website to acknowledge it. The change wasn&rsquo;t meant to last for more than a few days and hence, the problem of introducing a temporary change which shouldn&rsquo;t be a part of the history arose. Out of ignorance, we went through the path of making a commit and later reverting it with git-revert. Recently I found about excellent patching system of git which makes an impressive solution for the problem.
+
+Patching &hellip;">
+ 	
+
+
+<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+
 
   
   <script type="text/javascript">
